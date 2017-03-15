@@ -2,15 +2,20 @@ package ifox.sicnu.com.mag10.View;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.widget.Toast;
 
 import ifox.sicnu.com.mag10.APP;
 import ifox.sicnu.com.mag10.Data.Const;
 import ifox.sicnu.com.mag10.DataStructure.Player;
+import ifox.sicnu.com.mag10.R;
 
 /**
  * Created by 41988 on 2017/3/14.
@@ -21,11 +26,15 @@ public class EndView extends SurfaceView implements SurfaceHolder.Callback {
     Paint paint;
     Player player;
     private Object score;
+    Context context;
 
     public EndView(Context context) {
         super(context);
+        this.context = context;
         getHolder().addCallback(this);
-        background = ((APP) context.getApplicationContext()).getPictures().getBitmap("startview");
+        //background = ((APP) context.getApplicationContext()).getPictures().getBitmap("startview");
+        background = BitmapFactory.decodeResource(context.getResources(), R.drawable.endview_bg);
+        background = Bitmap.createScaledBitmap(background,Const.SCREENHEIGHT,Const.SCREENWIDTH,true);
         player = ((APP) context.getApplicationContext()).getPlayer();
         paint = new Paint();
     }
@@ -35,12 +44,31 @@ public class EndView extends SurfaceView implements SurfaceHolder.Callback {
             paint.setColor(Color.rgb(140, 170, 180));
             paint.setStyle(Paint.Style.FILL);
             canvas.drawBitmap(background, 0, 0, null);
-            canvas.drawRect((int) (Const.SCREENWIDTH * 0.2), (int) (Const.SCREENHEIGHT * 0.2), (int) (Const.SCREENWIDTH * 0.8), (int) (Const.SCREENHEIGHT * 0.8), paint);
-            paint.setColor(Color.RED);
-            canvas.drawText(String.format("你已经死亡了"), (int) (Const.SCREENWIDTH * 0.3), (int) (Const.SCREENHEIGHT * 0.5), paint);
+            //canvas.drawRect((int) (Const.SCREENWIDTH * 0.2), (int) (Const.SCREENHEIGHT * 0.2), (int) (Const.SCREENWIDTH * 0.8), (int) (Const.SCREENHEIGHT * 0.8), paint);
+            paint.setTextSize(Const.CELL_HEIGHT/2);
+            //canvas.drawText(String.format("你已经死亡了"), (int) (Const.SCREENWIDTH * 0.3), (int) (Const.SCREENHEIGHT * 0.5), paint);
             paint.setColor(Color.YELLOW);
-            canvas.drawText(String.format("你当前的总得分是%d", getScore()),(int) (Const.SCREENWIDTH * 0.3),(int) (Const.SCREENHEIGHT * 0.6),paint);
+            canvas.drawText(getScore()+"",(int) (Const.SCREENHEIGHT * 0.49),(int) (Const.SCREENWIDTH * 0.72),paint);
         }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        int x = (int) event.getX();
+        int y = (int) event.getY();
+        if(event.getAction() == MotionEvent.ACTION_DOWN){
+            x= (int) event.getX();
+            y = (int) event.getY();
+            Log.i("end", "onTouchEvent: ---"+x+"--"+y);
+        }
+        if(event.getAction() == MotionEvent.ACTION_UP){
+
+            if(x>Const.SCREENHEIGHT*0.44&&x<Const.SCREENHEIGHT*0.55&&y>Const.SCREENWIDTH*0.86){
+                Toast.makeText(context,"over",Toast.LENGTH_SHORT).show();
+               // Log.i("end", "onTouchEvent: ---");
+            }
+        }
+        return true;
     }
 
     @Override
