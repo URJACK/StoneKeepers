@@ -1,7 +1,6 @@
 package ifox.sicnu.com.mag10.Data;
 
 import android.content.Context;
-import android.media.SoundPool;
 
 /**
  * Created by Funchou Fu on 2017/2/20.
@@ -39,8 +38,6 @@ public class Const {
     public static int BASE_CELL_OFFY;       //地宫视图中，初始CELL于屏幕左上角的偏移量
 
     public static Context mContext_Game;         //用于获取游戏资源时，的公共mContext 常量：默认为GameActivity.
-
-    public static SoundPool soundPool_Game;          //在游戏界面时，需要播放一些声效。
 
     public static class Bag {
         int baseX;
@@ -123,16 +120,5 @@ public class Const {
                 levels[9] = 600;
             }
         }
-    }
-
-    public static class Cryption {
-        public static int encrypt(int index) {
-            int r = 0;
-            r += index * 4 + 1;
-            r += r;
-            r += r * 2;
-            r += r * 3;
-            return r;
-        }//加密
     }
 }

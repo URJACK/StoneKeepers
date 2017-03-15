@@ -22,19 +22,19 @@ public class Goblin extends Monster {
         this.armor = (int) (4 + Math.random() * level);
         this.hp = this.maxHp;
         this.def = this.armor;
-        this.exp = (int) (2 + 3 * Math.random() * level);
+        this.exp = (int) (2+3*Math.random()*level);
         setIntroduce("最基本的哥布林");
         setName("Goblin");
         setMonsterLevel(1);
         setMonsterType(Monster.NORMAL);
         if (bitmap == null) {
-            bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.monster_gebulin);
+            bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.monster_coblin);
             bitmap = Bitmap.createScaledBitmap(bitmap, Const.CELL_WIDTH, Const.CELL_HEIGHT, true);
         }
     }
 
     @Override
-    public Bitmap getBitmap() {
+    public  Bitmap getBitmap() {
         return bitmap;
     }
 }
