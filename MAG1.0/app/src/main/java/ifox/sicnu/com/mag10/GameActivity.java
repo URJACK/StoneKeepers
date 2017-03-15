@@ -3,6 +3,8 @@ package ifox.sicnu.com.mag10;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.WindowManager;
@@ -20,6 +22,8 @@ public class GameActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Const.mContext_Game = this;
+        Const.soundPool_Game = new SoundPool(3, AudioManager.STREAM_MUSIC, 0);
+
         ((APP) getApplicationContext()).gameActivity = this;
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
@@ -46,20 +50,21 @@ public class GameActivity extends Activity {
         finish();
     }
 
-    public void gotoEndActivity(boolean type){
+    public void gotoEndActivity(boolean type) {
         gv.clear();
         gv = null;
-        Intent intent = new Intent(GameActivity.this,EndActivity.class);
-        intent.putExtra("type",type);
+        Intent intent = new Intent(GameActivity.this, EndActivity.class);
+        intent.putExtra("type", type);
         startActivity(intent);
         finish();
     }
-    public void gotoEndActivity(boolean type,String killer){
+
+    public void gotoEndActivity(boolean type, String killer) {
         gv.clear();
         gv = null;
-        Intent intent = new Intent(GameActivity.this,EndActivity.class);
-        intent.putExtra("type",type);
-        intent.putExtra("killer",killer);
+        Intent intent = new Intent(GameActivity.this, EndActivity.class);
+        intent.putExtra("type", type);
+        intent.putExtra("killer", killer);
         startActivity(intent);
         finish();
     }
