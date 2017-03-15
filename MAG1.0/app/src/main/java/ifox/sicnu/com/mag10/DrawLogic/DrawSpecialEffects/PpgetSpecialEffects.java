@@ -49,17 +49,16 @@ public class PpgetSpecialEffects extends SpecialEffects {
             paint.setColor(Color.rgb(25, 25, 200));
 
             ChangeOffset(i);
-            canvas.drawCircle(x + per_x * i, y + per_y * i + offset[2], (int) ((Const.CELL_WIDTH * 0.2) + i * Const.CELL_WIDTH / 55), paint);
+            canvas.drawCircle(x + per_x * i, y + per_y * i + offset[2], (int) ((Const.CELL_WIDTH * 0.2) + i * Const.CELL_WIDTH / 110), paint);
             paint.setColor(Color.rgb(75, 75, 175));
-            canvas.drawCircle(x + per_x * (i + 1), y + per_y * i + offset[1], (int) ((Const.CELL_WIDTH * 0.2) + i * Const.CELL_WIDTH / 45), paint);
+            canvas.drawCircle(x + per_x * (i + 1), y + per_y * i + offset[1], (int) ((Const.CELL_WIDTH * 0.2) + i * Const.CELL_WIDTH / 90), paint);
             paint.setColor(Color.rgb(100, 100, 150));
-            canvas.drawCircle(x + per_x * (i + 2), y + per_y * i + offset[0], (int) ((Const.CELL_WIDTH * 0.2) + i * Const.CELL_WIDTH / 25), paint);
+            canvas.drawCircle(x + per_x * (i + 2), y + per_y * i + offset[0], (int) ((Const.CELL_WIDTH * 0.2) + i * Const.CELL_WIDTH / 50), paint);
             this.i = i + 1;
 
             Log.i("nini", "docanva: " + i + "--" + per_x + "per" + per_y);
             if (i >= end_time)
                 i = -1;
-
         }
 
     }
@@ -76,7 +75,6 @@ public class PpgetSpecialEffects extends SpecialEffects {
             offset[1] = offset[0] / 2;
             offset[0] -= Const.CELL_HEIGHT / 2;
         }
-
 
     }
 }

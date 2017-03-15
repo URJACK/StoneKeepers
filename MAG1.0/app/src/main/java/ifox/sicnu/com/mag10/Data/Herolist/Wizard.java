@@ -37,6 +37,8 @@ public class Wizard extends Hero {
         arcmissle.introduce = "强大的奥术飞弹，能够造成自己最大法力值20% 的高额伤害";
         arcmissle.bitmap = pictures.getBitmap("skill_arcmissle");
         this.skills[0] = arcmissle;
+        this.skills[1] = arcmissle;
+        this.skills[2] = arcmissle;
 
         this.weapon = equipments.getWeapon("剑");
     }
