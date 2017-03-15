@@ -38,11 +38,10 @@ public class MonsterTrap extends Trap {
                 battleManager.registMonster(cell.monster);
                 cell.status = Cell.DISCORVERED;
             }
-
         }
         if (index > 7) {
             //top
-            Cell cell = battleManager.cells.get(index - 7);
+            Cell cell = battleManager.cells.get(index - 8);
             if (cell.isEmpty() && battleManager.doornumber != index - 1 && Math.random() > 0.5) {
                 cell.monster = MonsterFactory.createMonster(this.monster.getName(), 1);
                 battleManager.registMonster(cell.monster);
