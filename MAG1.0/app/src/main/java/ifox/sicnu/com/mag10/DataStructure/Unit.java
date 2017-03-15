@@ -72,7 +72,7 @@ public class Unit implements UnitWearBuff {
     public void wearBuff(Buff buff) {
         if (buff instanceof KeepBuff) {
             keepBuffs.add((KeepBuff) buff);
-            buff.doWork(this, true);
+            ((KeepBuff)buff).doWork(this, true);
         }//如果是可以持续的Buff，则把当前单位
         else {
             unkeepBuffs.add(buff);
@@ -83,7 +83,7 @@ public class Unit implements UnitWearBuff {
     public void dropBuff(Buff buff) {
         if (buff instanceof KeepBuff) {
             keepBuffs.add((KeepBuff) buff);
-            buff.doWork(this, false);
+            ((KeepBuff)buff).doWork(this, true);
         } else {
             unkeepBuffs.remove(buff);
         }

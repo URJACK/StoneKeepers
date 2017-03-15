@@ -15,19 +15,5 @@ public abstract class Buff {
     public static final int MAKEDAMAGE = 3;         //制造伤害的时候，进行结算Buff
     public static final int MONSTERCLEAR = 4;       //在计算是否有清场怪物的时候。
 
-    public void doWork(Unit unit,boolean flag) {
-
-    }       //如果flag 为true，则代表给unit 增添属性
-
-    public void doWork(BattleManager bm) {
-
-    }
-
-    public void doWork(BattleManager bm, int value) {
-
-    }
-
-    public void doWork(BattleManager bm,Monster m) {
-
-    }
+    public abstract void doWork(int x, int y, BattleManager bm);
 }

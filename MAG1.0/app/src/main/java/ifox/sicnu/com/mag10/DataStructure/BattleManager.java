@@ -15,6 +15,8 @@ import ifox.sicnu.com.mag10.Data.Const;
 import ifox.sicnu.com.mag10.Data.Monster.Goblin;
 import ifox.sicnu.com.mag10.Data.Traps.MonsterTrap;
 import ifox.sicnu.com.mag10.Data.Traps.StoneTrap;
+import ifox.sicnu.com.mag10.DataStructure.Buff.MonsterClearBuff;
+import ifox.sicnu.com.mag10.DataStructure.Buff.RoundEndBuff;
 import ifox.sicnu.com.mag10.DrawLogic.DrawSpecialEffects.PpgetSpecialEffects;
 import ifox.sicnu.com.mag10.DrawLogic.DrawSpecialEffects.SpecialEffects;
 import ifox.sicnu.com.mag10.GameActivity;
@@ -152,9 +154,10 @@ public class BattleManager {
         MonsterClear();
     }
 
-
     /**
      * 时间流逝的操作，会在攻击和移动后，进行调用该方法
+     * 1·会对玩家进行死亡检测
+     * 2·
      */
     private void TimeGoOn() {
         if (player.hp <= 0) {
@@ -182,7 +185,6 @@ public class BattleManager {
             }
         }
     }
-
 
     /**
      * @param nowstatu    当前状态
@@ -291,5 +293,52 @@ public class BattleManager {
 
     public void registMonster(Monster monster) {
         monsters.add(monster);
+    }
+
+    /**
+     * buffwork()方法能够自动遍历player的拥有的状态，并让他们起自己本应当起的作用，
+     *
+     * @param timespan :
+     *                 1·在 TimeGoOn()中被调用 timespan == 0,
+     *                 2·在 MonsterClear()中被调用 timespan == 1
+     */
+    private void buffWork(int timespan) {
+        if (timespan == 0) {
+
+            for (int i = 0; i < player.unkeepBuffs.size(); i++) {
+                if (player.unkeepBuffs.get(i) instanceof RoundEndBuff) {
+                    player.unkeepBuffs.get(i).doWork(0, 0, this);
+                }
+            }           //遍历Player的Buff
+
+            for (int i = 0; i < cells.size(); i++) {
+                if (cells.get(i).monster != null) {
+                    Monster m = cells.get(i).monster;
+                    for (int j = 0; j < player.unkeepBuffs.size(); j++) {
+                        if (m.unkeepBuffs.get(j) instanceof RoundEndBuff)
+                            m.unkeepBuffs.get(j).doWork(i % 8, i / 8, this);
+                    }
+                }
+            }           //遍历所有Monster的Buff
+
+        } else {
+
+            for (int i = 0; i < player.unkeepBuffs.size(); i++) {
+                if (player.unkeepBuffs.get(i) instanceof MonsterClearBuff) {
+                    player.unkeepBuffs.get(i).doWork(0, 0, this);
+                }
+            }           //遍历Player的Buff
+
+            for (int i = 0; i < cells.size(); i++) {
+                if (cells.get(i).monster != null) {
+                    Monster m = cells.get(i).monster;
+                    for (int j = 0; j < player.unkeepBuffs.size(); j++) {
+                        if (m.unkeepBuffs.get(j) instanceof MonsterClearBuff)
+                            m.unkeepBuffs.get(j).doWork(i % 8, i / 8, this);
+                    }
+                }
+            }           //遍历所有Monster的Buff
+
+        }
     }
 }
