@@ -26,6 +26,8 @@ public class Unit implements UnitWearBuff {
     public int maxMp = 0;      //当前最大法力值
     public int maxPp = 0;      //当前最大魂力值
 
+    public AttackMethod atm;        //攻击特效
+
     //遭受技能伤害的时候调用的方法，如果自身死亡，返回true// 。
     //如果overdef 为 true 则忽视 护甲的影响
     public boolean sufferDamage(int damage, boolean overdef) {
@@ -45,7 +47,7 @@ public class Unit implements UnitWearBuff {
             return false;
     }
 
-    /*玩家的普通攻击*/
+    /**玩家的普通攻击*/
     public boolean normalAtk(Unit target) {
         float realhitrate = (this.hitrate - target.dodge);            //根据A命中 和B闪避 得到这次攻击的实际命中率
         double randomrate = Math.random();        //得到一个随机的 0~1 浮点数
@@ -64,6 +66,11 @@ public class Unit implements UnitWearBuff {
         return false;           //遭受攻击后，并未死亡，返回false
     }
 
+    /**玩家带特效的攻击*/
+    public boolean specialAtk(Unit target) {
+        return this.atm.attack(target);
+    }
+
     public ArrayList<KeepBuff> keepBuffs = new ArrayList<>();
 
     public ArrayList<Buff> unkeepBuffs = new ArrayList<>();
@@ -72,7 +79,7 @@ public class Unit implements UnitWearBuff {
     public void wearBuff(Buff buff) {
         if (buff instanceof KeepBuff) {
             keepBuffs.add((KeepBuff) buff);
-            ((KeepBuff)buff).doWork(this, true);
+            ((KeepBuff) buff).doWork(this, true);
         }//如果是可以持续的Buff，则把当前单位
         else {
             unkeepBuffs.add(buff);
@@ -83,7 +90,7 @@ public class Unit implements UnitWearBuff {
     public void dropBuff(Buff buff) {
         if (buff instanceof KeepBuff) {
             keepBuffs.add((KeepBuff) buff);
-            ((KeepBuff)buff).doWork(this, true);
+            ((KeepBuff) buff).doWork(this, true);
         } else {
             unkeepBuffs.remove(buff);
         }

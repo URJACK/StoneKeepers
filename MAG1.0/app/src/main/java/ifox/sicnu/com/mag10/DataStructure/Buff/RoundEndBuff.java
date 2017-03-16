@@ -1,14 +1,9 @@
 package ifox.sicnu.com.mag10.DataStructure.Buff;
 
-import ifox.sicnu.com.mag10.DataStructure.BattleManager;
-
 /**
  * Created by Funchou Fu on 2017/3/7.
  */
-public class RoundEndBuff extends Buff {
+public abstract class RoundEndBuff extends Buff {
 
-    @Override
-    public void doWork(int x, int y, BattleManager bm) {
-
-    }
 }
+//修改了Buff及其各种类的代码，从而为之后的改动做准备

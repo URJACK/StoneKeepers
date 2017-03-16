@@ -1,5 +1,7 @@
 package ifox.sicnu.com.mag10.DataStructure.Buff;
 
+import android.graphics.Bitmap;
+
 import ifox.sicnu.com.mag10.DataStructure.BattleManager;
 import ifox.sicnu.com.mag10.DataStructure.Monster;
 import ifox.sicnu.com.mag10.DataStructure.Player;
@@ -14,6 +16,10 @@ public abstract class Buff {
     public static final int SUFFERDAMAGE = 2;       //遭受伤害的时候，进行结算Buff
     public static final int MAKEDAMAGE = 3;         //制造伤害的时候，进行结算Buff
     public static final int MONSTERCLEAR = 4;       //在计算是否有清场怪物的时候。
+
+    public Bitmap bitmap;
+    public String name;
+    public String introduce;
 
     public abstract void doWork(int x, int y, BattleManager bm);
 }
