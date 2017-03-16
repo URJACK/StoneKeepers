@@ -39,7 +39,7 @@ public class Wizard extends Hero {
         this.heroName = "斯威法";
         this.introduction = "来自奥兹威尔山谷的强大奥术法师";
 
-        Skill arcmissle = new SingleTargetSkill(this, Skill.MAXMP, (float) 0.2, Skill.MP, 5, BuffFactory.createBuff("poison"));
+        Skill arcmissle = new SingleTargetSkill(this, Skill.MAXMP, (float) 0.2, Skill.MP, 5, BuffFactory.createRoundEndBuff("poison"));
         arcmissle.name = "奥术飞弹";
         arcmissle.introduce = "强大的奥术飞弹，能够造成自己最大法力值20% 的高额伤害";
 
@@ -48,7 +48,7 @@ public class Wizard extends Hero {
 
         arcmissle.bitmap = bitmap;
 
-        Skill strenthenpower = new NoTargetSkill(this, Skill.ARMMOR, 0, Skill.MP, 8, BuffFactory.createBuff("atkIncrease"));
+        Skill strenthenpower = new NoTargetSkill(this, Skill.ARMMOR, 0, Skill.MP, 8, BuffFactory.createKeepBuff("atkIncrease"));
         strenthenpower.name = "力量强化";
         strenthenpower.introduce = "强化自己的肉体，从而能够增加自己的 攻击力";
 

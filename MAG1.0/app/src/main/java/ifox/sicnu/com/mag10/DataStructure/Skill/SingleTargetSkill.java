@@ -15,7 +15,7 @@ public class SingleTargetSkill extends Skill {
     private float rate;
     private int costType;
     private int costValue;
-    private Buff buff;
+    private Buff buff;                  //此处的buff如果需要被创建，不可是keepBuff
 
     /**
      * @param type 表明了自己是使用的Player 的哪种属性
@@ -43,10 +43,10 @@ public class SingleTargetSkill extends Skill {
     @Override
     public boolean doSkill(int x, int y, BattleManager bm) {
         Monster target = bm.cells.get(x + y * 8).monster;
-        if (this.buff != null)
-            target.wearBuff(BuffFactory.createBuff(this.buff.id));
         if (target == null)
             return false;
+        if (this.buff != null)
+            target.wearBuff(BuffFactory.createRoundEndBuff(this.buff.id));
 
         if (getValue(costType) < costValue)
             return false;       //因为消耗不够，而释放失败

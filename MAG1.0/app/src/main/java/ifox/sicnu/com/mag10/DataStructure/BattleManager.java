@@ -209,6 +209,7 @@ public class BattleManager {
                         buffWork(j % 8, j / 8, m, false);
                         cells.get(j).monster = null;
                         Change_Cell(j, Cell.UNDISCORVERED, Cell.UNDISCORVERED2);
+                        Change_Cell(j, Cell.UNDISCORVERED, Cell.FORBID);
                         break;
                     }
                 }

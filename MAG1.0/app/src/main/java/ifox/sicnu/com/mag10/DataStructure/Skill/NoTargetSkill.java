@@ -3,7 +3,6 @@ package ifox.sicnu.com.mag10.DataStructure.Skill;
 import ifox.sicnu.com.mag10.DataStructure.BattleManager;
 import ifox.sicnu.com.mag10.DataStructure.Buff.Buff;
 import ifox.sicnu.com.mag10.DataStructure.Buff.BuffFactory;
-import ifox.sicnu.com.mag10.DataStructure.Monster;
 import ifox.sicnu.com.mag10.DataStructure.Unit;
 
 /**
@@ -30,8 +29,6 @@ public class NoTargetSkill extends Skill {
 
     @Override
     public boolean doSkill(int x, int y, BattleManager bm) {
-        if (this.buff != null)
-            user.wearBuff(BuffFactory.createBuff(this.buff.id));
         if (getValue(costType) < costValue)
             return false;       //因为消耗不够，而释放失败
         else {
@@ -41,6 +38,8 @@ public class NoTargetSkill extends Skill {
             return false;
         else
             user.pp -= cost;
+        if (this.buff != null)
+            user.wearBuff(BuffFactory.createKeepBuff(this.buff.id));
         bm.MonsterClear();
         return true;
     }
