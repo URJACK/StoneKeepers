@@ -9,11 +9,11 @@ import ifox.sicnu.com.mag10.DataStructure.Unit;
  * Created by Funchou Fu on 2017/2/27.
  * 2017年3月13日13:12:52 增加cost变量
  */
-public class Skill {
+public abstract class Skill {
     public String name;            //技能的名字
     public String introduce;       //技能的介绍
     public Bitmap bitmap;          //技能的图片
-    protected Unit unit;         //技能的使用者
+    protected Unit user;         //技能的使用者
     public int cost;            //如果是Tool则会花费魂力
 
 
@@ -31,78 +31,76 @@ public class Skill {
     public static final int PP = 11;
     public static final int DEF = 12;
 
-    public Skill(Unit unit) {
-        this.unit = unit;
+    public Skill(Unit user) {
+        this.user = user;
     }
 
     public void setnewUnit(Unit unit) {
-        this.unit = unit;
+        this.user = unit;
     }
 
     //为true 代表释放技能成功
-    public boolean doSkill(int x, int y, BattleManager bm) {
-        return false;
-    }
+    public abstract boolean doSkill(int x, int y, BattleManager bm);
 
     /**
      * 这个方法能够根据传入的type 来返回 使用者的各项数据
      */
     protected float getValue(int type) {
         if (type == ATK)
-            return this.unit.atk;
+            return this.user.atk;
         else if (type == HITRATE)
-            return this.unit.hitrate;
+            return this.user.hitrate;
         else if (type == CRIT)
-            return this.unit.crit;
+            return this.user.crit;
         else if (type == ARMMOR)
-            return this.unit.armor;
+            return this.user.armor;
         else if (type == DODGE)
-            return this.unit.dodge;
+            return this.user.dodge;
         else if (type == RESISTANCE)
-            return this.unit.resistance;
+            return this.user.resistance;
         else if (type == MAXHP)
-            return this.unit.maxHp;
+            return this.user.maxHp;
         else if (type == MAXMP)
-            return this.unit.maxMp;
+            return this.user.maxMp;
         else if (type == MAXPP)
-            return this.unit.maxPp;
+            return this.user.maxPp;
         else if (type == HP)
-            return this.unit.hp;
+            return this.user.hp;
         else if (type == MP)
-            return this.unit.mp;
+            return this.user.mp;
         else if (type == PP)
-            return this.unit.pp;
+            return this.user.pp;
         else if (type == DEF)
-            return this.unit.def;
+            return this.user.def;
         return 0;
     }
 
     protected void subValue(int type, float costValue) {
         if (type == ATK)
-            this.unit.atk -= costValue;
+            this.user.atk -= costValue;
         else if (type == HITRATE)
-            this.unit.hitrate -= costValue;
+            this.user.hitrate -= costValue;
         else if (type == CRIT)
-            this.unit.crit -= costValue;
+            this.user.crit -= costValue;
         else if (type == ARMMOR)
-            this.unit.armor -= costValue;
+            this.user.armor -= costValue;
         else if (type == DODGE)
-            this.unit.dodge -= costValue;
+            this.user.dodge -= costValue;
         else if (type == RESISTANCE)
-            this.unit.resistance -= costValue;
+            this.user.resistance -= costValue;
         else if (type == MAXHP)
-            this.unit.maxHp -= costValue;
+            this.user.maxHp -= costValue;
         else if (type == MAXMP)
-            this.unit.maxMp -= costValue;
+            this.user.maxMp -= costValue;
         else if (type == MAXPP)
-            this.unit.maxPp -= costValue;
+            this.user.maxPp -= costValue;
         else if (type == HP)
-            this.unit.hp -= costValue;
+            this.user.hp -= costValue;
         else if (type == MP)
-            this.unit.mp -= costValue;
+            this.user.mp -= costValue;
         else if (type == PP)
-            this.unit.pp -= costValue;
+            this.user.pp -= costValue;
         else if (type == DEF)
-            this.unit.def -= costValue;
+            this.user.def -= costValue;
     }
 }

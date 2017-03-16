@@ -27,7 +27,7 @@ public class Pictures {
     private DtbsControler dc;
 
 
-    public Pictures(Context context,boolean flag) {
+    public Pictures(Context context, boolean flag) {
         this.context = context;
         if (flag) {
             resources = context.getResources();
@@ -42,10 +42,14 @@ public class Pictures {
     }
 
     private void Picture_Skill() {
-        Bitmap[] backs = new Bitmap[1];
+        Bitmap[] backs = new Bitmap[2];
         backs[0] = BitmapFactory.decodeResource(resources, R.drawable.skill_arcmissle);
         backs[0] = Bitmap.createScaledBitmap(backs[0], Const.SKILL_WIDTH, Const.SKILL_HEIGHT, true);
+        backs[1] = BitmapFactory.decodeResource(resources, R.drawable.skill_strenthenpower);
+        backs[1] = Bitmap.createScaledBitmap(backs[0], Const.SKILL_WIDTH, Const.SKILL_HEIGHT, true);
+
         pictures.put("skill_arcmissle", backs[0]);
+        pictures.put("skill_strenthenpower", backs[1]);
     }
 
     private void Picture_GameView() {
@@ -236,7 +240,7 @@ public class Pictures {
     public void clear() {
         Collection e = this.pictures.entrySet();
         Iterator iterator = e.iterator();
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             Map.Entry entry = (Map.Entry) iterator.next();
             Bitmap bitmap = (Bitmap) entry.getValue();
             bitmap.recycle();

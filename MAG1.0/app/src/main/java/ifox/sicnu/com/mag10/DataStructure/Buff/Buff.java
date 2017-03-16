@@ -21,6 +21,19 @@ public abstract class Buff {
     public Bitmap bitmap;
     public String name;
     public String introduce;
+    public String id;                   //根据这个id 来通过factory 找到 对应的buff
+
+    public int time;                    //持续时间
 
     public abstract void doWork(int x, int y, BattleManager bm);
+
+    /**
+     * 如果自己的 time 已经为0 那么返回 ture
+     */
+    public boolean clear() {
+        if (this.time <= 0)
+            return true;
+        else
+            return false;
+    }
 }

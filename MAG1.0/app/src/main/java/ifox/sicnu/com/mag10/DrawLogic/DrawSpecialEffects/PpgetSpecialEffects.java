@@ -23,7 +23,7 @@ public class PpgetSpecialEffects extends SpecialEffects {
         super(x, y);
         paint = new Paint();
         paint.setColor(Color.BLUE);
-        paint.setAlpha(90);
+        paint.setAlpha(50);
         end_time = 10;
         per_x = (int) ((Const.SCREENHEIGHT * 0.63 - x) / end_time);
         per_y = (int) ((Const.SCREENWIDTH * 0.93 - y) / end_time);
@@ -47,7 +47,6 @@ public class PpgetSpecialEffects extends SpecialEffects {
     public void docanva(Canvas canvas) {
         if (i != -1) {
             paint.setColor(Color.rgb(25, 25, 200));
-
             ChangeOffset(i);
             canvas.drawCircle(x + per_x * i, y + per_y * i + offset[2], (int) ((Const.CELL_WIDTH * 0.2) + i * Const.CELL_WIDTH / 110), paint);
             paint.setColor(Color.rgb(75, 75, 175));
@@ -68,7 +67,7 @@ public class PpgetSpecialEffects extends SpecialEffects {
         if (i < end_time / 2) {
             offset[2] = offset[1] / 2;
             offset[1] = offset[0] / 2;
-            offset[0] += Const.CELL_HEIGHT/3;
+            offset[0] += Const.CELL_HEIGHT / 3;
 
         } else {
             offset[2] = offset[1] / 2;

@@ -16,6 +16,7 @@ import ifox.sicnu.com.mag10.Data.Const;
 import ifox.sicnu.com.mag10.Data.Monster.Goblin;
 import ifox.sicnu.com.mag10.Data.Traps.MonsterTrap;
 import ifox.sicnu.com.mag10.Data.Traps.StoneTrap;
+import ifox.sicnu.com.mag10.DataStructure.Buff.Buff;
 import ifox.sicnu.com.mag10.DataStructure.Buff.MonsterClearBuff;
 import ifox.sicnu.com.mag10.DataStructure.Buff.MonsterDieBuff;
 import ifox.sicnu.com.mag10.DataStructure.Buff.RoundEndBuff;
@@ -30,6 +31,7 @@ import ifox.sicnu.com.mag10.R;
  * BattleManager 这个类 是控制Player 以及地图中的怪物
  */
 public class BattleManager {
+    private static final String TAG = "BattleManager";
     public LinkedList<Cell> cells;
     private LinkedList<Monster> monsters;
     public Context mContext;
@@ -124,11 +126,11 @@ public class BattleManager {
             //探索
             if (cells.get(first_index).status == Cell.UNDISCORVERED) {
                 cells.get(first_index).status = Cell.DISCORVERED;
-                 sp.load(mContext, R.raw.gameview_music2,1);
+                sp.load(mContext, R.raw.gameview_music2, 1);
                 sp.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
                     @Override
                     public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
-                        sp.play(1,1,1,1,0,1);
+                        sp.play(1, 1, 1, 1, 0, 1);
                     }
                 });
 
@@ -204,8 +206,10 @@ public class BattleManager {
                 player.addExp(m.exp);
                 for (int j = 0; j < cells.size(); j++) {
                     if (m == cells.get(j).monster) {
+                        buffWork(j % 8, j / 8, m, false);
                         cells.get(j).monster = null;
                         Change_Cell(j, Cell.UNDISCORVERED, Cell.UNDISCORVERED2);
+                        break;
                     }
                 }
             }
@@ -330,19 +334,37 @@ public class BattleManager {
      */
     private void buffWork(boolean timespan) {
         if (timespan) {
+            for (int i = 0; i < player.keepBuffs.size(); i++) {
+                Buff buff = player.keepBuffs.get(i);
+                buff.time -= 1;
+                if (buff.clear()) {
+                    this.player.keepBuffs.remove(buff);
+                }
+            }
 
             for (int i = 0; i < player.unkeepBuffs.size(); i++) {
                 if (player.unkeepBuffs.get(i) instanceof RoundEndBuff) {
-                    player.unkeepBuffs.get(i).doWork(-1, -1, this);
+                    Buff buff = player.unkeepBuffs.get(i);
+                    buff.doWork(-1, -1, this);
+                    if (buff.clear()) {
+                        Log.i(TAG, "buffWork: 人物的END状态已经被Clear");
+                        player.dropBuff(buff);                  //如果buff已经到期，那么丢掉这个buff
+                    }
                 }
             }           //遍历Player的Buff
 
             for (int i = 0; i < cells.size(); i++) {
                 if (cells.get(i).monster != null) {
                     Monster m = cells.get(i).monster;
-                    for (int j = 0; j < player.unkeepBuffs.size(); j++) {
-                        if (m.unkeepBuffs.get(j) instanceof RoundEndBuff)
-                            m.unkeepBuffs.get(j).doWork(i % 8, i / 8, this);
+                    for (int j = 0; j < m.unkeepBuffs.size(); j++) {
+                        if (m.unkeepBuffs.get(j) instanceof RoundEndBuff) {
+                            Buff buff = m.unkeepBuffs.get(j);
+                            buff.doWork(i % 8, i / 8, this);
+                            if (buff.clear()) {
+                                Log.i(TAG, "buffWork: 怪物的END状态已经被Clear");
+                                m.dropBuff(buff);                   //如果该buff已经到期，那么怪物将把这个状态放下
+                            }
+                        }
                     }
                 }
             }           //遍历所有Monster的Buff
@@ -351,16 +373,29 @@ public class BattleManager {
 
             for (int i = 0; i < player.unkeepBuffs.size(); i++) {
                 if (player.unkeepBuffs.get(i) instanceof MonsterClearBuff) {
-                    player.unkeepBuffs.get(i).doWork(-1, -1, this);
+                    Buff buff = player.unkeepBuffs.get(i);
+                    buff.doWork(-1, -1, this);
+                    if (buff.clear()) {
+
+                        Log.i(TAG, "buffWork: 人物的Clear状态已经被Clear");
+                        player.dropBuff(buff);                   //如果该buff已经到期，那么怪物将把这个状态放下
+                    }
+
                 }
             }           //遍历Player的Buff
 
             for (int i = 0; i < cells.size(); i++) {
                 if (cells.get(i).monster != null) {
                     Monster m = cells.get(i).monster;
-                    for (int j = 0; j < player.unkeepBuffs.size(); j++) {
-                        if (m.unkeepBuffs.get(j) instanceof MonsterClearBuff)
-                            m.unkeepBuffs.get(j).doWork(i % 8, i / 8, this);
+                    for (int j = 0; j < m.unkeepBuffs.size(); j++) {
+                        if (m.unkeepBuffs.get(j) instanceof MonsterClearBuff) {
+                            Buff buff = m.unkeepBuffs.get(j);
+                            buff.doWork(i % 8, i / 8, this);
+                            if (buff.clear()) {
+                                Log.i(TAG, "buffWork: 怪物的Clear状态已经被Clear");
+                                m.dropBuff(buff);                   //如果该buff已经到期，那么怪物将把这个状态放下
+                            }
+                        }
                     }
                 }
             }           //遍历所有Monster的Buff
@@ -379,13 +414,25 @@ public class BattleManager {
     private void buffWork(int x, int y, Unit unit, boolean type) {
         if (type) {
             for (int i = 0; i < unit.unkeepBuffs.size(); i++) {
-                if (unit.unkeepBuffs.get(i) instanceof SufferDamageBuff)
-                    unit.unkeepBuffs.get(i).doWork(x, y, this);
+                if (unit.unkeepBuffs.get(i) instanceof SufferDamageBuff) {
+                    Buff buff = unit.unkeepBuffs.get(i);
+                    buff.doWork(x, y, this);
+                    if (buff.clear()) {
+                        Log.i(TAG, "buffWork: 受伤状态已经被Clear");
+                        unit.dropBuff(buff);
+                    }
+                }
             }
         } else {
             for (int i = 0; i < unit.unkeepBuffs.size(); i++) {
-                if (unit.unkeepBuffs.get(i) instanceof MonsterDieBuff)
-                    unit.unkeepBuffs.get(i).doWork(x, y, this);
+                if (unit.unkeepBuffs.get(i) instanceof MonsterDieBuff) {
+                    Buff buff = unit.unkeepBuffs.get(i);
+                    buff.doWork(x, y, this);
+                    if (buff.clear()) {
+                        Log.i(TAG, "buffWork: 死亡状态已经被Clear");
+                        unit.dropBuff(buff);
+                    }
+                }
             }
         }
     }

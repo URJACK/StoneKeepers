@@ -1,10 +1,9 @@
 package ifox.sicnu.com.mag10.DataStructure.Skill;
 
 import ifox.sicnu.com.mag10.DataStructure.BattleManager;
-import ifox.sicnu.com.mag10.DataStructure.Cell;
-import ifox.sicnu.com.mag10.DataStructure.Hero;
+import ifox.sicnu.com.mag10.DataStructure.Buff.Buff;
+import ifox.sicnu.com.mag10.DataStructure.Buff.BuffFactory;
 import ifox.sicnu.com.mag10.DataStructure.Monster;
-import ifox.sicnu.com.mag10.DataStructure.Player;
 import ifox.sicnu.com.mag10.DataStructure.Unit;
 
 /**
@@ -14,43 +13,50 @@ import ifox.sicnu.com.mag10.DataStructure.Unit;
 public class SingleTargetSkill extends Skill {
     private int type;
     private float rate;
-    private int cost;
     private int costType;
     private int costValue;
+    private Buff buff;
 
     /**
      * @param type 表明了自己是使用的Player 的哪种属性
      */
-    public SingleTargetSkill(Unit unit, int type, float rate, int costType, int costValue) {
-        super(unit);
+    public SingleTargetSkill(Unit user, int type, float rate, int costType, int costValue, Buff buff) {
+        super(user);
         this.type = type;
         this.rate = rate;
         this.costType = costType;
         this.costValue = costValue;
+        this.buff = buff;
     }
 
-    public SingleTargetSkill(Unit unit, int type, float rate, int costType, int costValue,int cost) {
-        super(unit);
+    public SingleTargetSkill(Unit user, int type, float rate, int costType, int costValue, Buff buff, int cost) {
+        super(user);
         this.type = type;
         this.rate = rate;
         this.costType = costType;
         this.costValue = costValue;
         this.cost = cost;
+        this.buff = buff;
     }
 
 
     @Override
     public boolean doSkill(int x, int y, BattleManager bm) {
         Monster target = bm.cells.get(x + y * 8).monster;
+        if (this.buff != null)
+            target.wearBuff(BuffFactory.createBuff(this.buff.id));
         if (target == null)
             return false;
+
         if (getValue(costType) < costValue)
             return false;       //因为消耗不够，而释放失败
-        if(unit.pp<cost)
-            return false;
         else {
             subValue(costType, costValue);
         }
+        if (user.pp < cost)
+            return false;
+        else
+            user.pp -= cost;
         int damage = (int) (getValue(type) * rate);
         target.sufferDamage(damage, true);
         bm.MonsterClear();

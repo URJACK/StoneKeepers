@@ -56,7 +56,7 @@ public class DrawSkill implements ModeDrawIn {
                 canvas.drawBitmap(player.skills[1].bitmap, baseX + (int) (Const.SCREENHEIGHT * 0.038), baseY + (int) (Const.SCREENWIDTH * 0.406), null);
             }
             if (player.skills[2] != null) {
-                canvas.drawBitmap(player.skills[1].bitmap, baseX + (int) (Const.SCREENHEIGHT * 0.038), baseY + (int) (Const.SCREENWIDTH * 0.715), null);
+                canvas.drawBitmap(player.skills[2].bitmap, baseX + (int) (Const.SCREENHEIGHT * 0.038), baseY + (int) (Const.SCREENWIDTH * 0.715), null);
             }
         } else {
             if (player.tools[0] != null) {
@@ -66,7 +66,7 @@ public class DrawSkill implements ModeDrawIn {
                 canvas.drawBitmap(player.tools[1].bitmap, baseX + (int) (Const.SCREENHEIGHT * 0.038), baseY + (int) (Const.SCREENWIDTH * 0.406), null);
             }
             if (player.tools[2] != null) {
-                canvas.drawBitmap(player.tools[1].bitmap, baseX + (int) (Const.SCREENHEIGHT * 0.038), baseY + (int) (Const.SCREENWIDTH * 0.715), null);
+                canvas.drawBitmap(player.tools[2].bitmap, baseX + (int) (Const.SCREENHEIGHT * 0.038), baseY + (int) (Const.SCREENWIDTH * 0.715), null);
             }
         }
         if (bm != null && bm.function_switch != -1) {

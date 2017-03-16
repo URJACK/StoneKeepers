@@ -10,13 +10,14 @@ import android.media.SoundPool;
  */
 public class Const {
     public static int SCREENHEIGHT;
+
     public static int SCREENWIDTH;
 
     public static int PERSON_LCTY;      //人物界面相对于屏幕的偏移量
 
     public static int OPERATE_HEIGHT;       //操作界面所占的长
 
-    public static int BUTTON_WIDTH;     //操作界面按钮的长宽
+    public static int BUTTON_WIDTH;         //操作界面按钮的长宽
 
     public static int SKILL_WIDTH;
 
@@ -107,8 +108,6 @@ public class Const {
     public static class Exp {
         //表明从 0to1  到  9to10 级的经验值
         public static final int[] levels = new int[10];
-
-
         static {
             if (levels[0] != -1) {
                 levels[0] = -1;

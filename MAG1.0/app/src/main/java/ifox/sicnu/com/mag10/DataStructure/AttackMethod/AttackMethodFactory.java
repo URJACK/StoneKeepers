@@ -7,18 +7,17 @@ import ifox.sicnu.com.mag10.DataStructure.Unit;
  */
 public class AttackMethodFactory {
     /**
-     * 迅捷攻击 fastAttack : 自身攻击两次
+     * 强悍攻击 powerAttack :  两倍伤害
      */
     public static AttackMethod makeMethod(String name) {
-        if (name.equals("fastAttack")) {
+        if (name.equals("powerAttack")) {
             AttackMethod lightpower = new AttackMethod() {
                 @Override
                 public boolean attack(Unit me, Unit unit) {
-                    if (me.normalAtk(unit))
+                    if (unit.sufferDamage(me.atk * 2, true))
                         return true;
-                    if (me.normalAtk(unit))
-                        return true;
-                    return false;
+                    else
+                        return false;
                 }
             };
             return lightpower;

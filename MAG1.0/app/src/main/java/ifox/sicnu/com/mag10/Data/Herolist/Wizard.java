@@ -2,7 +2,9 @@ package ifox.sicnu.com.mag10.Data.Herolist;
 
 import ifox.sicnu.com.mag10.Data.Equipments;
 import ifox.sicnu.com.mag10.Data.Pictures;
+import ifox.sicnu.com.mag10.DataStructure.Buff.BuffFactory;
 import ifox.sicnu.com.mag10.DataStructure.Hero;
+import ifox.sicnu.com.mag10.DataStructure.Skill.NoTargetSkill;
 import ifox.sicnu.com.mag10.DataStructure.Skill.SingleTargetSkill;
 import ifox.sicnu.com.mag10.DataStructure.Skill.Skill;
 
@@ -32,13 +34,19 @@ public class Wizard extends Hero {
         this.heroName = "斯威法";
         this.introduction = "来自奥兹威尔山谷的强大奥术法师";
 
-        Skill arcmissle = new SingleTargetSkill(this, Skill.MAXMP, (float) 0.2, Skill.MP, 5);
+        Skill arcmissle = new SingleTargetSkill(this, Skill.MAXMP, (float) 0.2, Skill.MP, 5, BuffFactory.createBuff("poison"));
         arcmissle.name = "奥术飞弹";
         arcmissle.introduce = "强大的奥术飞弹，能够造成自己最大法力值20% 的高额伤害";
         arcmissle.bitmap = pictures.getBitmap("skill_arcmissle");
+
+        Skill strenthenpower = new NoTargetSkill(this, Skill.ARMMOR, 0, Skill.MP, 8, BuffFactory.createBuff("atkIncrease"));
+        strenthenpower.name = "力量强化";
+        strenthenpower.introduce = "强化自己的肉体，从而能够增加自己的 攻击力";
+        strenthenpower.bitmap = pictures.getBitmap("skill_strenthenpower");
+
+
         this.skills[0] = arcmissle;
-        this.skills[1] = arcmissle;
-        this.skills[2] = arcmissle;
+        this.skills[1] = strenthenpower;
 
         this.weapon = equipments.getWeapon("剑");
     }
