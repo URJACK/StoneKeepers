@@ -34,7 +34,7 @@ public class EndView extends SurfaceView implements SurfaceHolder.Callback {
         getHolder().addCallback(this);
         //background = ((APP) context.getApplicationContext()).getPictures().getBitmap("startview");
         background = BitmapFactory.decodeResource(context.getResources(), R.drawable.endview_bg);
-        background = Bitmap.createScaledBitmap(background,Const.SCREENHEIGHT,Const.SCREENWIDTH,true);
+        background = Bitmap.createScaledBitmap(background, Const.SCREENHEIGHT, Const.SCREENWIDTH, true);
         player = ((APP) context.getApplicationContext()).getPlayer();
         paint = new Paint();
     }
@@ -45,10 +45,12 @@ public class EndView extends SurfaceView implements SurfaceHolder.Callback {
             paint.setStyle(Paint.Style.FILL);
             canvas.drawBitmap(background, 0, 0, null);
             //canvas.drawRect((int) (Const.SCREENWIDTH * 0.2), (int) (Const.SCREENHEIGHT * 0.2), (int) (Const.SCREENWIDTH * 0.8), (int) (Const.SCREENHEIGHT * 0.8), paint);
-            paint.setTextSize(Const.CELL_HEIGHT/2);
+            paint.setTextSize(Const.CELL_HEIGHT / 2);
             //canvas.drawText(String.format("你已经死亡了"), (int) (Const.SCREENWIDTH * 0.3), (int) (Const.SCREENHEIGHT * 0.5), paint);
             paint.setColor(Color.YELLOW);
-            canvas.drawText(getScore()+"",(int) (Const.SCREENHEIGHT * 0.49),(int) (Const.SCREENWIDTH * 0.72),paint);
+            canvas.drawText(getScore() + "", (int) (Const.SCREENHEIGHT * 0.49), (int) (Const.SCREENWIDTH * 0.72), paint);
+            paint.setColor(Color.rgb(100, 170, 140));
+            canvas.drawText(String.format("得分密码:%d", Const.Cryption.encrypt(getScore())), (int) (Const.SCREENHEIGHT * 0.49), (int) (Const.SCREENWIDTH * 0.78), paint);
         }
     }
 
@@ -56,15 +58,15 @@ public class EndView extends SurfaceView implements SurfaceHolder.Callback {
     public boolean onTouchEvent(MotionEvent event) {
         int x = (int) event.getX();
         int y = (int) event.getY();
-        if(event.getAction() == MotionEvent.ACTION_DOWN){
-            x= (int) event.getX();
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            x = (int) event.getX();
             y = (int) event.getY();
         }
-        if(event.getAction() == MotionEvent.ACTION_UP){
+        if (event.getAction() == MotionEvent.ACTION_UP) {
 
-            if(x>Const.SCREENHEIGHT*0.44&&x<Const.SCREENHEIGHT*0.55&&y>Const.SCREENWIDTH*0.86){
-                Toast.makeText(context,"over",Toast.LENGTH_SHORT).show();
-               // Log.i("end", "onTouchEvent: ---");
+            if (x > Const.SCREENHEIGHT * 0.44 && x < Const.SCREENHEIGHT * 0.55 && y > Const.SCREENWIDTH * 0.86) {
+                Toast.makeText(context, "over", Toast.LENGTH_SHORT).show();
+                // Log.i("end", "onTouchEvent: ---");
             }
         }
         return true;

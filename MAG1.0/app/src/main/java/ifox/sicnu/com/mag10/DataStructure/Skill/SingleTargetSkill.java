@@ -47,7 +47,6 @@ public class SingleTargetSkill extends Skill {
             return false;
         if (this.buff != null)
             target.wearBuff(BuffFactory.createRoundEndBuff(this.buff.id));
-
         if (getValue(costType) < costValue)
             return false;       //因为消耗不够，而释放失败
         else {
