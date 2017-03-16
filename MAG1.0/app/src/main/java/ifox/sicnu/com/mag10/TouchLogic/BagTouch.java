@@ -83,7 +83,9 @@ public class BagTouch {
             else if (y < bag.unitY[0]) {
                 if (touchNumber < 12) {
                     Equipment e1 = player.getEquipmentByNumber(touchNumber);
-                    player.inbag(player.wear(e1));
+                    Equipment e = player.wear(e1);
+                    player.diswear(e);
+                    player.inbag(e);
                     player.disinbag(e1);
                 }
             }//表明要 穿上装备
@@ -105,8 +107,8 @@ public class BagTouch {
                     }//确实选中了一个
                 }
             }//此时 选择的是 装备的栏的物件 12~19
-            Log.i(TAG, "getTouch: " + elseSelect+" "+touchNumber);
-            if (elseSelect != -1 && touchNumber == elseSelect){
+            Log.i(TAG, "getTouch: " + elseSelect + " " + touchNumber);
+            if (elseSelect != -1 && touchNumber == elseSelect) {
                 needtoShow = player.getEquipmentByNumber(touchNumber);
             }   //elseSelect 如果 不是 默认数值， 并且与 touchNumber  相同 则表示touchNumber 个 单位 是被选择的单位。 needtoShow 可能为空
             else {

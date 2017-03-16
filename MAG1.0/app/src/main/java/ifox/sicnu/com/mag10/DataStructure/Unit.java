@@ -2,6 +2,7 @@ package ifox.sicnu.com.mag10.DataStructure;
 
 import java.util.ArrayList;
 
+import ifox.sicnu.com.mag10.DataStructure.AttackMethod.AttackMethod;
 import ifox.sicnu.com.mag10.DataStructure.Buff.Buff;
 import ifox.sicnu.com.mag10.DataStructure.Buff.KeepBuff;
 
@@ -68,7 +69,7 @@ public class Unit implements UnitWearBuff {
 
     /**玩家带特效的攻击*/
     public boolean specialAtk(Unit target) {
-        return this.atm.attack(target);
+        return this.atm.attack(this,target);
     }
 
     public ArrayList<KeepBuff> keepBuffs = new ArrayList<>();
