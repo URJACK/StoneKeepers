@@ -1,6 +1,5 @@
 package ifox.sicnu.com.mag10.DataStructure.Buff;
 
-import ifox.sicnu.com.mag10.DataStructure.BattleManager;
 import ifox.sicnu.com.mag10.DataStructure.Unit;
 
 /**
