@@ -14,6 +14,7 @@ import ifox.sicnu.com.mag10.DataStructure.Player;
  * 这个类用来绘制人物的窗口
  */
 public class DrawSkill implements ModeDrawIn {
+    private static final String TAG = "DrawSkill";
     private Player player;
     private Bitmap background;
     private int baseX;
@@ -42,8 +43,8 @@ public class DrawSkill implements ModeDrawIn {
         paint.setColor(Color.YELLOW);
         paint.setStyle(Paint.Style.STROKE);
         paint.setAlpha(126);
+        paint.setStrokeWidth(4);
     }
-
 
     @Override
     public void doCanvas(Canvas canvas) {

@@ -26,7 +26,7 @@ public class BuffFactory {
                     if (flag) {
                         unit.atk += 5;
                     } else
-                        unit.atk += 5;
+                        unit.atk -= 5;
                 }
 
                 @Override

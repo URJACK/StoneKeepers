@@ -1,11 +1,9 @@
 package ifox.sicnu.com.mag10.DrawLogic;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.util.Log;
 
 import ifox.sicnu.com.mag10.Data.Const;
 import ifox.sicnu.com.mag10.DataStructure.Equipment;

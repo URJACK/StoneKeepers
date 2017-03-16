@@ -55,7 +55,6 @@ public class PpgetSpecialEffects extends SpecialEffects {
             canvas.drawCircle(x + per_x * (i + 2), y + per_y * i + offset[0], (int) ((Const.CELL_WIDTH * 0.2) + i * Const.CELL_WIDTH / 50), paint);
             this.i = i + 1;
 
-            Log.i("nini", "docanva: " + i + "--" + per_x + "per" + per_y);
             if (i >= end_time)
                 i = -1;
         }

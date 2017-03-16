@@ -28,7 +28,7 @@ public class Goblin extends Monster {
         setMonsterLevel(1);
         setMonsterType(Monster.NORMAL);
         if (bitmap == null) {
-            bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.monster_gebulin);
+            bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.monster_jingshichong);
             bitmap = Bitmap.createScaledBitmap(bitmap, Const.CELL_WIDTH, Const.CELL_HEIGHT, true);
         }
     }

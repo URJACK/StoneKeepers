@@ -39,7 +39,7 @@ public class Const {
 
     public static int BASE_CELL_OFFY;       //地宫视图中，初始CELL于屏幕左上角的偏移量
 
-    public static Context mContext_Game;         //用于获取游戏资源时，的公共mContext 常量：默认为GameActivity.
+    public static Context mContext_Game;         //用于获取游戏资源时，的公共mContext 常量：默认为GameActivity.在玩家初始化属性的时候，默认为SelectActivity
 
     public static SoundPool soundPool_Game;          //在游戏界面时，需要播放一些声效。
 

@@ -6,12 +6,10 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.util.Log;
 
 import ifox.sicnu.com.mag10.Data.Const;
 import ifox.sicnu.com.mag10.Data.Pictures;
 import ifox.sicnu.com.mag10.DataStructure.Player;
-import ifox.sicnu.com.mag10.SelectActivity;
 
 /**
  * Created by Funchou Fu on 2017/2/23.

@@ -1,10 +1,7 @@
 package ifox.sicnu.com.mag10.View;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -13,7 +10,6 @@ import android.widget.Toast;
 import ifox.sicnu.com.mag10.APP;
 import ifox.sicnu.com.mag10.Data.Const;
 import ifox.sicnu.com.mag10.Data.HeroBuff;
-import ifox.sicnu.com.mag10.DataStructure.Hero;
 import ifox.sicnu.com.mag10.DataStructure.Player;
 import ifox.sicnu.com.mag10.DrawLogic.DrawAbility;
 import ifox.sicnu.com.mag10.TouchLogic.AbilityTouch;

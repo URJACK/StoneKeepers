@@ -90,8 +90,8 @@ public class Unit implements UnitWearBuff {
     @Override
     public void dropBuff(Buff buff) {
         if (buff instanceof KeepBuff) {
-            keepBuffs.add((KeepBuff) buff);
-            ((KeepBuff) buff).doWork(this, true);
+            keepBuffs.remove(buff);
+            ((KeepBuff) buff).doWork(this, false);
         } else {
             unkeepBuffs.remove(buff);
         }

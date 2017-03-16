@@ -15,9 +15,7 @@ import java.util.Set;
 
 import ifox.sicnu.com.mag10.APP;
 import ifox.sicnu.com.mag10.Data.Const;
-import ifox.sicnu.com.mag10.Data.Monster.Goblin;
 import ifox.sicnu.com.mag10.Data.Traps.MonsterTrap;
-import ifox.sicnu.com.mag10.Data.Traps.StoneTrap;
 import ifox.sicnu.com.mag10.DataStructure.Buff.Buff;
 import ifox.sicnu.com.mag10.DataStructure.Buff.MonsterClearBuff;
 import ifox.sicnu.com.mag10.DataStructure.Buff.MonsterDieBuff;
@@ -339,8 +337,9 @@ public class BattleManager {
             for (int i = 0; i < player.keepBuffs.size(); i++) {
                 Buff buff = player.keepBuffs.get(i);
                 buff.time -= 1;
+                Log.i(TAG, String.format("buff:%s  time:%d", buff.name, buff.time));
                 if (buff.clear()) {
-                    this.player.keepBuffs.remove(buff);
+                    this.player.dropBuff(buff);
                 }
             }
 

@@ -128,7 +128,6 @@ public class DrawGame extends DrawBackground {
         //绘制玩家的装备
         for (int i = 0; i < 12; i++) {
             Equipment e = shop.player.equipments[i];
-            Log.i("DrawPlayer", String.format("DrawPlayerBag....Now i is %d", i));
             if (e == null) {
                 continue;
                 //如果发现空闲的装备，直接跳出循环

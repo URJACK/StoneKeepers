@@ -1,5 +1,9 @@
 package ifox.sicnu.com.mag10.Data.Herolist;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
+import ifox.sicnu.com.mag10.Data.Const;
 import ifox.sicnu.com.mag10.Data.Equipments;
 import ifox.sicnu.com.mag10.Data.Pictures;
 import ifox.sicnu.com.mag10.DataStructure.Buff.BuffFactory;
@@ -7,6 +11,7 @@ import ifox.sicnu.com.mag10.DataStructure.Hero;
 import ifox.sicnu.com.mag10.DataStructure.Skill.NoTargetSkill;
 import ifox.sicnu.com.mag10.DataStructure.Skill.SingleTargetSkill;
 import ifox.sicnu.com.mag10.DataStructure.Skill.Skill;
+import ifox.sicnu.com.mag10.R;
 
 /**
  * Created by Funchou Fu on 2017/3/5.
@@ -37,12 +42,19 @@ public class Wizard extends Hero {
         Skill arcmissle = new SingleTargetSkill(this, Skill.MAXMP, (float) 0.2, Skill.MP, 5, BuffFactory.createBuff("poison"));
         arcmissle.name = "奥术飞弹";
         arcmissle.introduce = "强大的奥术飞弹，能够造成自己最大法力值20% 的高额伤害";
-        arcmissle.bitmap = pictures.getBitmap("skill_arcmissle");
+
+        Bitmap bitmap = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.skill_arcmissle);
+        bitmap = Bitmap.createScaledBitmap(bitmap, Const.SKILL_WIDTH, Const.SKILL_HEIGHT, true);
+
+        arcmissle.bitmap = bitmap;
 
         Skill strenthenpower = new NoTargetSkill(this, Skill.ARMMOR, 0, Skill.MP, 8, BuffFactory.createBuff("atkIncrease"));
         strenthenpower.name = "力量强化";
         strenthenpower.introduce = "强化自己的肉体，从而能够增加自己的 攻击力";
-        strenthenpower.bitmap = pictures.getBitmap("skill_strenthenpower");
+
+        bitmap = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.skill_strenthenpower);
+        bitmap = Bitmap.createScaledBitmap(bitmap, Const.SKILL_WIDTH, Const.SKILL_HEIGHT, true);
+        strenthenpower.bitmap = bitmap;
 
 
         this.skills[0] = arcmissle;

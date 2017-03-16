@@ -90,7 +90,6 @@ public class HeroView extends SurfaceView implements SurfaceHolder.Callback, Dra
         background = pictures.getBitmap("hero_select");
         left_limit = pictures.getBitmap("hero_leftlimit");
         right_limit = pictures.getBitmap("hero_rightlimit");
-        Log.i(TAG, "IniBitmap: ");
     }
 
     @Override

@@ -59,7 +59,6 @@ public class EndView extends SurfaceView implements SurfaceHolder.Callback {
         if(event.getAction() == MotionEvent.ACTION_DOWN){
             x= (int) event.getX();
             y = (int) event.getY();
-            Log.i("end", "onTouchEvent: ---"+x+"--"+y);
         }
         if(event.getAction() == MotionEvent.ACTION_UP){
 

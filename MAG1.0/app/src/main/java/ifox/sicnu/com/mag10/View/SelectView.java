@@ -65,7 +65,7 @@ public class SelectView extends SurfaceView implements SurfaceHolder.Callback, D
         heroes = app.getHeroes();
         player = new Player(heroes.getHero("斯微法"), heroBuff);
         Initilization();
-        ((APP)mContext.getApplicationContext()).setPlayer(player);
+        ((APP) mContext.getApplicationContext()).setPlayer(player);
     }
 
     private void Initilization() {
@@ -119,15 +119,15 @@ public class SelectView extends SurfaceView implements SurfaceHolder.Callback, D
             else {
                 select_Hero = false;
             }
-            if(event.getX()<Const.SCREENHEIGHT*20/37&&event.getX()>Const.SCREENHEIGHT*17/37&&event.getY()<Const.SCREENWIDTH/3){
+            if (event.getX() < Const.SCREENHEIGHT * 20 / 37 && event.getX() > Const.SCREENHEIGHT * 17 / 37 && event.getY() < Const.SCREENWIDTH / 3) {
                 select_Ability = true;
-            }else {
+            } else {
                 select_Ability = false;
             }
 
-            if(event.getX()<Const.SCREENHEIGHT*0.34&&event.getX()>Const.SCREENHEIGHT*0.27&&event.getY()<Const.SCREENWIDTH*0.56&&event.getY()>Const.SCREENWIDTH*0.44){
+            if (event.getX() < Const.SCREENHEIGHT * 0.34 && event.getX() > Const.SCREENHEIGHT * 0.27 && event.getY() < Const.SCREENWIDTH * 0.56 && event.getY() > Const.SCREENWIDTH * 0.44) {
                 select_Game = true;
-            }else {
+            } else {
                 select_Game = false;
             }
         } else if (action == MotionEvent.ACTION_UP) {
@@ -135,12 +135,12 @@ public class SelectView extends SurfaceView implements SurfaceHolder.Callback, D
                 select_Hero = false;
                 ((SelectActivity) getContext()).gotoHeroActivity();
             }//点击到了选择英雄的界面---动作2
-            if (event.getX()<Const.SCREENHEIGHT*20/37&&event.getX()>Const.SCREENHEIGHT*17/37&&event.getY()<Const.SCREENWIDTH/3&&select_Ability&&!player.bagswitch){
-                ((SelectActivity)getContext()).gotoAbilityActivity();
+            if (event.getX() < Const.SCREENHEIGHT * 20 / 37 && event.getX() > Const.SCREENHEIGHT * 17 / 37 && event.getY() < Const.SCREENWIDTH / 3 && select_Ability && !player.bagswitch) {
+                ((SelectActivity) getContext()).gotoAbilityActivity();
             }
-            if(event.getX()<Const.SCREENHEIGHT*0.34&&event.getX()>Const.SCREENHEIGHT*0.27&&event.getY()<Const.SCREENWIDTH*0.56&&event.getY()>Const.SCREENWIDTH*0.44&&select_Game){
-                Toast.makeText(mContext,"dianjile",Toast.LENGTH_SHORT).show();
-                        ((SelectActivity) getContext()).gotoGameActivity();
+            if (event.getX() < Const.SCREENHEIGHT * 0.34 && event.getX() > Const.SCREENHEIGHT * 0.27 && event.getY() < Const.SCREENWIDTH * 0.56 && event.getY() > Const.SCREENWIDTH * 0.44 && select_Game) {
+                Toast.makeText(mContext, "dianjile", Toast.LENGTH_SHORT).show();
+                ((SelectActivity) getContext()).gotoGameActivity();
             }
 
         }
@@ -160,6 +160,7 @@ public class SelectView extends SurfaceView implements SurfaceHolder.Callback, D
             return;
         player = new Player(hero, heroBuff);
         Initilization();
-        ((APP)mContext.getApplicationContext()).setPlayer(player);
+        ((APP) mContext.getApplicationContext()).setPlayer(player);
     }
+
 }
