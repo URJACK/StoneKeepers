@@ -29,6 +29,7 @@ public class APP extends android.app.Application {
     DtbsControler dc;
 
 
+
     public ReadyActivity readyActivity;        //在GameActivity 结束后，结束此Activity
     public GameActivity gameActivity;
 
