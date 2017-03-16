@@ -72,12 +72,19 @@ public class DrawGame extends DrawBackground {
         Object object = battleManager.showObject;
         if (object instanceof Monster) {
             Monster monster = (Monster) object;
-            canvas.drawText(monster.getName(), (int) (Const.SCREENWIDTH * 0.2), (int) (Const.SCREENWIDTH * 0.2), paint);
-            canvas.drawText(monster.getIntroduce(), (int) (Const.SCREENWIDTH * 0.2), (int) (Const.SCREENWIDTH * 0.3), paint);
+            canvas.drawBitmap(battleManager.getMonster_shuxing_bg(),0,0,null);
+            canvas.drawText(monster.getName(), (int) (Const.SCREENHEIGHT * 0.26), (int) (Const.SCREENWIDTH * 0.06), paint);
+            canvas.drawBitmap(monster.getBitmap(), (int) (Const.SCREENHEIGHT * 0.075), (int) (Const.SCREENWIDTH * 0.14), null);
+            canvas.drawText(monster.hp + "", (int) (Const.SCREENHEIGHT * 0.372), (int) (Const.SCREENWIDTH * 0.16), paint);
+            canvas.drawText(monster.atk+"",(int) (Const.SCREENHEIGHT * 0.23), (int) (Const.SCREENWIDTH * 0.16),paint);
+            canvas.drawText(monster.def+"",(int) (Const.SCREENHEIGHT * 0.50), (int) (Const.SCREENWIDTH * 0.16),paint);
+            canvas.drawText(monster.getIntroduce(), (int) (Const.SCREENWIDTH * 0.2), (int) (Const.SCREENWIDTH * 0.39), paint);
         } else if (object instanceof Skill) {
             Skill skill = (Skill) object;
-            canvas.drawText(skill.name, (int) (Const.SCREENWIDTH * 0.2), (int) (Const.SCREENWIDTH * 0.2), paint);
-            canvas.drawText(skill.introduce, (int) (Const.SCREENWIDTH * 0.2), (int) (Const.SCREENWIDTH * 0.3), paint);
+            canvas.drawBitmap(battleManager.getSkill_shuxing_bg(),0,0,null);
+            canvas.drawText(skill.name, (int) (Const.SCREENWIDTH * 0.45), (int) (Const.SCREENWIDTH * 0.15), paint);
+            canvas.drawText(skill.introduce, (int) (Const.SCREENWIDTH * 0.1), (int) (Const.SCREENWIDTH * 0.4), paint);
+            canvas.drawBitmap(skill.bitmap,(int) (Const.SCREENWIDTH * 0.1), (int) (Const.SCREENWIDTH * 0.51),null);
         }
     }
 

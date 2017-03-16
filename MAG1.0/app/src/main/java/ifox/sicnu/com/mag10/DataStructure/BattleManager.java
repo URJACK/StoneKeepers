@@ -1,6 +1,8 @@
 package ifox.sicnu.com.mag10.DataStructure;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.SoundPool;
 import android.util.Log;
 import android.widget.Toast;
@@ -45,7 +47,7 @@ public class BattleManager {
     public ArrayList<SpecialEffects> effectses; //保存effects 队列。
     public int xx, yy;
     public SoundPool sp;
-    int music;
+
 
 
     public BattleManager(Context context, ShopManager shopManager) {
@@ -435,6 +437,21 @@ public class BattleManager {
                 }
             }
         }
+    }
+
+    //获取showobject 的图片资源
+    public Bitmap getMonster_shuxing_bg(){
+        Bitmap bitmap;
+        bitmap = BitmapFactory.decodeResource(mContext.getResources(),R.drawable.gameview_monster_shuxing);
+        bitmap = Bitmap.createScaledBitmap(bitmap,(int)(Const.SCREENHEIGHT*0.6),(int)(Const.SCREENWIDTH),true);
+        return bitmap;
+    }
+
+    public Bitmap getSkill_shuxing_bg(){
+        Bitmap bitmap;
+        bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.gameview_skill_shuxing_bg);
+        bitmap = Bitmap.createScaledBitmap(bitmap,(int)(Const.SCREENHEIGHT*0.6),Const.SCREENWIDTH,true);
+        return bitmap;
     }
 
 }
