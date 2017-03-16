@@ -9,6 +9,7 @@ import ifox.sicnu.com.mag10.DataStructure.Unit;
 /**
  * Created by Funchou Fu on 2017/3/16.
  * 通过Unit.java 的 wear 和 diswear 进行调用
+ * 如果传入的x , y == -1 则说明buff持有者是Player
  */
 public class BuffFactory {
     private static final String TAG = "BuffFactory";
@@ -48,11 +49,15 @@ public class BuffFactory {
             RoundEndBuff roundEndBuff = new RoundEndBuff() {
                 @Override
                 public void doWork(int x, int y, BattleManager bm) {
-                    Cell c = bm.cells.get(x + y * 8);
-                    if (c.monster != null) {
-                        c.monster.hp -= (int) (c.monster.maxHp * 0.15 - 5);
+                    if (x == -1 || y == -1) {
+                        bm.player.hp -= bm.player.maxHp * 0.15 - 5;
                     } else {
-                        Log.i(TAG, "doWork: Monster Is Null!");
+                        Cell c = bm.cells.get(x + y * 8);
+                        if (c.monster != null) {
+                            c.monster.hp -= c.monster.maxHp * 0.15 - 5;
+                        } else {
+                            Log.i(TAG, "doWork: Monster Is Null!");
+                        }
                     }
                 }
             };
