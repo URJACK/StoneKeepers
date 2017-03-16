@@ -2,6 +2,8 @@ package ifox.sicnu.com.mag10;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.AudioManager;
+import android.media.SoundPool;
 
 import ifox.sicnu.com.mag10.Data.Affixs;
 import ifox.sicnu.com.mag10.Data.Equipments;
@@ -28,6 +30,7 @@ public class APP extends android.app.Application {
     SQLiteDatabase db;
     DtbsControler dc;
 
+    SoundPool sp;
 
 
     public ReadyActivity readyActivity;        //在GameActivity 结束后，结束此Activity
@@ -57,6 +60,8 @@ public class APP extends android.app.Application {
         equipments = new Equipments(pictures);
         affixs = new Affixs();
         heroes = new Heroes(pictures, skills, equipments);
+
+        sp= new SoundPool(10, AudioManager.STREAM_MUSIC, 5);
     }
 
     public Pictures getPictures() {
@@ -79,5 +84,8 @@ public class APP extends android.app.Application {
         this.player = player;
     }
 
+    public SoundPool getSp(){
+        return sp;
+    }
 
 }

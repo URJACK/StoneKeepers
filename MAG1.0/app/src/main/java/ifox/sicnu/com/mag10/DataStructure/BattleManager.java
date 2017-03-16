@@ -1,6 +1,7 @@
 package ifox.sicnu.com.mag10.DataStructure;
 
 import android.content.Context;
+import android.media.SoundPool;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ import ifox.sicnu.com.mag10.DataStructure.Buff.SufferDamageBuff;
 import ifox.sicnu.com.mag10.DrawLogic.DrawSpecialEffects.PpgetSpecialEffects;
 import ifox.sicnu.com.mag10.DrawLogic.DrawSpecialEffects.SpecialEffects;
 import ifox.sicnu.com.mag10.GameActivity;
+import ifox.sicnu.com.mag10.R;
 
 /**
  * Created by Funchou Fu on 2017/3/7.
@@ -40,6 +42,8 @@ public class BattleManager {
     public SpecialEffects effects;              //当前正要被展示的特效对象
     public ArrayList<SpecialEffects> effectses; //保存effects 队列。
     public int xx, yy;
+    public SoundPool sp;
+    int music;
 
 
     public BattleManager(Context context, ShopManager shopManager) {
@@ -48,6 +52,7 @@ public class BattleManager {
         cells = new LinkedList<>();
         monsters = new LinkedList<>();
         player = ((APP) context.getApplicationContext()).getPlayer();
+        sp = ((APP) context.getApplicationContext()).getSp();
         effectses = new ArrayList<>();
     }
 
@@ -119,6 +124,14 @@ public class BattleManager {
             //探索
             if (cells.get(first_index).status == Cell.UNDISCORVERED) {
                 cells.get(first_index).status = Cell.DISCORVERED;
+                 sp.load(mContext, R.raw.gameview_music2,1);
+                sp.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+                    @Override
+                    public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                        sp.play(1,1,1,1,0,1);
+                    }
+                });
+
                 if (player.pp < player.maxPp) {
                     //增加pp
                     player.pp++;
