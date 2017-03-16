@@ -16,7 +16,9 @@ import ifox.sicnu.com.mag10.Data.Monster.Goblin;
 import ifox.sicnu.com.mag10.Data.Traps.MonsterTrap;
 import ifox.sicnu.com.mag10.Data.Traps.StoneTrap;
 import ifox.sicnu.com.mag10.DataStructure.Buff.MonsterClearBuff;
+import ifox.sicnu.com.mag10.DataStructure.Buff.MonsterDieBuff;
 import ifox.sicnu.com.mag10.DataStructure.Buff.RoundEndBuff;
+import ifox.sicnu.com.mag10.DataStructure.Buff.SufferDamageBuff;
 import ifox.sicnu.com.mag10.DrawLogic.DrawSpecialEffects.PpgetSpecialEffects;
 import ifox.sicnu.com.mag10.DrawLogic.DrawSpecialEffects.SpecialEffects;
 import ifox.sicnu.com.mag10.GameActivity;
@@ -136,10 +138,20 @@ public class BattleManager {
             } else {
                 //攻击怪物
                 if (cell.monster != null) {
-                    if (!player.normalAtk(cell.monster)) {
-                        cell.monster.normalAtk(player);
-                    }           //如果怪物没有死亡，怪物会对玩家再次造成一次攻击
-                    flag = true;
+                    buffWork(cell.x, cell.y, cell.monster, true);               //在怪物受伤前，对受伤怪物的状态进行检测
+                    if (player.atm == null) {
+                        if (!player.normalAtk(cell.monster)) {
+                            buffWork(-1, -1, player, true);
+                            cell.monster.normalAtk(player);                     //在人物受伤前，对人的状态进行检测
+                        }
+                        //如果怪物没有死亡，怪物会对玩家再次造成一次攻击
+                    } else {
+                        if (!player.specialAtk(cell.monster)) {
+                            buffWork(-1, -1, player, true);
+                            cell.monster.normalAtk(player);                     //在人物受伤前，对人的状态进行检测
+                        }
+                    }
+                    flag = true;            //将时间流逝的flag设置为ture
                 }
 
                 //商店的点击
@@ -160,6 +172,7 @@ public class BattleManager {
      * 2·
      */
     private void TimeGoOn() {
+        buffWork(true);                 //检测所有的Round_End Buff
         if (player.hp <= 0) {
             Toast.makeText(mContext, "你死了", Toast.LENGTH_SHORT).show();
             ((GameActivity) mContext).gotoEndActivity(false);
@@ -170,12 +183,12 @@ public class BattleManager {
      * 怪物清理的操作，会在玩家释放技能后，进行调用该方法
      */
     public void MonsterClear() {
+        buffWork(false);                //检测所有的Monster_Clear Buff
         for (int i = 0; i < monsters.size(); i++) {
             Monster m = monsters.get(i);
             if (m.hp <= 0) {
                 monsters.remove(m);
                 player.addExp(m.exp);
-                Log.i("DEBUG", "MonsterClear: " + m.exp + "---" + player.exp);
                 for (int j = 0; j < cells.size(); j++) {
                     if (m == cells.get(j).monster) {
                         cells.get(j).monster = null;
@@ -296,18 +309,18 @@ public class BattleManager {
     }
 
     /**
-     * buffwork()方法能够自动遍历player的拥有的状态，并让他们起自己本应当起的作用，
+     * buffwork()方法能够自动遍历player以及怪物的拥有的状态，并让他们起自己本应当起的作用，
      *
      * @param timespan :
-     *                 1·在 TimeGoOn()中被调用 timespan == 0,
-     *                 2·在 MonsterClear()中被调用 timespan == 1
+     *                 1·在 TimeGoOn()中被调用 timespan == true,
+     *                 2·在 MonsterClear()中被调用 timespan == false
      */
-    private void buffWork(int timespan) {
-        if (timespan == 0) {
+    private void buffWork(boolean timespan) {
+        if (timespan) {
 
             for (int i = 0; i < player.unkeepBuffs.size(); i++) {
                 if (player.unkeepBuffs.get(i) instanceof RoundEndBuff) {
-                    player.unkeepBuffs.get(i).doWork(0, 0, this);
+                    player.unkeepBuffs.get(i).doWork(-1, -1, this);
                 }
             }           //遍历Player的Buff
 
@@ -325,7 +338,7 @@ public class BattleManager {
 
             for (int i = 0; i < player.unkeepBuffs.size(); i++) {
                 if (player.unkeepBuffs.get(i) instanceof MonsterClearBuff) {
-                    player.unkeepBuffs.get(i).doWork(0, 0, this);
+                    player.unkeepBuffs.get(i).doWork(-1, -1, this);
                 }
             }           //遍历Player的Buff
 
@@ -341,4 +354,27 @@ public class BattleManager {
 
         }
     }
+
+    /**
+     * buffwork()方法代入具体的Unit 参数，能够遍历该Unit的所有的状态，并执行它们
+     *
+     * @param x    :       死亡，或者受伤的单位的 x 坐标;如果为 -1 则默认为 player
+     * @param y    :       死亡，或者受伤的单位的 y 坐标;如果为 -1 则默认为 player
+     * @param unit :    死亡的或者受伤的单位.
+     * @param type :    如果type为true ，则代表Unit是受伤，否则代表Unit死亡
+     */
+    private void buffWork(int x, int y, Unit unit, boolean type) {
+        if (type) {
+            for (int i = 0; i < unit.unkeepBuffs.size(); i++) {
+                if (unit.unkeepBuffs.get(i) instanceof SufferDamageBuff)
+                    unit.unkeepBuffs.get(i).doWork(x, y, this);
+            }
+        } else {
+            for (int i = 0; i < unit.unkeepBuffs.size(); i++) {
+                if (unit.unkeepBuffs.get(i) instanceof MonsterDieBuff)
+                    unit.unkeepBuffs.get(i).doWork(x, y, this);
+            }
+        }
+    }
+
 }

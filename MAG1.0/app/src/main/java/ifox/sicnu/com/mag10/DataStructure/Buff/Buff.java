@@ -9,6 +9,7 @@ import ifox.sicnu.com.mag10.DataStructure.Unit;
 
 /**
  * Created by Funchou Fu on 2017/2/27.
+ * 如果buff 传入的横纵坐标有一个为-1,则说明此处的buff拥有者是player
  */
 public abstract class Buff {
     public static final int KEEPALLTIME = 0;        //附加属性的BUFF; 得到Buff 时，获得属性；失去Buff 时，失去属性；
