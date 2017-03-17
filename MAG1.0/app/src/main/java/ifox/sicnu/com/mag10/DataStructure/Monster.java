@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 /**
  * Created by Funchou Fu on 2017/3/7.
  * 属于怪物的特有属性：
- *
+ * <p/>
  * 2017年3月13日12:44:45 新增加经验值属性
  */
 public class Monster extends Unit {
@@ -16,25 +16,19 @@ public class Monster extends Unit {
     private int level;           //怪物的等级，BattleManager 可以根据怪物的等级和 怪物的类型，来给每一层合理的分配怪物资源
     private String introduce;
     private String name;
-    private Bitmap bitmap;
 
     public int exp;
+    public int money;
 
     public int getMonsterType() {
         return this.type;
     }
 
-    public int getMonsterLevel() {
-        return this.level;
-    }
 
     public void setMonsterType(int type) {
         this.type = type;
     }
 
-    public void setMonsterLevel(int level) {
-        this.level = level;
-    }
 
     public void setIntroduce(String introduce) {
         this.introduce = introduce;
@@ -52,11 +46,12 @@ public class Monster extends Unit {
         this.name = name;
     }
 
-    public void setBitmap(Bitmap bitmap) {
-        this.bitmap = bitmap;
-    }
-
     public Bitmap getBitmap() {
         return null;
+    }
+
+    public void setMaxhp(int maxhp) {
+        this.maxHp = maxhp;
+        this.hp = maxhp;
     }
 }

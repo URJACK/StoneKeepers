@@ -10,25 +10,25 @@ import ifox.sicnu.com.mag10.R;
 
 /**
  * Created by Funchou Fu on 2017/3/7.
- * 哥布林的属性会随机波动
+ * 哥布林
  */
 public class Goblin extends Monster {
     private static Bitmap bitmap;
 
     public Goblin(Context context, int level) {
-        this.atk = (int) (4 + (2 + Math.random() * level));
+        this.atk = (int) (4 + (2 + Math.random() * 2 * level));
         this.hitrate = (float) 0.9;
-        this.maxHp = (int) (10 + Math.random() * 3 * level);
-        this.armor = (int) (4 + Math.random() * level);
-        this.hp = this.maxHp;
+        this.armor = (int) (4 + Math.random() * 2 * level);
         this.def = this.armor;
-        this.exp = (int) (2 + 3 * Math.random() * level);
-        setIntroduce("最基本的哥布林");
+        this.setMaxhp((int) (10 + Math.random() * 3 * level));
+        this.exp = 8 + 2 * level;
+        this.money = 2;
+        this.setMonsterType(Monster.NORMAL);
+        setIntroduce("身如矮人瘦五分，体似半身高三寸，阔面凹鼻琥珀目，尖耳毒牙垂膝拳，钉锤撩动惊日月，座狼穿行泣鬼神，九州遍处皆兄弟，诨名唤做哥布林。");
         setName("Goblin");
-        setMonsterLevel(1);
         setMonsterType(Monster.NORMAL);
         if (bitmap == null) {
-            bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.monster_jingshichong);
+            bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.monster_gebulin);
             bitmap = Bitmap.createScaledBitmap(bitmap, Const.CELL_WIDTH, Const.CELL_HEIGHT, true);
         }
     }

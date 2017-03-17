@@ -2,8 +2,10 @@ package ifox.sicnu.com.mag10.DataStructure.Buff;
 
 import android.util.Log;
 
+import ifox.sicnu.com.mag10.Data.Monster.MonsterFactory;
 import ifox.sicnu.com.mag10.DataStructure.BattleManager;
 import ifox.sicnu.com.mag10.DataStructure.Cell;
+import ifox.sicnu.com.mag10.DataStructure.Monster;
 import ifox.sicnu.com.mag10.DataStructure.Unit;
 
 /**
@@ -45,6 +47,7 @@ public class BuffFactory {
 
     /**
      * 毒药状态 poison :玩家对怪物释放后叠加的状态，怪物会因此每回合减少自己(monster 5% maxHp + Player 50% intelligence)
+     * 出生召唤 summon :召唤一个怪物(默认哥布林)。
      */
     public static RoundEndBuff createRoundEndBuff(String name) {
         if (name.equals("poison")) {
@@ -70,7 +73,91 @@ public class BuffFactory {
             roundEndBuff.introduce = "每回合减少自己 5%的最大生命值后，还会额外受到5点伤害";
             return roundEndBuff;
         }
+        if (name.equals("summon")) {
+            RoundEndBuff roundEndBuff = new RoundEndBuff() {
+                @Override
+                public void doWork(int x, int y, BattleManager bm) {
+                    this.time -= 1;
+                    Log.i(TAG, "doWork: Summon");
+                    if (x == -1 || y == -1) {
+                        return;
+                    } else {
+                        Cell cell = bm.cells.get(x + 8 * y);
+                        if (BuffFactory.leftisOK(x + y * 8, bm)) {
+                            Monster m = MonsterFactory.createMonster("Goblin", bm.floor);
+                            bm.cells.get(x + 8 * y - 1).status = Cell.DISCORVERED;
+                            bm.cells.get(x + 8 * y - 1).monster = m;
+                            bm.registMonster(m);
+                        } else if (BuffFactory.topisOK(x + y * 8, bm)) {
+                            Monster m = MonsterFactory.createMonster("Goblin", bm.floor);
+                            bm.cells.get(x + 8 * y - 8).status = Cell.DISCORVERED;
+                            bm.cells.get(x + 8 * y - 8).monster = m;
+                            bm.registMonster(m);
+                        } else if (BuffFactory.rightisOK(x + y * 8, bm)) {
+                            Monster m = MonsterFactory.createMonster("Goblin", bm.floor);
+                            bm.cells.get(x + 8 * y + 1).status = Cell.DISCORVERED;
+                            bm.cells.get(x + 8 * y + 1).monster = m;
+                            bm.registMonster(m);
+                        } else if (BuffFactory.bottomisOK(x + y * 8, bm)) {
+                            Monster m = MonsterFactory.createMonster("Goblin", bm.floor);
+                            bm.cells.get(x + 8 * y + 8).status = Cell.DISCORVERED;
+                            bm.cells.get(x + 8 * y + 8).monster = m;
+                            bm.registMonster(m);
+                        }
+
+                    }
+                }
+            };
+            roundEndBuff.time = 1;
+            roundEndBuff.id = "summon";
+            roundEndBuff.name = "召唤";
+            roundEndBuff.introduce = "刚被探索的时候，召唤一个哥布林";
+            return roundEndBuff;
+        }
         return null;
     }
 
+    public static boolean leftisOK(int index, BattleManager bm) {
+        if (index >= 1 && index % 8 != 0) {
+            Cell cell = bm.cells.get(index - 1);
+            if (cell.isEmpty() && bm.doornumber != index - 1) {
+                return true;
+            } else
+                return false;
+        } else
+            return false;
+    }
+
+    public static boolean rightisOK(int index, BattleManager bm) {
+        if (index < 56 && (index + 1) % 8 != 0) {
+            Cell cell = bm.cells.get(index + 1);
+            if (cell.isEmpty() && bm.doornumber != index + 1) {
+                return true;
+            } else
+                return false;
+        } else
+            return false;
+    }
+
+    public static boolean topisOK(int index, BattleManager bm) {
+        if (index > 7) {
+            Cell cell = bm.cells.get(index - 8);
+            if (cell.isEmpty() && bm.doornumber != index - 8) {
+                return true;
+            } else
+                return false;
+        } else
+            return false;
+    }
+
+    public static boolean bottomisOK(int index, BattleManager bm) {
+        if (index < 48) {
+            Cell cell = bm.cells.get(index + 8);
+            if (cell.isEmpty() && bm.doornumber != index + 8) {
+                return true;
+            } else
+                return false;
+        } else
+            return false;
+    }
 }

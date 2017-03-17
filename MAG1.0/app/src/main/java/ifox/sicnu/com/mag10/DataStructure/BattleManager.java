@@ -15,7 +15,9 @@ import java.util.Set;
 
 import ifox.sicnu.com.mag10.APP;
 import ifox.sicnu.com.mag10.Data.Const;
+import ifox.sicnu.com.mag10.Data.Monster.MonsterFactory;
 import ifox.sicnu.com.mag10.Data.Traps.MonsterTrap;
+import ifox.sicnu.com.mag10.Data.Traps.StoneTrap;
 import ifox.sicnu.com.mag10.DataStructure.Buff.Buff;
 import ifox.sicnu.com.mag10.DataStructure.Buff.MonsterClearBuff;
 import ifox.sicnu.com.mag10.DataStructure.Buff.MonsterDieBuff;
@@ -44,9 +46,8 @@ public class BattleManager {
     public SpecialEffects effects;              //当前正要被展示的特效对象
     public ArrayList<SpecialEffects> effectses; //保存effects 队列。
     public int xx, yy;
+    public int floor;                           //保存下当前的层数
     public SoundPool sp;
-
-
 
     public BattleManager(Context context, ShopManager shopManager) {
         mContext = context;
@@ -66,6 +67,7 @@ public class BattleManager {
      */
     public void createFloor(int index) {
         //得到这层的总共的单位数
+        this.floor = index;
         int number = (int) (Math.random() * 10 % 3) + 11;
         int trap_num = (int) (Math.random() * 4) + 1;
         Set<Integer> integers = new HashSet<>();
@@ -98,8 +100,15 @@ public class BattleManager {
         //生成陷阱
         for (int i = 0; i < trap_num; i++) {
             n = (int) iterator.next();
-            //Trap trap = new StoneTrap((int)(Math.random()*3 + 1));
-            Trap trap = new MonsterTrap(MonsterFactory.createMonster("Goblin", index));
+            Trap trap;
+            if (index < 3) {
+                trap = new StoneTrap((int) (Math.random() * 3 + 1));                    // 0 ~ 2 层有落石陷阱
+            } else {
+                if (Math.random() > 0.6)
+                    trap = new StoneTrap((int) (Math.random() * 3 + 1));
+                else
+                    trap = new MonsterTrap(MonsterFactory.createMonster("RuneSorcerer", index));            // 之后 层有落石+伏兵陷阱
+            }
             cells.get(n).trap = trap;
         }
 
@@ -184,7 +193,7 @@ public class BattleManager {
     /**
      * 时间流逝的操作，会在攻击和移动后，进行调用该方法
      * 1·会对玩家进行死亡检测
-     * 2·
+     * 2·之后一定会触发MonsterClear 并且这个触发是在调用TimeGoOn 的父类函数中进行调用的
      */
     private void TimeGoOn() {
         buffWork(true);                 //检测所有的Round_End Buff
@@ -277,14 +286,26 @@ public class BattleManager {
     }
 
     private Monster getMonsterLevel(int level) {
-        int num = (int) (Math.random() * 100 % 10);
+        double num = Math.random();
         switch (level) {
             case 1:
-                return MonsterFactory.createMonster("Goblin", 1);
+                if (num < 0.3)
+                    return MonsterFactory.createMonster("Goblin", 1);
+                else if (num >= 0.3 && num < 0.6)
+                    return MonsterFactory.createMonster("Saboteur", 1);
+                else
+                    return MonsterFactory.createMonster("Assassin", 1);
             case 2:
-                return MonsterFactory.createMonster("Goblin", 2);
+                if (num < 0.35)
+                    return MonsterFactory.createMonster("Goblin", 2);
+                else if (num >= 0.35 && num < 0.55)
+                    return MonsterFactory.createMonster("Spider", 2);
+                else if (num >= 0.55 && num < 0.75)
+                    return MonsterFactory.createMonster("Assassin", 2);
+                else
+                    return MonsterFactory.createMonster("Saboteur", 2);
             case 3:
-                return MonsterFactory.createMonster("Goblin", 3);
+                return MonsterFactory.createMonster("Spider", 3);
         }
         return null;
     }
@@ -338,7 +359,6 @@ public class BattleManager {
             for (int i = 0; i < player.keepBuffs.size(); i++) {
                 Buff buff = player.keepBuffs.get(i);
                 buff.time -= 1;
-                Log.i(TAG, String.format("buff:%s  time:%d", buff.name, buff.time));
                 if (buff.clear()) {
                     this.player.dropBuff(buff);
                 }
@@ -349,21 +369,19 @@ public class BattleManager {
                     Buff buff = player.unkeepBuffs.get(i);
                     buff.doWork(-1, -1, this);
                     if (buff.clear()) {
-                        Log.i(TAG, "buffWork: 人物的END状态已经被Clear");
                         player.dropBuff(buff);                  //如果buff已经到期，那么丢掉这个buff
                     }
                 }
             }           //遍历Player的Buff
 
             for (int i = 0; i < cells.size(); i++) {
-                if (cells.get(i).monster != null) {
+                if (cells.get(i).status == Cell.DISCORVERED && cells.get(i).monster != null) {
                     Monster m = cells.get(i).monster;
                     for (int j = 0; j < m.unkeepBuffs.size(); j++) {
                         if (m.unkeepBuffs.get(j) instanceof RoundEndBuff) {
                             Buff buff = m.unkeepBuffs.get(j);
                             buff.doWork(i % 8, i / 8, this);
                             if (buff.clear()) {
-                                Log.i(TAG, "buffWork: 怪物的END状态已经被Clear");
                                 m.dropBuff(buff);                   //如果该buff已经到期，那么怪物将把这个状态放下
                             }
                         }
@@ -378,8 +396,6 @@ public class BattleManager {
                     Buff buff = player.unkeepBuffs.get(i);
                     buff.doWork(-1, -1, this);
                     if (buff.clear()) {
-
-                        Log.i(TAG, "buffWork: 人物的Clear状态已经被Clear");
                         player.dropBuff(buff);                   //如果该buff已经到期，那么怪物将把这个状态放下
                     }
 
@@ -387,21 +403,19 @@ public class BattleManager {
             }           //遍历Player的Buff
 
             for (int i = 0; i < cells.size(); i++) {
-                if (cells.get(i).monster != null) {
+                if (cells.get(i).status == Cell.DISCORVERED && cells.get(i).monster != null) {
                     Monster m = cells.get(i).monster;
                     for (int j = 0; j < m.unkeepBuffs.size(); j++) {
                         if (m.unkeepBuffs.get(j) instanceof MonsterClearBuff) {
                             Buff buff = m.unkeepBuffs.get(j);
                             buff.doWork(i % 8, i / 8, this);
                             if (buff.clear()) {
-                                Log.i(TAG, "buffWork: 怪物的Clear状态已经被Clear");
                                 m.dropBuff(buff);                   //如果该buff已经到期，那么怪物将把这个状态放下
                             }
                         }
                     }
                 }
             }           //遍历所有Monster的Buff
-
         }
     }
 
@@ -420,7 +434,6 @@ public class BattleManager {
                     Buff buff = unit.unkeepBuffs.get(i);
                     buff.doWork(x, y, this);
                     if (buff.clear()) {
-                        Log.i(TAG, "buffWork: 受伤状态已经被Clear");
                         unit.dropBuff(buff);
                     }
                 }
@@ -431,7 +444,6 @@ public class BattleManager {
                     Buff buff = unit.unkeepBuffs.get(i);
                     buff.doWork(x, y, this);
                     if (buff.clear()) {
-                        Log.i(TAG, "buffWork: 死亡状态已经被Clear");
                         unit.dropBuff(buff);
                     }
                 }
@@ -439,18 +451,20 @@ public class BattleManager {
         }
     }
 
-    //获取showobject 的图片资源
-    public Bitmap getMonster_shuxing_bg(){
+    /**
+     * 获取showobject 的图片资源
+     */
+    public Bitmap getMonster_shuxing_bg() {
         Bitmap bitmap;
-        bitmap = BitmapFactory.decodeResource(mContext.getResources(),R.drawable.gameview_monster_shuxing);
-        bitmap = Bitmap.createScaledBitmap(bitmap,(int)(Const.SCREENHEIGHT*0.6),(int)(Const.SCREENWIDTH),true);
+        bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.gameview_monster_shuxing);
+        bitmap = Bitmap.createScaledBitmap(bitmap, (int) (Const.SCREENHEIGHT * 0.6), (int) (Const.SCREENWIDTH), true);
         return bitmap;
     }
 
-    public Bitmap getSkill_shuxing_bg(){
+    public Bitmap getSkill_shuxing_bg() {
         Bitmap bitmap;
         bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.gameview_skill_shuxing_bg);
-        bitmap = Bitmap.createScaledBitmap(bitmap,(int)(Const.SCREENHEIGHT*0.6),Const.SCREENWIDTH,true);
+        bitmap = Bitmap.createScaledBitmap(bitmap, (int) (Const.SCREENHEIGHT * 0.6), Const.SCREENWIDTH, true);
         return bitmap;
     }
 

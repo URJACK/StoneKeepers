@@ -108,25 +108,26 @@ public class Const {
     public static class Exp {
         //表明从 0to1  到  9to10 级的经验值
         public static final int[] levels = new int[10];
+
         static {
             if (levels[0] != -1) {
                 levels[0] = -1;
-                levels[1] = 20;
-                levels[2] = 50;
-                levels[3] = 100;
-                levels[4] = 250;
-                levels[5] = 300;
-                levels[6] = 350;
-                levels[7] = 400;
-                levels[8] = 500;
-                levels[9] = 600;
+                levels[1] = 200;
+                levels[2] = 500;
+                levels[3] = 1000;
+                levels[4] = 2500;
+                levels[5] = 3000;
+                levels[6] = 3500;
+                levels[7] = 4000;
+                levels[8] = 5000;
+                levels[9] = 6000;
             }
         }
     }
 
     public static class Cryption {
         public static int encrypt(int index) {
-            int r = 0;
+            int r = 00;
             r += index * 4 + 1;
             r += r;
             r += r * 2;
