@@ -281,7 +281,7 @@ public class BattleManager {
         double num = Math.random();
         if (level < 4) {
             if (num < 0.3)
-                return MonsterFactory.createMonster("Goblin", level);
+                return MonsterFactory.createMonster("SpikedKnight", level);
             else if (num >= 0.3 && num < 0.6)
                 return MonsterFactory.createMonster("Saboteur", level);
             else
@@ -292,7 +292,7 @@ public class BattleManager {
             else if (num >= 0.35 && num < 0.55)
                 return MonsterFactory.createMonster("Spider", level);
             else if (num >= 0.55 && num < 0.75)
-                return MonsterFactory.createMonster("Assassin", level);
+                return MonsterFactory.createMonster("RuneSorcerer", level);
             else
                 return MonsterFactory.createMonster("Saboteur", level);
         } else if (level < 10) {
