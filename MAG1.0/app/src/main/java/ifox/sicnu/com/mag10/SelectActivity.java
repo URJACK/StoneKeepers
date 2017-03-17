@@ -75,9 +75,6 @@ public class SelectActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
         stopService(new Intent(this, MusicService.class));
-        for (int i = 0; i < herolines.size(); i++) {
-            herolines.get(i).face.recycle();
-        }
         selectView.bagground.recycle();
         selectView.bmskiil.recycle();
         selectView.bmperson.recycle();
