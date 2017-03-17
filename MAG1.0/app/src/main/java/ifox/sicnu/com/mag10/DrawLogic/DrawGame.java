@@ -83,7 +83,15 @@ public class DrawGame extends DrawBackground {
             Skill skill = (Skill) object;
             canvas.drawBitmap(battleManager.getSkill_shuxing_bg(),0,0,null);
             canvas.drawText(skill.name, (int) (Const.SCREENWIDTH * 0.45), (int) (Const.SCREENWIDTH * 0.15), paint);
-            canvas.drawText(skill.introduce, (int) (Const.SCREENWIDTH * 0.1), (int) (Const.SCREENWIDTH * 0.4), paint);
+            int length = skill.introduce.length();
+            if(length<=15) {
+                canvas.drawText(skill.introduce, (int) (Const.SCREENWIDTH * 0.19), (int) (Const.SCREENWIDTH * 0.4), paint);
+            }else {
+                String buf = skill.introduce.substring(0,15);
+                canvas.drawText(buf, (int) (Const.SCREENWIDTH * 0.32), (int) (Const.SCREENWIDTH * 0.52), paint);
+                buf = skill.introduce.substring(15);
+                canvas.drawText(buf, (int) (Const.SCREENWIDTH * 0.32), (int) (Const.SCREENWIDTH * 0.58), paint);
+            }
             canvas.drawBitmap(skill.bitmap,(int) (Const.SCREENWIDTH * 0.1), (int) (Const.SCREENWIDTH * 0.51),null);
         }
     }
