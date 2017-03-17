@@ -1,9 +1,13 @@
 package ifox.sicnu.com.mag10.DataStructure.Skill;
 
+import android.media.SoundPool;
+
+import ifox.sicnu.com.mag10.Data.Const;
 import ifox.sicnu.com.mag10.DataStructure.BattleManager;
 import ifox.sicnu.com.mag10.DataStructure.Buff.Buff;
 import ifox.sicnu.com.mag10.DataStructure.Buff.BuffFactory;
 import ifox.sicnu.com.mag10.DataStructure.Unit;
+import ifox.sicnu.com.mag10.R;
 
 /**
  * Created by Funchou Fu on 2017/3/16.
@@ -16,7 +20,7 @@ public class NoTargetSkill extends Skill {
     public int costValue;
     public int costType;
     public Buff buff;
-
+    private  int music_id;
 
     public NoTargetSkill(Unit user, int type, float rate, int costType, int costValue, Buff buff) {
         super(user);
@@ -38,6 +42,14 @@ public class NoTargetSkill extends Skill {
             return false;
         else
             user.pp -= cost;
+        music_id = Const.soundPool_Game.load(Const.mContext_Game, R.raw.gameview_nuhou, 1);
+        Const.soundPool_Game.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+            @Override
+            public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                Const.soundPool_Game.play(music_id, 1, 1, 1, 0, 1);
+
+            }
+        });
         if (this.buff != null)
             user.wearBuff(BuffFactory.createKeepBuff(this.buff.id));
         bm.MonsterClear();
