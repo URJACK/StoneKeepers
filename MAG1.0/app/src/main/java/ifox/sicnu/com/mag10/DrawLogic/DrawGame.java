@@ -1,6 +1,7 @@
 package ifox.sicnu.com.mag10.DrawLogic;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -24,6 +25,7 @@ import ifox.sicnu.com.mag10.DataStructure.Shop;
 import ifox.sicnu.com.mag10.DataStructure.Skill.Skill;
 import ifox.sicnu.com.mag10.DrawLogic.DrawSpecialEffects.PpgetSpecialEffects;
 import ifox.sicnu.com.mag10.DrawLogic.DrawSpecialEffects.SpecialEffects;
+import ifox.sicnu.com.mag10.R;
 import ifox.sicnu.com.mag10.TouchLogic.BagTouch;
 
 /**
@@ -33,12 +35,24 @@ public class DrawGame extends DrawBackground {
     BattleManager battleManager;
     Paint paint;
     Bitmap undiscovered;//怪物周围的红叉叉
+    Bitmap shopcell;        //地图上的商店图标
+    Bitmap door;            //地图上的门
+    Bitmap trap;            //地图上的陷阱
     Rect rect;
 
     public DrawGame(Player player, int baseX, int baseY, int width, int height, Bitmap background, Bitmap bagground, Bitmap undiscovered, BagTouch bagTouch, BattleManager battleManager) {
         super(player, baseX, baseY, width, height, background, bagground, bagTouch);
         this.battleManager = battleManager;
         this.undiscovered = undiscovered;
+        this.door = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.gameview_door);
+        this.door = Bitmap.createScaledBitmap(this.door, Const.CELL_WIDTH, Const.CELL_HEIGHT, true);
+
+        this.shopcell = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.gameview_shopcell);
+        this.shopcell = Bitmap.createScaledBitmap(this.shopcell, Const.CELL_WIDTH, Const.CELL_HEIGHT, true);
+
+        this.trap = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.trap_stone);
+        this.trap = Bitmap.createScaledBitmap(this.trap, Const.CELL_WIDTH, Const.CELL_HEIGHT, true);
+
         paint = new Paint();
         paint.setColor(Color.BLACK);
         paint.setTypeface(Typeface.DEFAULT_BOLD);
@@ -75,49 +89,48 @@ public class DrawGame extends DrawBackground {
         Object object = battleManager.showObject;
         if (object instanceof Monster) {
             Monster monster = (Monster) object;
-            canvas.drawBitmap(battleManager.getMonster_shuxing_bg(),0,0,null);
+            canvas.drawBitmap(battleManager.getMonster_shuxing_bg(), 0, 0, null);
             canvas.drawText(monster.getName(), (int) (Const.SCREENHEIGHT * 0.26), (int) (Const.SCREENWIDTH * 0.06), paint);
             canvas.drawBitmap(monster.getBitmap(), (int) (Const.SCREENHEIGHT * 0.075), (int) (Const.SCREENWIDTH * 0.14), null);
             canvas.drawText(monster.hp + "", (int) (Const.SCREENHEIGHT * 0.372), (int) (Const.SCREENWIDTH * 0.16), paint);
-            canvas.drawText(monster.atk+"",(int) (Const.SCREENHEIGHT * 0.23), (int) (Const.SCREENWIDTH * 0.16),paint);
-            canvas.drawText(monster.def+"",(int) (Const.SCREENHEIGHT * 0.50), (int) (Const.SCREENWIDTH * 0.16),paint);
+            canvas.drawText(monster.atk + "", (int) (Const.SCREENHEIGHT * 0.23), (int) (Const.SCREENWIDTH * 0.16), paint);
+            canvas.drawText(monster.def + "", (int) (Const.SCREENHEIGHT * 0.50), (int) (Const.SCREENWIDTH * 0.16), paint);
             String buf = monster.getIntroduce();
             int length = buf.length();
-            int j=0;
+            int j = 0;
             String buf2;
             paint.setTextSize((float) (Const.CELL_HEIGHT / 3.5));
-            for(int i=0;i<length/28+1;i++){
-                if(length<=j+28) {
+            for (int i = 0; i < length / 28 + 1; i++) {
+                if (length <= j + 28) {
                     buf2 = buf.substring(j, length);
-                    canvas.drawText(buf2, (int) (Const.SCREENWIDTH * 0.1), (int) (Const.SCREENWIDTH * 0.335 +i*Const.CELL_WIDTH/4.5), paint);
-                }
-                else {
-                    buf2 = buf.substring(j,j+28);
-                    canvas.drawText(buf2, (int) (Const.SCREENWIDTH * 0.1), (int) (Const.SCREENWIDTH * 0.335 +i*Const.CELL_WIDTH/4.5), paint);
-                    j = j+28;
+                    canvas.drawText(buf2, (int) (Const.SCREENWIDTH * 0.1), (int) (Const.SCREENWIDTH * 0.335 + i * Const.CELL_WIDTH / 4.5), paint);
+                } else {
+                    buf2 = buf.substring(j, j + 28);
+                    canvas.drawText(buf2, (int) (Const.SCREENWIDTH * 0.1), (int) (Const.SCREENWIDTH * 0.335 + i * Const.CELL_WIDTH / 4.5), paint);
+                    j = j + 28;
                 }
             }
             ArrayList<Buff> buffs = monster.unkeepBuffs;
-            for(int i=0;i<buffs.size();i++){
-                canvas.drawBitmap(buffs.get(i).bitmap,(int)(Const.SCREENHEIGHT*0.05),(int)(Const.SCREENWIDTH*0.49+i*Const.CELL_WIDTH),null);
-                canvas.drawText(buffs.get(i).introduce,(int)(Const.SCREENHEIGHT*0.13),(int)(Const.SCREENWIDTH*0.53),paint);
+            for (int i = 0; i < buffs.size(); i++) {
+                canvas.drawBitmap(buffs.get(i).bitmap, (int) (Const.SCREENHEIGHT * 0.05), (int) (Const.SCREENWIDTH * 0.49 + i * Const.CELL_WIDTH), null);
+                canvas.drawText(buffs.get(i).introduce, (int) (Const.SCREENHEIGHT * 0.13), (int) (Const.SCREENWIDTH * 0.53), paint);
             }
 
         } else if (object instanceof Skill) {
             paint.setTextSize((float) (Const.CELL_HEIGHT * 0.4));
             Skill skill = (Skill) object;
-            canvas.drawBitmap(battleManager.getSkill_shuxing_bg(),0,0,null);
+            canvas.drawBitmap(battleManager.getSkill_shuxing_bg(), 0, 0, null);
             canvas.drawText(skill.name, (int) (Const.SCREENWIDTH * 0.45), (int) (Const.SCREENWIDTH * 0.15), paint);
             int length = skill.introduce.length();
-            if(length<=15) {
+            if (length <= 15) {
                 canvas.drawText(skill.introduce, (int) (Const.SCREENWIDTH * 0.19), (int) (Const.SCREENWIDTH * 0.4), paint);
-            }else {
-                String buf = skill.introduce.substring(0,15);
+            } else {
+                String buf = skill.introduce.substring(0, 15);
                 canvas.drawText(buf, (int) (Const.SCREENWIDTH * 0.32), (int) (Const.SCREENWIDTH * 0.52), paint);
                 buf = skill.introduce.substring(15);
                 canvas.drawText(buf, (int) (Const.SCREENWIDTH * 0.32), (int) (Const.SCREENWIDTH * 0.58), paint);
             }
-            canvas.drawBitmap(skill.bitmap,(int) (Const.SCREENWIDTH * 0.1), (int) (Const.SCREENWIDTH * 0.51),null);
+            canvas.drawBitmap(skill.bitmap, (int) (Const.SCREENWIDTH * 0.1), (int) (Const.SCREENWIDTH * 0.51), null);
         }
     }
 
@@ -202,11 +215,10 @@ public class DrawGame extends DrawBackground {
                 }   //绘制怪物的 图片、攻击(左下)、生命(右下)、护甲(右上)
                 else if (cell.shop != null) {
                     paint.setColor(Color.WHITE);
-                    canvas.drawText("我是商店", (float) (Const.BASE_CELL_OFFX + Const.CELL_WIDTH * (x + 0.13)), Const.BASE_CELL_OFFY + Const.CELL_HEIGHT * (y + 1), paint);
-                }
-                else if(cell.trap != null){
+                    canvas.drawBitmap(this.shopcell, (float) (Const.BASE_CELL_OFFX + Const.CELL_WIDTH * (x + 0.03)), Const.BASE_CELL_OFFY + Const.CELL_HEIGHT * y, null);
+                } else if (cell.trap != null) {
                     paint.setColor((Color.YELLOW));
-                    canvas.drawText("我是陷阱", (float) (Const.BASE_CELL_OFFX + Const.CELL_WIDTH * (x + 0.13)), Const.BASE_CELL_OFFY + Const.CELL_HEIGHT * (y + 1), paint);
+                    canvas.drawBitmap(this.trap, (float) (Const.BASE_CELL_OFFX + Const.CELL_WIDTH * (x + 0.03)), Const.BASE_CELL_OFFY + Const.CELL_HEIGHT * y, null);
                 }
             }
             //如果是 不可以被探索的 黑色Cell
@@ -222,7 +234,7 @@ public class DrawGame extends DrawBackground {
             int x = cell.x;
             int y = cell.y;
             paint.setColor(Color.WHITE);
-            canvas.drawText("我是门", (float) (Const.BASE_CELL_OFFX + Const.CELL_WIDTH * (x + 0.13)), Const.BASE_CELL_OFFY + Const.CELL_HEIGHT * (y + 1), paint);
+            canvas.drawBitmap(this.door, (float) (Const.BASE_CELL_OFFX + Const.CELL_WIDTH * (x + 0.03)), Const.BASE_CELL_OFFY + Const.CELL_HEIGHT * y, null);
         }
     }
 }

@@ -80,7 +80,7 @@ public class Player extends Unit {
         this.skillswitch = false;               //默认选择为道具
         this.bagswitch = false;                 //默认背包为未打开
 
-        this.exp = 10;                          //DEBUG 期间，将exp属性设置为10;
+        this.exp = 160;                          //DEBUG 期间，将exp属性设置为10;
 
         if (hero.weapon != null)
             this.weapon = new Equipment(hero.weapon);
@@ -319,6 +319,9 @@ public class Player extends Unit {
 
     public void upLevel() {
         this.upLevelFilter.uplevel(this);
+        this.mp = this.maxMp;
+        this.hp = this.maxHp;
+        this.def = this.armor;
     }
 
 }
