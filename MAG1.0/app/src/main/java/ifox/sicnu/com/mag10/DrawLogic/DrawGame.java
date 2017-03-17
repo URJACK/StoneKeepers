@@ -9,10 +9,13 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import ifox.sicnu.com.mag10.Data.Const;
 import ifox.sicnu.com.mag10.DataStructure.BattleManager;
+import ifox.sicnu.com.mag10.DataStructure.Buff.Buff;
+import ifox.sicnu.com.mag10.DataStructure.Buff.KeepBuff;
 import ifox.sicnu.com.mag10.DataStructure.Cell;
 import ifox.sicnu.com.mag10.DataStructure.Equipment;
 import ifox.sicnu.com.mag10.DataStructure.Monster;
@@ -78,8 +81,30 @@ public class DrawGame extends DrawBackground {
             canvas.drawText(monster.hp + "", (int) (Const.SCREENHEIGHT * 0.372), (int) (Const.SCREENWIDTH * 0.16), paint);
             canvas.drawText(monster.atk+"",(int) (Const.SCREENHEIGHT * 0.23), (int) (Const.SCREENWIDTH * 0.16),paint);
             canvas.drawText(monster.def+"",(int) (Const.SCREENHEIGHT * 0.50), (int) (Const.SCREENWIDTH * 0.16),paint);
-            canvas.drawText(monster.getIntroduce(), (int) (Const.SCREENWIDTH * 0.2), (int) (Const.SCREENWIDTH * 0.39), paint);
+            String buf = monster.getIntroduce();
+            int length = buf.length();
+            int j=0;
+            String buf2;
+            paint.setTextSize((float) (Const.CELL_HEIGHT / 3.5));
+            for(int i=0;i<length/28+1;i++){
+                if(length<=j+28) {
+                    buf2 = buf.substring(j, length);
+                    canvas.drawText(buf2, (int) (Const.SCREENWIDTH * 0.1), (int) (Const.SCREENWIDTH * 0.335 +i*Const.CELL_WIDTH/4.5), paint);
+                }
+                else {
+                    buf2 = buf.substring(j,j+28);
+                    canvas.drawText(buf2, (int) (Const.SCREENWIDTH * 0.1), (int) (Const.SCREENWIDTH * 0.335 +i*Const.CELL_WIDTH/4.5), paint);
+                    j = j+28;
+                }
+            }
+            ArrayList<Buff> buffs = monster.unkeepBuffs;
+            for(int i=0;i<buffs.size();i++){
+                canvas.drawBitmap(buffs.get(i).bitmap,(int)(Const.SCREENHEIGHT*0.05),(int)(Const.SCREENWIDTH*0.49+i*Const.CELL_WIDTH),null);
+                canvas.drawText(buffs.get(i).introduce,(int)(Const.SCREENHEIGHT*0.13),(int)(Const.SCREENWIDTH*0.53),paint);
+            }
+
         } else if (object instanceof Skill) {
+            paint.setTextSize((float) (Const.CELL_HEIGHT * 0.4));
             Skill skill = (Skill) object;
             canvas.drawBitmap(battleManager.getSkill_shuxing_bg(),0,0,null);
             canvas.drawText(skill.name, (int) (Const.SCREENWIDTH * 0.45), (int) (Const.SCREENWIDTH * 0.15), paint);

@@ -1,12 +1,16 @@
 package ifox.sicnu.com.mag10.DataStructure.Buff;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
+import ifox.sicnu.com.mag10.Data.Const;
 import ifox.sicnu.com.mag10.Data.Monster.MonsterFactory;
 import ifox.sicnu.com.mag10.DataStructure.BattleManager;
 import ifox.sicnu.com.mag10.DataStructure.Cell;
 import ifox.sicnu.com.mag10.DataStructure.Monster;
 import ifox.sicnu.com.mag10.DataStructure.Unit;
+import ifox.sicnu.com.mag10.R;
 
 /**
  * Created by Funchou Fu on 2017/3/16.
@@ -40,6 +44,8 @@ public class BuffFactory {
             keepBuff.name = "攻击强化";
             keepBuff.introduce = "自身获得五点攻击力的加成，总共会持续三回合";
             keepBuff.id = "atkIncrease";
+            keepBuff.bitmap = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.buf_addpower);
+            keepBuff.bitmap = Bitmap.createScaledBitmap(keepBuff.bitmap,(int)(Const.SCREENHEIGHT*0.1),(int)(Const.SCREENHEIGHT*0.1),true);
             return keepBuff;
         }
         return null;
@@ -71,6 +77,9 @@ public class BuffFactory {
             roundEndBuff.id = "poison";
             roundEndBuff.name = "中毒";
             roundEndBuff.introduce = "每回合减少自己 5%的最大生命值后，还会额外受到5点伤害";
+            roundEndBuff.bitmap = BitmapFactory.decodeResource(Const.mContext_Game.getResources(),R.drawable.buf_poison);
+            roundEndBuff.bitmap = Bitmap.createScaledBitmap(roundEndBuff.bitmap,(int)(Const.SCREENHEIGHT*0.1),(int)(Const.SCREENHEIGHT*0.1),true);
+
             return roundEndBuff;
         }
         if (name.equals("summon")) {
