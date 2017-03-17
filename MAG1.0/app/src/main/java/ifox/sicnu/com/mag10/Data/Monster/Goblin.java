@@ -16,11 +16,11 @@ public class Goblin extends Monster {
     private static Bitmap bitmap;
 
     public Goblin(Context context, int level) {
-        this.atk = (int) (4 + (2 + Math.random() * 2 * level));
+        this.atk = (int) (1 + Math.random() * 1 * level);
         this.hitrate = (float) 0.9;
         this.armor = (int) (4 + Math.random() * 2 * level);
         this.def = this.armor;
-        this.setMaxhp((int) (10 + Math.random() * 3 * level));
+        this.setMaxhp((int) (30 + Math.random() * 3 * level));
         this.exp = 8 + 2 * level;
         this.money = 2;
         this.setMonsterType(Monster.NORMAL);

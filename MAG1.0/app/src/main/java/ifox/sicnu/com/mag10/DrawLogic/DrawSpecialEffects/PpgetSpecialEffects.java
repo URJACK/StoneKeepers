@@ -3,9 +3,11 @@ package ifox.sicnu.com.mag10.DrawLogic.DrawSpecialEffects;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.media.SoundPool;
 import android.util.Log;
 
 import ifox.sicnu.com.mag10.Data.Const;
+import ifox.sicnu.com.mag10.R;
 
 /**
  * Created by 41988 on 2017/3/13.
@@ -19,6 +21,8 @@ public class PpgetSpecialEffects extends SpecialEffects {
     int per_y;
     Paint paint;
 
+    int music_id;
+
     public PpgetSpecialEffects(int x, int y) {
         super(x, y);
         paint = new Paint();
@@ -28,6 +32,15 @@ public class PpgetSpecialEffects extends SpecialEffects {
         per_x = (int) ((Const.SCREENHEIGHT * 0.63 - x) / end_time);
         per_y = (int) ((Const.SCREENWIDTH * 0.93 - y) / end_time);
         offset = new int[3];
+
+        music_id = Const.soundPool_Game.load(Const.mContext_Game, R.raw.gameview_music2, 1);
+        Const.soundPool_Game.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+            @Override
+            public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                Const.soundPool_Game.play(music_id, 1, 1, 1, 0, 1);
+            }
+        });
+
     }
 
     @Override

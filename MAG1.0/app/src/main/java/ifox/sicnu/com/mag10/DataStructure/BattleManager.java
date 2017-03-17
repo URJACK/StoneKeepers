@@ -42,7 +42,6 @@ public class BattleManager {
     public ShopManager shopManager;
     public Object showObject;
     public int doornumber;
-    public SpecialEffects effects;              //当前正要被展示的特效对象
     public ArrayList<SpecialEffects> effectses; //保存effects 队列。
     public int xx, yy;
     public int floor;                           //保存下当前的层数
@@ -54,7 +53,7 @@ public class BattleManager {
         cells = new LinkedList<>();
         monsters = new LinkedList<>();
         player = ((APP) context.getApplicationContext()).getPlayer();
-        sp = ((APP) context.getApplicationContext()).getSp();
+
         effectses = new ArrayList<>();
     }
 
@@ -134,19 +133,13 @@ public class BattleManager {
             //探索
             if (cells.get(first_index).status == Cell.UNDISCORVERED) {
                 cells.get(first_index).status = Cell.DISCORVERED;
-                sp.load(mContext, R.raw.gameview_music2, 1);
-                sp.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
-                    @Override
-                    public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
-                        sp.play(1, 1, 1, 1, 0, 1);
-                    }
-                });
+
 
                 if (player.pp < player.maxPp) {
                     //增加pp
                     player.pp++;
-                    effects = new PpgetSpecialEffects(xx * Const.CELL_WIDTH + Const.BASE_CELL_OFFX, yy * Const.CELL_HEIGHT + Const.BASE_CELL_OFFY);
-                    effectses.add(effects);
+                    SpecialEffects effects = new PpgetSpecialEffects(xx * Const.CELL_WIDTH + Const.BASE_CELL_OFFX, yy * Const.CELL_HEIGHT + Const.BASE_CELL_OFFY);
+                    putEffects(effects);
                 }
                 if (cell.trap != null) {
                     //出发陷阱
@@ -470,6 +463,10 @@ public class BattleManager {
         bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.gameview_skill_shuxing_bg);
         bitmap = Bitmap.createScaledBitmap(bitmap, (int) (Const.SCREENHEIGHT * 0.6), Const.SCREENWIDTH, true);
         return bitmap;
+    }
+
+    public void putEffects(SpecialEffects specialEffect) {
+        this.effectses.add(specialEffect);
     }
 
 }
