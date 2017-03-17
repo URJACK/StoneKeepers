@@ -21,6 +21,8 @@ public class MonsterFactory {
             return new RuneSorcerer(Const.mContext_Game, level);
         else if (name.equals("DarkRitual"))
             return new DarkRitual(Const.mContext_Game, level);
+        else if (name.equals("SpikedKnight"))
+            return new SpikedKnight(Const.mContext_Game, level);
         else
             return null;
     }

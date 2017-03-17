@@ -297,8 +297,7 @@ public class BattleManager {
                 return MonsterFactory.createMonster("Saboteur", level);
         } else if (level < 10) {
             return MonsterFactory.createMonster("Spider", level);
-        }
-        else
+        } else
             return null;
     }
 

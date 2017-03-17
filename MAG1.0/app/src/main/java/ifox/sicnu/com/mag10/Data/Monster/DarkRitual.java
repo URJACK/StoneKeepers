@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import ifox.sicnu.com.mag10.Data.Const;
+import ifox.sicnu.com.mag10.DataStructure.Buff.BuffFactory;
 import ifox.sicnu.com.mag10.DataStructure.Monster;
 import ifox.sicnu.com.mag10.R;
 
@@ -16,7 +17,7 @@ public class DarkRitual extends Monster {
     private static Bitmap bitmap;
 
     public DarkRitual(Context context, int level) {
-        this.atk = 8 + 3 * level;
+        this.atk = 1 + 1 * level;
         this.hitrate = (float) 0.95;
         this.crit = 0;
         this.armor = 4 + 3 * level;
@@ -36,6 +37,7 @@ public class DarkRitual extends Monster {
             bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.monster_heianjisi);
             bitmap = Bitmap.createScaledBitmap(bitmap, Const.CELL_WIDTH, Const.CELL_HEIGHT, true);
         }
+        wearBuff(BuffFactory.createNoKeepBuff("necronomicon"));
     }
 
     @Override

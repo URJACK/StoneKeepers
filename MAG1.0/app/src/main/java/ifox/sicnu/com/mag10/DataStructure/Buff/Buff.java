@@ -23,7 +23,7 @@ public abstract class Buff {
     public String introduce;
     public String id;                   //根据这个id 来通过factory 找到 对应的buff
 
-    public int time;                    //持续时间
+    public int time = 1;                    //持续时间
 
     public abstract void doWork(int x, int y, BattleManager bm);
 

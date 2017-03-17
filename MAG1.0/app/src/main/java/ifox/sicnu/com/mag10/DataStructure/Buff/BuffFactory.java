@@ -10,6 +10,7 @@ import ifox.sicnu.com.mag10.Data.Monster.MonsterFactory;
 import ifox.sicnu.com.mag10.DataStructure.BattleManager;
 import ifox.sicnu.com.mag10.DataStructure.Cell;
 import ifox.sicnu.com.mag10.DataStructure.Monster;
+import ifox.sicnu.com.mag10.DataStructure.Player;
 import ifox.sicnu.com.mag10.DataStructure.Unit;
 import ifox.sicnu.com.mag10.R;
 
@@ -55,7 +56,8 @@ public class BuffFactory {
     /**
      * 毒药状态 poison :玩家对怪物释放后叠加的状态，怪物会因此每回合减少自己(monster 5% maxHp + Player 50% intelligence)。
      * 出生召唤 summon :召唤一个怪物(默认哥布林)。
-     * 死灵书 necronomicon :自己死亡会让在场其他怪物的攻击力 + 1。
+     * 死灵书 necronomicon :自己死亡会让在场其他怪物的攻击力 + floor /2 。
+     * 荆棘护甲 thornarmor :反弹给对手等同于自己护甲值的伤害。
      */
     public static Buff createNoKeepBuff(String name) {
         if (name.equals("poison")) {
@@ -67,8 +69,29 @@ public class BuffFactory {
         } else if (name.equals("necronomicon")) {
             MonsterDieBuff monsterDieBuff = createNecronomicon();
             return monsterDieBuff;
+        } else if (name.equals("thornarmor")) {
+            SufferDamageBuff sufferDamageBuff = createThornarmor();
+            return sufferDamageBuff;
         }
         return null;
+    }
+
+    private static SufferDamageBuff createThornarmor() {
+        SufferDamageBuff sufferDamageBuff = new SufferDamageBuff() {
+            @Override
+            public void doWork(int x, int y, BattleManager bm) {
+                if (x != -1 || y != -1) {
+                    bm.player.sufferDamage(bm.cells.get(x + y * 8).monster.def, false);
+                }           //如果判定该对象不是player，而是怪物，那么将对player造成等同于怪物伤害
+            }
+        };
+        sufferDamageBuff.id = "thornarmor";
+        sufferDamageBuff.name = "荆棘护甲";
+        sufferDamageBuff.introduce = "受到普通攻击,反弹给对手等同于自己剩余护甲值的伤害，该数值是自己受伤之后的数值";
+        sufferDamageBuff.bitmap = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.buf_thornarmor);
+        sufferDamageBuff.bitmap = Bitmap.createScaledBitmap(sufferDamageBuff.bitmap, (int) (Const.SCREENHEIGHT * 0.06), (int) (Const.SCREENHEIGHT * 0.06), true);
+
+        return sufferDamageBuff;
     }
 
     private static MonsterDieBuff createNecronomicon() {
@@ -79,11 +102,16 @@ public class BuffFactory {
                 for (int i = 0; i < bm.cells.size(); i++) {
                     if (bm.cells.get(i).status == Cell.DISCORVERED && bm.cells.get(i).monster != null) {
                         Monster m = bm.cells.get(i).monster;
-                        m.atk += 1;
+                        m.atk += Const.bm.floor / 2 + 1;
                     }
                 }
             }
         };
+        monsterDieBuff.id = "necronomicon";
+        monsterDieBuff.name = "死灵书";
+        monsterDieBuff.introduce = "该怪物死亡后，会给周围的怪物增加攻击力";
+        monsterDieBuff.bitmap = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.buf_necronomicon);
+        monsterDieBuff.bitmap = Bitmap.createScaledBitmap(monsterDieBuff.bitmap, (int) (Const.SCREENHEIGHT * 0.06), (int) (Const.SCREENHEIGHT * 0.06), true);
         return monsterDieBuff;
     }
 
@@ -92,7 +120,6 @@ public class BuffFactory {
             @Override
             public void doWork(int x, int y, BattleManager bm) {
                 this.time -= 1;
-                Log.i(TAG, "doWork: Summon");
                 if (x == -1 || y == -1) {
                     return;
                 } else {
@@ -151,7 +178,7 @@ public class BuffFactory {
         roundEndBuff.name = "中毒";
         roundEndBuff.introduce = "每回合减少自己 5%的最大生命值后，还会额外受到5点伤害";
         roundEndBuff.bitmap = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.buf_poison);
-        roundEndBuff.bitmap = Bitmap.createScaledBitmap(roundEndBuff.bitmap, (int) (Const.SCREENHEIGHT * 0.1), (int) (Const.SCREENHEIGHT * 0.1), true);
+        roundEndBuff.bitmap = Bitmap.createScaledBitmap(roundEndBuff.bitmap, (int) (Const.SCREENHEIGHT * 0.06), (int) (Const.SCREENHEIGHT * 0.06), true);
         return roundEndBuff;
     }
 
