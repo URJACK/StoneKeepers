@@ -3,6 +3,7 @@ package ifox.sicnu.com.mag10.DataStructure;
 import android.graphics.Bitmap;
 
 import ifox.sicnu.com.mag10.DataStructure.Skill.Skill;
+import ifox.sicnu.com.mag10.Tool.UpLevelFilter;
 
 /**
  * Created by Funchou Fu on 2017/2/24.
@@ -27,6 +28,7 @@ public class Hero extends Unit{
     public Equipment belt;
     public Equipment shoe;
 
+    public UpLevelFilter upLevelFilter;
     //这里英雄的属性，均为穿戴装备后的最终属性
 
     public Skill[] skills = new Skill[3];

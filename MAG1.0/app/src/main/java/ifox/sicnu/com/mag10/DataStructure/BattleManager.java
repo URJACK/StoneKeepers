@@ -204,7 +204,10 @@ public class BattleManager {
             Monster m = monsters.get(i);
             if (m.hp <= 0) {
                 unregistMonster(m);
-                player.addExp(m.exp);
+                if(player.addExp(m.exp)) {
+                    Toast.makeText(Const.mContext_Game,"升级，属性获得了增强",Toast.LENGTH_SHORT).show();
+                    player.upLevel();
+                }
                 for (int j = 0; j < cells.size(); j++) {
                     if (m == cells.get(j).monster) {
                         cells.get(j).monster = null;

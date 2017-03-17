@@ -8,10 +8,12 @@ import ifox.sicnu.com.mag10.Data.Equipments;
 import ifox.sicnu.com.mag10.Data.Pictures;
 import ifox.sicnu.com.mag10.DataStructure.Buff.BuffFactory;
 import ifox.sicnu.com.mag10.DataStructure.Hero;
+import ifox.sicnu.com.mag10.DataStructure.Player;
 import ifox.sicnu.com.mag10.DataStructure.Skill.NoTargetSkill;
 import ifox.sicnu.com.mag10.DataStructure.Skill.SingleTargetSkill;
 import ifox.sicnu.com.mag10.DataStructure.Skill.Skill;
 import ifox.sicnu.com.mag10.R;
+import ifox.sicnu.com.mag10.Tool.UpLevelFilter;
 
 /**
  * Created by Funchou Fu on 2017/3/5.
@@ -38,6 +40,18 @@ public class Wizard extends Hero {
         this.face = pictures.getBitmap("hero_1");
         this.heroName = "斯威法";
         this.introduction = "来自奥兹威尔山谷的强大奥术法师";
+
+        this.upLevelFilter = new UpLevelFilter() {
+            @Override
+            public void uplevel(Player player) {
+                player.r_power += 3;
+                player.r_agile += 1;
+                player.r_intelligence += 1;
+                player.maxMp += 9;
+                player.atk += 1;
+                player.armor += 2;
+            }
+        };
 
         Skill arcmissle = new SingleTargetSkill(this, Skill.MAXMP, (float) 0.2, Skill.MP, 5, BuffFactory.createNoKeepBuff("poison"));
         arcmissle.name = "奥术飞弹";

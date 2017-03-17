@@ -7,6 +7,7 @@ import ifox.sicnu.com.mag10.Data.Const;
 import ifox.sicnu.com.mag10.Data.Equipments;
 import ifox.sicnu.com.mag10.Data.HeroBuff;
 import ifox.sicnu.com.mag10.DataStructure.Skill.Skill;
+import ifox.sicnu.com.mag10.Tool.UpLevelFilter;
 
 /**
  * Created by Funchou Fu on 2017/2/24.
@@ -39,6 +40,8 @@ public class Player extends Unit {
     public Equipment belt;
     public Equipment shoe;
 
+    private UpLevelFilter upLevelFilter;
+
     public Skill[] skills = new Skill[3];                  //玩家拥有的技能
 
     public Skill[] tools = new Skill[3];
@@ -64,6 +67,8 @@ public class Player extends Unit {
         this.maxMp = hero.maxMp + heroBuff.mp;
         this.maxPp = hero.maxPp + heroBuff.pp;
 
+        this.upLevelFilter = hero.upLevelFilter;
+
         this.def = this.armor;                  //将实际的护甲值等于为自己的防御值
         this.hp = this.maxHp;
         this.mp = this.maxMp;
@@ -75,7 +80,7 @@ public class Player extends Unit {
         this.skillswitch = false;               //默认选择为道具
         this.bagswitch = false;                 //默认背包为未打开
 
-        this.exp = 10;                          //DEBUG 期间，将exp属性设置为10;
+        this.exp = 160;                          //DEBUG 期间，将exp属性设置为10;
 
         if (hero.weapon != null)
             this.weapon = new Equipment(hero.weapon);
@@ -298,7 +303,7 @@ public class Player extends Unit {
     public boolean addExp(int exp) {
         this.exp += exp;
         if (this.exp > Const.Exp.levels[this.level]) {
-            this.exp-=Const.Exp.levels[this.level];
+            this.exp -= Const.Exp.levels[this.level];
             this.level += 1;
             return true;
         } else
@@ -310,6 +315,13 @@ public class Player extends Unit {
      */
     public int getNeedExp() {
         return Const.Exp.levels[this.level];
+    }
+
+    public void upLevel() {
+        this.upLevelFilter.uplevel(this);
+        this.mp = this.maxMp;
+        this.hp = this.maxHp;
+        this.def = this.armor;
     }
 
 }

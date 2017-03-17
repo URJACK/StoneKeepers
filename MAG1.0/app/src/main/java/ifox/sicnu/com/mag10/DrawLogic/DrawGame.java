@@ -1,6 +1,7 @@
 package ifox.sicnu.com.mag10.DrawLogic;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -24,21 +25,35 @@ import ifox.sicnu.com.mag10.DataStructure.Shop;
 import ifox.sicnu.com.mag10.DataStructure.Skill.Skill;
 import ifox.sicnu.com.mag10.DrawLogic.DrawSpecialEffects.PpgetSpecialEffects;
 import ifox.sicnu.com.mag10.DrawLogic.DrawSpecialEffects.SpecialEffects;
+import ifox.sicnu.com.mag10.R;
 import ifox.sicnu.com.mag10.TouchLogic.BagTouch;
 
 /**
  * Created by Funchou Fu on 2017/3/8.
  */
+
 public class DrawGame extends DrawBackground {
     BattleManager battleManager;
     Paint paint;
     Bitmap undiscovered;//怪物周围的红叉叉
+    Bitmap shopcell;        //地图上的商店图标
+    Bitmap door;            //地图上的门
+    Bitmap trap;            //地图上的陷阱
     Rect rect;
 
     public DrawGame(Player player, int baseX, int baseY, int width, int height, Bitmap background, Bitmap bagground, Bitmap undiscovered, BagTouch bagTouch, BattleManager battleManager) {
         super(player, baseX, baseY, width, height, background, bagground, bagTouch);
         this.battleManager = battleManager;
         this.undiscovered = undiscovered;
+        this.door = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.gameview_door);
+        this.door = Bitmap.createScaledBitmap(this.door, Const.CELL_WIDTH, Const.CELL_HEIGHT, true);
+
+        this.shopcell = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.gameview_shopcell);
+        this.shopcell = Bitmap.createScaledBitmap(this.shopcell, Const.CELL_WIDTH, Const.CELL_HEIGHT, true);
+
+        this.trap = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.trap_stone);
+        this.trap = Bitmap.createScaledBitmap(this.trap, Const.CELL_WIDTH, Const.CELL_HEIGHT, true);
+
         paint = new Paint();
         paint.setColor(Color.BLACK);
         paint.setTypeface(Typeface.DEFAULT_BOLD);
@@ -203,10 +218,10 @@ public class DrawGame extends DrawBackground {
                 }   //绘制怪物的 图片、攻击(左下)、生命(右下)、护甲(右上)
                 else if (cell.shop != null) {
                     paint.setColor(Color.WHITE);
-                    canvas.drawText("我是商店", (float) (Const.BASE_CELL_OFFX + Const.CELL_WIDTH * (x + 0.13)), Const.BASE_CELL_OFFY + Const.CELL_HEIGHT * (y + 1), paint);
+                    canvas.drawBitmap(this.shopcell, (float) (Const.BASE_CELL_OFFX + Const.CELL_WIDTH * (x + 0.03)), Const.BASE_CELL_OFFY + Const.CELL_HEIGHT * y, null);
                 } else if (cell.trap != null) {
                     paint.setColor((Color.YELLOW));
-                    canvas.drawText("我是陷阱", (float) (Const.BASE_CELL_OFFX + Const.CELL_WIDTH * (x + 0.13)), Const.BASE_CELL_OFFY + Const.CELL_HEIGHT * (y + 1), paint);
+                    canvas.drawBitmap(this.trap, (float) (Const.BASE_CELL_OFFX + Const.CELL_WIDTH * (x + 0.03)), Const.BASE_CELL_OFFY + Const.CELL_HEIGHT * y, null);
                 }
             }
             //如果是 不可以被探索的 黑色Cell
@@ -222,7 +237,7 @@ public class DrawGame extends DrawBackground {
             int x = cell.x;
             int y = cell.y;
             paint.setColor(Color.WHITE);
-            canvas.drawText("我是门", (float) (Const.BASE_CELL_OFFX + Const.CELL_WIDTH * (x + 0.13)), Const.BASE_CELL_OFFY + Const.CELL_HEIGHT * (y + 1), paint);
+            canvas.drawBitmap(this.door, (float) (Const.BASE_CELL_OFFX + Const.CELL_WIDTH * (x + 0.03)), Const.BASE_CELL_OFFY + Const.CELL_HEIGHT * y, null);
         }
     }
 }
