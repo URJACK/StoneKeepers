@@ -23,6 +23,7 @@ public class GameActivity extends Activity {
         super.onCreate(savedInstanceState);
         Const.mContext_Game = this;
 
+        ((APP) getApplicationContext()).getPlayer().def = ((APP) getApplicationContext()).getPlayer().armor;
         ((APP) getApplicationContext()).gameActivity = this;
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);

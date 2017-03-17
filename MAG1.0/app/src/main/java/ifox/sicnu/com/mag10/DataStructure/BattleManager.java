@@ -214,8 +214,8 @@ public class BattleManager {
                 player.addExp(m.exp);
                 for (int j = 0; j < cells.size(); j++) {
                     if (m == cells.get(j).monster) {
-                        buffWork(j % 8, j / 8, m, false);
                         cells.get(j).monster = null;
+                        buffWork(j % 8, j / 8, m, false);
                         Change_Cell(j, Cell.UNDISCORVERED, Cell.UNDISCORVERED2);
                         Change_Cell(j, Cell.UNDISCORVERED, Cell.FORBID);
                         break;
@@ -286,28 +286,29 @@ public class BattleManager {
 
     private Monster getMonsterByLevel(int level) {
         double num = Math.random();
-        switch (level) {
-            case 1:
-                if (num < 0.3)
-                    return MonsterFactory.createMonster("Goblin", level);
-                else if (num >= 0.3 && num < 0.6)
-                    return MonsterFactory.createMonster("Saboteur", level);
-                else
-                    return MonsterFactory.createMonster("Assassin", level);
-            case 4:
-                if (num < 0.35)
-                    return MonsterFactory.createMonster("Goblin", level);
-                else if (num >= 0.35 && num < 0.55)
-                    return MonsterFactory.createMonster("Spider", level);
-                else if (num >= 0.55 && num < 0.75)
-                    return MonsterFactory.createMonster("Assassin", level);
-                else
-                    return MonsterFactory.createMonster("Saboteur", level);
-            case 7:
+        if (level < 4) {
+            if (num < 0.3)
+                return MonsterFactory.createMonster("Goblin", level);
+            else if (num >= 0.3 && num < 0.6)
+                return MonsterFactory.createMonster("Saboteur", level);
+            else
+                return MonsterFactory.createMonster("Assassin", level);
+        } else if (level < 7) {
+            if (num < 0.35)
+                return MonsterFactory.createMonster("Goblin", level);
+            else if (num >= 0.35 && num < 0.55)
                 return MonsterFactory.createMonster("Spider", level);
+            else if (num >= 0.55 && num < 0.75)
+                return MonsterFactory.createMonster("Assassin", level);
+            else
+                return MonsterFactory.createMonster("Saboteur", level);
+        } else if (level < 10) {
+            return MonsterFactory.createMonster("Spider", level);
         }
-        return null;
+        else
+            return null;
     }
+
 
     public void changeFunction(int i) {
         if (player.skillswitch && player.skills[i] == null) {

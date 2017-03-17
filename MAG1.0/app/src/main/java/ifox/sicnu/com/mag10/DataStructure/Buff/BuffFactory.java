@@ -3,6 +3,7 @@ package ifox.sicnu.com.mag10.DataStructure.Buff;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
+import android.widget.Toast;
 
 import ifox.sicnu.com.mag10.Data.Const;
 import ifox.sicnu.com.mag10.Data.Monster.MonsterFactory;
@@ -45,85 +46,113 @@ public class BuffFactory {
             keepBuff.introduce = "自身获得五点攻击力的加成，总共会持续三回合";
             keepBuff.id = "atkIncrease";
             keepBuff.bitmap = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.buf_addpower);
-            keepBuff.bitmap = Bitmap.createScaledBitmap(keepBuff.bitmap,(int)(Const.SCREENHEIGHT*0.1),(int)(Const.SCREENHEIGHT*0.1),true);
+            keepBuff.bitmap = Bitmap.createScaledBitmap(keepBuff.bitmap, (int) (Const.SCREENHEIGHT * 0.1), (int) (Const.SCREENHEIGHT * 0.1), true);
             return keepBuff;
         }
         return null;
     }
 
     /**
-     * 毒药状态 poison :玩家对怪物释放后叠加的状态，怪物会因此每回合减少自己(monster 5% maxHp + Player 50% intelligence)
+     * 毒药状态 poison :玩家对怪物释放后叠加的状态，怪物会因此每回合减少自己(monster 5% maxHp + Player 50% intelligence)。
      * 出生召唤 summon :召唤一个怪物(默认哥布林)。
+     * 死灵书 necronomicon :自己死亡会让在场其他怪物的攻击力 + 1。
      */
-    public static RoundEndBuff createRoundEndBuff(String name) {
+    public static Buff createNoKeepBuff(String name) {
         if (name.equals("poison")) {
-            RoundEndBuff roundEndBuff = new RoundEndBuff() {
-                @Override
-                public void doWork(int x, int y, BattleManager bm) {
-                    this.time -= 1;
-                    if (x == -1 || y == -1) {
-                        bm.player.hp -= bm.player.maxHp * 0.05 + 5;
-                    } else {
-                        Cell c = bm.cells.get(x + y * 8);
-                        if (c.monster != null) {
-                            c.monster.hp -= c.monster.maxHp * 0.05 + 5;
-                        } else {
-                            Log.i(TAG, "doWork: Monster Is Null!");
-                        }
-                    }
-                }
-            };
-            roundEndBuff.time = 3;
-            roundEndBuff.id = "poison";
-            roundEndBuff.name = "中毒";
-            roundEndBuff.introduce = "每回合减少自己 5%的最大生命值后，还会额外受到5点伤害";
-            roundEndBuff.bitmap = BitmapFactory.decodeResource(Const.mContext_Game.getResources(),R.drawable.buf_poison);
-            roundEndBuff.bitmap = Bitmap.createScaledBitmap(roundEndBuff.bitmap,(int)(Const.SCREENHEIGHT*0.1),(int)(Const.SCREENHEIGHT*0.1),true);
-
+            RoundEndBuff roundEndBuff = createPoison();
             return roundEndBuff;
-        }
-        if (name.equals("summon")) {
-            RoundEndBuff roundEndBuff = new RoundEndBuff() {
-                @Override
-                public void doWork(int x, int y, BattleManager bm) {
-                    this.time -= 1;
-                    Log.i(TAG, "doWork: Summon");
-                    if (x == -1 || y == -1) {
-                        return;
-                    } else {
-                        Cell cell = bm.cells.get(x + 8 * y);
-                        if (BuffFactory.leftisOK(x + y * 8, bm)) {
-                            Monster m = MonsterFactory.createMonster("Goblin", bm.floor);
-                            bm.cells.get(x + 8 * y - 1).status = Cell.DISCORVERED;
-                            bm.cells.get(x + 8 * y - 1).monster = m;
-                            bm.registMonster(m);
-                        } else if (BuffFactory.topisOK(x + y * 8, bm)) {
-                            Monster m = MonsterFactory.createMonster("Goblin", bm.floor);
-                            bm.cells.get(x + 8 * y - 8).status = Cell.DISCORVERED;
-                            bm.cells.get(x + 8 * y - 8).monster = m;
-                            bm.registMonster(m);
-                        } else if (BuffFactory.rightisOK(x + y * 8, bm)) {
-                            Monster m = MonsterFactory.createMonster("Goblin", bm.floor);
-                            bm.cells.get(x + 8 * y + 1).status = Cell.DISCORVERED;
-                            bm.cells.get(x + 8 * y + 1).monster = m;
-                            bm.registMonster(m);
-                        } else if (BuffFactory.bottomisOK(x + y * 8, bm)) {
-                            Monster m = MonsterFactory.createMonster("Goblin", bm.floor);
-                            bm.cells.get(x + 8 * y + 8).status = Cell.DISCORVERED;
-                            bm.cells.get(x + 8 * y + 8).monster = m;
-                            bm.registMonster(m);
-                        }
-
-                    }
-                }
-            };
-            roundEndBuff.time = 1;
-            roundEndBuff.id = "summon";
-            roundEndBuff.name = "召唤";
-            roundEndBuff.introduce = "刚被探索的时候，召唤一个哥布林";
+        } else if (name.equals("summon")) {
+            RoundEndBuff roundEndBuff = createSummon();
             return roundEndBuff;
+        } else if (name.equals("necronomicon")) {
+            MonsterDieBuff monsterDieBuff = createNecronomicon();
+            return monsterDieBuff;
         }
         return null;
+    }
+
+    private static MonsterDieBuff createNecronomicon() {
+        MonsterDieBuff monsterDieBuff = new MonsterDieBuff() {
+            @Override
+            public void doWork(int x, int y, BattleManager bm) {
+                Toast.makeText(Const.mContext_Game, "怪物触发了死灵书", Toast.LENGTH_LONG).show();
+                for (int i = 0; i < bm.cells.size(); i++) {
+                    if (bm.cells.get(i).status == Cell.DISCORVERED && bm.cells.get(i).monster != null) {
+                        Monster m = bm.cells.get(i).monster;
+                        m.atk += 1;
+                    }
+                }
+            }
+        };
+        return monsterDieBuff;
+    }
+
+    private static RoundEndBuff createSummon() {
+        RoundEndBuff roundEndBuff = new RoundEndBuff() {
+            @Override
+            public void doWork(int x, int y, BattleManager bm) {
+                this.time -= 1;
+                Log.i(TAG, "doWork: Summon");
+                if (x == -1 || y == -1) {
+                    return;
+                } else {
+                    Cell cell = bm.cells.get(x + 8 * y);
+                    if (BuffFactory.leftisOK(x + y * 8, bm)) {
+                        Monster m = MonsterFactory.createMonster("Goblin", bm.floor);
+                        bm.cells.get(x + 8 * y - 1).status = Cell.DISCORVERED;
+                        bm.cells.get(x + 8 * y - 1).monster = m;
+                        bm.registMonster(m);
+                    } else if (BuffFactory.topisOK(x + y * 8, bm)) {
+                        Monster m = MonsterFactory.createMonster("Goblin", bm.floor);
+                        bm.cells.get(x + 8 * y - 8).status = Cell.DISCORVERED;
+                        bm.cells.get(x + 8 * y - 8).monster = m;
+                        bm.registMonster(m);
+                    } else if (BuffFactory.rightisOK(x + y * 8, bm)) {
+                        Monster m = MonsterFactory.createMonster("Goblin", bm.floor);
+                        bm.cells.get(x + 8 * y + 1).status = Cell.DISCORVERED;
+                        bm.cells.get(x + 8 * y + 1).monster = m;
+                        bm.registMonster(m);
+                    } else if (BuffFactory.bottomisOK(x + y * 8, bm)) {
+                        Monster m = MonsterFactory.createMonster("Goblin", bm.floor);
+                        bm.cells.get(x + 8 * y + 8).status = Cell.DISCORVERED;
+                        bm.cells.get(x + 8 * y + 8).monster = m;
+                        bm.registMonster(m);
+                    }
+
+                }
+            }
+        };
+        roundEndBuff.time = 1;
+        roundEndBuff.id = "summon";
+        roundEndBuff.name = "召唤";
+        roundEndBuff.introduce = "刚被探索的时候，召唤一个哥布林";
+        return roundEndBuff;
+    }
+
+    private static RoundEndBuff createPoison() {
+        RoundEndBuff roundEndBuff = new RoundEndBuff() {
+            @Override
+            public void doWork(int x, int y, BattleManager bm) {
+                this.time -= 1;
+                if (x == -1 || y == -1) {
+                    bm.player.hp -= bm.player.maxHp * 0.05 + 5;
+                } else {
+                    Cell c = bm.cells.get(x + y * 8);
+                    if (c.monster != null) {
+                        c.monster.hp -= c.monster.maxHp * 0.05 + 5;
+                    } else {
+                        Log.i(TAG, "doWork: Monster Is Null!");
+                    }
+                }
+            }
+        };
+        roundEndBuff.time = 3;
+        roundEndBuff.id = "poison";
+        roundEndBuff.name = "中毒";
+        roundEndBuff.introduce = "每回合减少自己 5%的最大生命值后，还会额外受到5点伤害";
+        roundEndBuff.bitmap = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.buf_poison);
+        roundEndBuff.bitmap = Bitmap.createScaledBitmap(roundEndBuff.bitmap, (int) (Const.SCREENHEIGHT * 0.1), (int) (Const.SCREENHEIGHT * 0.1), true);
+        return roundEndBuff;
     }
 
     public static boolean leftisOK(int index, BattleManager bm) {

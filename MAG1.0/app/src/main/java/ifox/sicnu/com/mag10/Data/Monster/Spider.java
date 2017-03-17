@@ -39,7 +39,7 @@ public class Spider extends Monster {
             bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.monster_dixiazhizhu);
             bitmap = Bitmap.createScaledBitmap(bitmap, Const.CELL_WIDTH, Const.CELL_HEIGHT, true);
         }
-        this.wearBuff(BuffFactory.createRoundEndBuff("summon"));                //给蜘蛛增加一个召唤技能
+        this.wearBuff(BuffFactory.createNoKeepBuff("summon"));                //给蜘蛛增加一个召唤技能
     }
 
     @Override
@@ -61,7 +61,7 @@ public class Spider extends Monster {
             if (Const.bm.cells.get(i).status == Cell.UNDISCORVERED && Const.bm.cells.get(i).monster == null) {
                 Const.bm.cells.get(myself).monster = null;
                 Const.bm.cells.get(i).monster = this;
-                this.wearBuff(BuffFactory.createRoundEndBuff("summon"));                //给蜘蛛增加一个召唤技能
+                this.wearBuff(BuffFactory.createNoKeepBuff("summon"));                //给蜘蛛增加一个召唤技能
                 break;
             }
         }           //遍历合适的阴影
