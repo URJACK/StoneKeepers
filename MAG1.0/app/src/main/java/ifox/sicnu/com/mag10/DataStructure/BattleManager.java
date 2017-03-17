@@ -190,7 +190,7 @@ public class BattleManager {
     private void TimeGoOn() {
         buffWork(true);                 //检测所有的Round_End Buff
         if (player.hp <= 0) {
-            Toast.makeText(mContext, "你死了", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "你收到了魔王的嘲讽", Toast.LENGTH_SHORT).show();
             ((GameActivity) mContext).gotoEndActivity(false);
         }
     }

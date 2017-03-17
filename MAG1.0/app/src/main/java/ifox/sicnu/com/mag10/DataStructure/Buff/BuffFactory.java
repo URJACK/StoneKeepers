@@ -151,7 +151,7 @@ public class BuffFactory {
         roundEndBuff.name = "中毒";
         roundEndBuff.introduce = "每回合减少自己 5%的最大生命值后，还会额外受到5点伤害";
         roundEndBuff.bitmap = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.buf_poison);
-        roundEndBuff.bitmap = Bitmap.createScaledBitmap(roundEndBuff.bitmap, (int) (Const.SCREENHEIGHT * 0.1), (int) (Const.SCREENHEIGHT * 0.1), true);
+        roundEndBuff.bitmap = Bitmap.createScaledBitmap(roundEndBuff.bitmap, (int) (Const.SCREENHEIGHT * 0.06), (int) (Const.SCREENHEIGHT * 0.06), true);
         return roundEndBuff;
     }
 
