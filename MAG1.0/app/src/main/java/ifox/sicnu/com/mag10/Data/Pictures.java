@@ -238,6 +238,8 @@ public class Pictures {
     }
 
     public void clear() {
+        if (this.pictures == null)
+            return;
         Collection e = this.pictures.entrySet();
         Iterator iterator = e.iterator();
         while (iterator.hasNext()) {

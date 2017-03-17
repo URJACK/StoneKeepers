@@ -135,7 +135,6 @@ public class GameTouch {
                 //点击的是游戏地图
                 if (flag) {
                     battleManager.battleWork(xx, yy, battleManager.function_switch);
-
                 }       //对地图左边的点击
                 else if (battleManager.function_switch != -1 && x < Const.SCREENHEIGHT * 0.87 && x > Const.SCREENHEIGHT * 0.62) {
                     battleManager.function_switch = -1;

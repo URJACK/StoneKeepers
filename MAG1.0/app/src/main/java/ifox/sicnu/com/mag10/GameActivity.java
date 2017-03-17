@@ -27,10 +27,11 @@ public class GameActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         floor = getIntent().getIntExtra("floor", 0);
-        if (floor==1){
+        if (floor == 1) {
             Const.soundPool_Game = new SoundPool(3, AudioManager.STREAM_MUSIC, 0);
         }
         gv = new GameView(this, floor);
+        Const.bm = gv.battleManager;
         setContentView(gv);
     }
 

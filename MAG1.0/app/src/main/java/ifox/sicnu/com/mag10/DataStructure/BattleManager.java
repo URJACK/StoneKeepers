@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.SoundPool;
-import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -82,7 +81,7 @@ public class BattleManager {
 
         for (int i = 0; i < integers.size() - 2 - trap_num; i++) {
             int n = (int) iterator.next();
-            Monster m = getMonsterLevel(index);
+            Monster m = getMonsterByLevel(index);
             monsters.add(m);
             cells.get(n).monster = m;
         }
@@ -155,24 +154,24 @@ public class BattleManager {
                 }
                 if (cells.get(first_index).monster != null) {
                     Change_Cell(first_index, Cell.UNDISCORVERED2, Cell.FORBID);
-                    return;
                 } else
                     Change_Cell(first_index, Cell.UNDISCORVERED, Cell.FORBID);
                 flag = true;
             } else {
                 //攻击怪物
                 if (cell.monster != null) {
-                    buffWork(cell.x, cell.y, cell.monster, true);               //在怪物受伤前，对受伤怪物的状态进行检测
+                    Monster monster = cell.monster;
+                    buffWork(cell.x, cell.y, monster, true);               //在怪物受伤前，对受伤怪物的状态进行检测
                     if (player.atm == null) {
-                        if (!player.normalAtk(cell.monster)) {
+                        if (!player.normalAtk(monster)) {
                             buffWork(-1, -1, player, true);
-                            cell.monster.normalAtk(player);                     //在人物受伤前，对人的状态进行检测
+                            monster.normalAtk(player);                     //在人物受伤前，对人的状态进行检测
                         }
                         //如果怪物没有死亡，怪物会对玩家再次造成一次攻击
                     } else {
-                        if (!player.specialAtk(cell.monster)) {
+                        if (!player.specialAtk(monster)) {
                             buffWork(-1, -1, player, true);
-                            cell.monster.normalAtk(player);                     //在人物受伤前，对人的状态进行检测
+                            monster.normalAtk(player);                     //在人物受伤前，对人的状态进行检测
                         }
                     }
                     flag = true;            //将时间流逝的flag设置为ture
@@ -211,7 +210,7 @@ public class BattleManager {
         for (int i = 0; i < monsters.size(); i++) {
             Monster m = monsters.get(i);
             if (m.hp <= 0) {
-                monsters.remove(m);
+                unregistMonster(m);
                 player.addExp(m.exp);
                 for (int j = 0; j < cells.size(); j++) {
                     if (m == cells.get(j).monster) {
@@ -285,27 +284,27 @@ public class BattleManager {
         }
     }
 
-    private Monster getMonsterLevel(int level) {
+    private Monster getMonsterByLevel(int level) {
         double num = Math.random();
         switch (level) {
             case 1:
                 if (num < 0.3)
-                    return MonsterFactory.createMonster("Goblin", 1);
+                    return MonsterFactory.createMonster("Goblin", level);
                 else if (num >= 0.3 && num < 0.6)
-                    return MonsterFactory.createMonster("Saboteur", 1);
+                    return MonsterFactory.createMonster("Saboteur", level);
                 else
-                    return MonsterFactory.createMonster("Assassin", 1);
-            case 2:
+                    return MonsterFactory.createMonster("Assassin", level);
+            case 4:
                 if (num < 0.35)
-                    return MonsterFactory.createMonster("Goblin", 2);
+                    return MonsterFactory.createMonster("Goblin", level);
                 else if (num >= 0.35 && num < 0.55)
-                    return MonsterFactory.createMonster("Spider", 2);
+                    return MonsterFactory.createMonster("Spider", level);
                 else if (num >= 0.55 && num < 0.75)
-                    return MonsterFactory.createMonster("Assassin", 2);
+                    return MonsterFactory.createMonster("Assassin", level);
                 else
-                    return MonsterFactory.createMonster("Saboteur", 2);
-            case 3:
-                return MonsterFactory.createMonster("Spider", 3);
+                    return MonsterFactory.createMonster("Saboteur", level);
+            case 7:
+                return MonsterFactory.createMonster("Spider", level);
         }
         return null;
     }
@@ -345,6 +344,10 @@ public class BattleManager {
 
     public void registMonster(Monster monster) {
         monsters.add(monster);
+    }
+
+    public void unregistMonster(Monster monster) {
+        monsters.remove(monster);
     }
 
     /**

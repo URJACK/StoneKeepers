@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 
 import ifox.sicnu.com.mag10.Data.Const;
 import ifox.sicnu.com.mag10.DataStructure.Buff.BuffFactory;
+import ifox.sicnu.com.mag10.DataStructure.Cell;
 import ifox.sicnu.com.mag10.DataStructure.Monster;
 import ifox.sicnu.com.mag10.R;
 
@@ -13,12 +14,13 @@ import ifox.sicnu.com.mag10.R;
  * Created by Funchou Fu on 2017/3/17.
  * 地下蜘蛛
  * 被探索的时候随机召唤一个怪物
+ * 受伤返回迷雾
  */
 public class Spider extends Monster {
     public static Bitmap bitmap;
 
     public Spider(Context context, int level) {
-        this.atk = 7 + 2 * level;
+        this.atk = 2 + 2 * level;
         this.hitrate = (float) 0.9;
         this.armor = 3 + 3 * level;
         this.dodge = (float) 0.2;
@@ -43,5 +45,27 @@ public class Spider extends Monster {
     @Override
     public Bitmap getBitmap() {
         return bitmap;
+    }
+
+    @Override
+    public boolean sufferDamage(int damage, boolean overdef) {
+        boolean b = super.sufferDamage(damage, overdef);
+        int myself = 0;                 //当前怪物自己的坐标点
+        for (int i = 0; i < Const.bm.cells.size(); i++) {
+            if (Const.bm.cells.get(i).monster == this) {
+                myself = i;
+                break;
+            }
+        }
+        for (int i = 0; i < Const.bm.cells.size(); i++) {
+            if (Const.bm.cells.get(i).status == Cell.UNDISCORVERED && Const.bm.cells.get(i).monster == null) {
+                Const.bm.cells.get(myself).monster = null;
+                Const.bm.cells.get(i).monster = this;
+                this.wearBuff(BuffFactory.createRoundEndBuff("summon"));                //给蜘蛛增加一个召唤技能
+                break;
+            }
+        }           //遍历合适的阴影
+
+        return b;
     }
 }

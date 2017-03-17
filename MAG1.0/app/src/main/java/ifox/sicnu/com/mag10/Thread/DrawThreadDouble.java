@@ -77,7 +77,7 @@ public class DrawThreadDouble extends Thread {
                         startpoint++;
                         int use = startpoint - startlongth;     //实际使用的计数
                         Bitmap lf = Bitmap.createScaledBitmap(left, Const.SCREENWIDTH / (startlongth * 2) * (startlongth - use), Const.SCREENHEIGHT, true);
-                        Bitmap rf = Bitmap.createScaledBitmap(left, Const.SCREENWIDTH / (startlongth * 2) * (startlongth - use), Const.SCREENHEIGHT, true);
+                        Bitmap rf = Bitmap.createScaledBitmap(right, Const.SCREENWIDTH / (startlongth * 2) * (startlongth - use), Const.SCREENHEIGHT, true);
                         synchronized (sh) {
                             canvas.drawBitmap(lf, 0, 0, null);
                             canvas.drawBitmap(rf, Const.SCREENWIDTH / (startlongth * 2) * (use + startlongth), 0, null);

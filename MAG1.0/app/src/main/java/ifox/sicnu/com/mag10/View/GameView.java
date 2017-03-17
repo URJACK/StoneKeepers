@@ -41,7 +41,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Dra
     HeroTouch heroTouch;
     Bitmap skill_bg;
     DrawThread drawThread;
-    BattleManager battleManager;
+    public BattleManager battleManager;
     ShopManager shopManager;
     GameTouch gameTouch;
 
