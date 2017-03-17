@@ -61,7 +61,7 @@ public class DrawGame extends DrawBackground {
                     for (int i = 0; i < battleManager.effectses.size(); i++) {
                         SpecialEffects e = battleManager.effectses.get(i);
                         if (e.isAlive())
-                            e.docanva(canvas);
+                            e.docanva(canvas);//展示特效
                     }
                 }
             }

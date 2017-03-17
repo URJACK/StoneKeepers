@@ -1,6 +1,9 @@
 package ifox.sicnu.com.mag10.DrawLogic.DrawSpecialEffects;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.media.SoundPool;
 
 import ifox.sicnu.com.mag10.Data.Const;
@@ -12,9 +15,13 @@ import ifox.sicnu.com.mag10.R;
 public class normalAtak_SpecialEffects extends SpecialEffects {
     int music_id;
 
+    int i;
+    int times = 10;
     public normalAtak_SpecialEffects(int x, int y) {
         super(x, y);
-        music_id = Const.soundPool_Game.load(Const.mContext_Game, R.raw.gameview_click, 1);
+        int[] music ={R.raw.gameview_normalatak1,R.raw.gameview_normalatak2,R.raw.gameview_normalatak3};
+        int i = (int) (Math.random()*10%3);
+        music_id = Const.soundPool_Game.load(Const.mContext_Game, music[i], 1);
         Const.soundPool_Game.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
             @Override
             public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
@@ -27,16 +34,28 @@ public class normalAtak_SpecialEffects extends SpecialEffects {
 
     @Override
     public void reset() {
-
+        i = 0;
     }
 
     @Override
     public boolean isAlive() {
-        return false;
+        if(i!=-1){
+            return true;
+        }
+        else return false;
     }
 
     @Override
     public void docanva(Canvas canvas) {
-
+        if(i!=-1) {
+            for (; i < times; i++) {
+                Paint paint = new Paint();
+                paint.setColor(Color.RED);
+                paint.setAlpha(i * 10);
+                Rect rect = new Rect(0, 0, (int) (Const.SCREENHEIGHT * 0.6), Const.SCREENWIDTH);
+                canvas.drawRect(rect, paint);
+            }
+        }
+        i=-1;
     }
 }
