@@ -23,6 +23,10 @@ public class MonsterFactory {
             return new DarkRitual(Const.mContext_Game, level);
         else if (name.equals("SpikedKnight"))
             return new SpikedKnight(Const.mContext_Game, level);
+        else if (name.equals("Ogres"))
+            return new Ogres(Const.mContext_Game, level);
+        else if (name.equals("Pumpkin"))
+            return new Pumpkin(Const.mContext_Game, level);
         else
             return null;
     }

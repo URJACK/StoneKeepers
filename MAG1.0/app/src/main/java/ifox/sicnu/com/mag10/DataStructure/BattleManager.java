@@ -45,7 +45,6 @@ public class BattleManager {
     public ArrayList<SpecialEffects> effectses; //保存effects 队列。
     public int xx, yy;
     public int floor;                           //保存下当前的层数
-    public SoundPool sp;
 
     public BattleManager(Context context, ShopManager shopManager) {
         mContext = context;
@@ -66,8 +65,8 @@ public class BattleManager {
     public void createFloor(int index) {
         //得到这层的总共的单位数
         this.floor = index;
-        int number = (int) (Math.random() * 10 % 3) + 11;
-        int trap_num = (int) (Math.random() * 4) + 1;
+        int number = (int) (Math.random() * 10 % 3) + 13;
+        int trap_num = (int) (Math.random() * 3) + 1;
         Set<Integer> integers = new HashSet<>();
         for (int i = 0; i < number; i++) {
             integers.add((int) (Math.random() * 1000 % 56));
@@ -199,7 +198,8 @@ public class BattleManager {
      * 怪物清理的操作，会在玩家释放技能后，进行调用该方法
      */
     public void MonsterClear() {
-        buffWork(false);                //检测所有的Monster_Clear Buff
+        buffWork(false);
+        //检测所有的Monster_Clear Buff
         for (int i = 0; i < monsters.size(); i++) {
             Monster m = monsters.get(i);
             if (m.hp <= 0) {
@@ -218,6 +218,11 @@ public class BattleManager {
                     }
                 }
             }
+        }
+        //再次判定人物是否死亡
+        if (player.hp <= 0) {
+            Toast.makeText(mContext, "你收到了魔王的嘲讽", Toast.LENGTH_SHORT).show();
+            ((GameActivity) mContext).gotoEndActivity(false);
         }
     }
 
@@ -284,11 +289,11 @@ public class BattleManager {
         double num = Math.random();
         if (level < 4) {
             if (num < 0.3)
-                return MonsterFactory.createMonster("SpikedKnight", level);
+                return MonsterFactory.createMonster("Pumpkin", level);
             else if (num >= 0.3 && num < 0.6)
                 return MonsterFactory.createMonster("Saboteur", level);
             else
-                return MonsterFactory.createMonster("Assassin", level);
+                return MonsterFactory.createMonster("DarkRitual", level);
         } else if (level < 7) {
             if (num < 0.35)
                 return MonsterFactory.createMonster("Goblin", level);
@@ -470,5 +475,4 @@ public class BattleManager {
     public void putEffects(SpecialEffects specialEffect) {
         this.effectses.add(specialEffect);
     }
-
 }

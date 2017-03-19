@@ -5,12 +5,16 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import ifox.sicnu.com.mag10.Data.Const;
+import ifox.sicnu.com.mag10.DataStructure.Buff.BuffFactory;
 import ifox.sicnu.com.mag10.DataStructure.Monster;
+import ifox.sicnu.com.mag10.DataStructure.Unit;
 import ifox.sicnu.com.mag10.R;
 
 /**
  * Created by Funchou Fu on 2017/3/7.
  * 符石巫师
+ * 攻击 特效:攻击会使得玩家的mp减少一点
+ * 死灵书 buff:死亡使得出现的怪物攻击力增加一点
  */
 public class RuneSorcerer extends Monster {
     private static Bitmap bitmap;
@@ -31,15 +35,23 @@ public class RuneSorcerer extends Monster {
                 "这群家伙怎么当一个守法公民。——研究奇怪的巫术，非法集会，不顾他人反对强行抽取魔力，或许还要加上非法拍卖符石和恶意囤积货物，都" +
                 "世界末日了这群家伙也不能安宁些。 By：地下城治安官");
         setName("RuneSorcerer");
-        setMonsterType(Monster.NORMAL);
         if (bitmap == null) {
             bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.monster_fushiwushi);
             bitmap = Bitmap.createScaledBitmap(bitmap, Const.CELL_WIDTH, Const.CELL_HEIGHT, true);
         }
+        wearBuff(BuffFactory.createNoKeepBuff("necronomicon"));
     }
 
     @Override
     public Bitmap getBitmap() {
         return bitmap;
+    }
+
+    @Override
+    public boolean normalAtk(Unit target) {
+        boolean r = super.normalAtk(target);
+        if (target.mp > 1)
+            target.mp -= 1;
+        return r;
     }
 }

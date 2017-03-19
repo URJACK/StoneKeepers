@@ -58,6 +58,7 @@ public class BuffFactory {
      * 出生召唤 summon :召唤一个怪物(默认哥布林)。
      * 死灵书 necronomicon :自己死亡会让在场其他怪物的攻击力 + floor /2 。
      * 荆棘护甲 thornarmor :反弹给对手等同于自己护甲值的伤害。
+     * 持续强化 alwaysstrengthen : 每回合结束后，增加自己的攻击力和生命值
      */
     public static Buff createNoKeepBuff(String name) {
         if (name.equals("poison")) {
@@ -72,8 +73,55 @@ public class BuffFactory {
         } else if (name.equals("thornarmor")) {
             SufferDamageBuff sufferDamageBuff = createThornarmor();
             return sufferDamageBuff;
+        } else if (name.equals("alwaysstrengthen")) {
+            RoundEndBuff roundEndBuff = createAlwaysstrengthen();
+            return roundEndBuff;
+        } else if (name.equals("burstcurse")) {
+            RoundEndBuff roundEndBuff = createBurstcurse();
+            return roundEndBuff;
         }
         return null;
+    }
+
+    private static RoundEndBuff createBurstcurse() {
+        RoundEndBuff roundEndBuff = new RoundEndBuff() {
+            @Override
+            public void doWork(int x, int y, BattleManager bm) {
+                if (time <= 1) {
+                    Monster e = bm.cells.get(x + y * 8).monster;
+                    bm.player.sufferDamage(e.atk * 3, true);
+                    e.hp = 0;
+                }
+                time--;
+            }
+        };
+        roundEndBuff.time = 4;
+        roundEndBuff.id = "burstcurse";
+        roundEndBuff.name = "爆裂诅咒";
+        roundEndBuff.introduce = "怪物出现后第三个回合，会自动爆炸，对玩家造成三倍于该怪物当前攻击力的伤害";
+        roundEndBuff.bitmap = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.buff_burstcurse);
+        roundEndBuff.bitmap = Bitmap.createScaledBitmap(roundEndBuff.bitmap, (int) (Const.SCREENHEIGHT * 0.06), (int) (Const.SCREENHEIGHT * 0.06), true);
+        return roundEndBuff;
+    }
+
+    private static RoundEndBuff createAlwaysstrengthen() {
+        RoundEndBuff roundEndBuff = new RoundEndBuff() {
+            @Override
+            public void doWork(int x, int y, BattleManager bm) {
+                Cell c = bm.cells.get(x + y * 8);
+                if (c.monster != null) {
+                    c.monster.hp += bm.floor / 2 + 1;
+                    c.monster.atk += bm.floor / 3 + 1;
+                } else
+                    Log.i(TAG, "doWork: 怎么可能为空");
+            }
+        };
+        roundEndBuff.id = "alwaysstrengthen";
+        roundEndBuff.name = "持续强化";
+        roundEndBuff.introduce = "每回合结束后，增加自己的攻击力和生命值";
+        roundEndBuff.bitmap = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.buff_alwaysstrengthen);
+        roundEndBuff.bitmap = Bitmap.createScaledBitmap(roundEndBuff.bitmap, (int) (Const.SCREENHEIGHT * 0.06), (int) (Const.SCREENHEIGHT * 0.06), true);
+        return roundEndBuff;
     }
 
     private static SufferDamageBuff createThornarmor() {
