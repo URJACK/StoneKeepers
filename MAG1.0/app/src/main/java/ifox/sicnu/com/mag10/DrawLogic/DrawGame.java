@@ -116,7 +116,27 @@ public class DrawGame extends DrawBackground {
             ArrayList<Buff> buffs = monster.unkeepBuffs;
             for (int i = 0; i < buffs.size(); i++) {
                 canvas.drawBitmap(buffs.get(i).bitmap, (int) (Const.SCREENHEIGHT * 0.05), (int) (Const.SCREENWIDTH * 0.49 + i * Const.CELL_WIDTH), null);
-                canvas.drawText(buffs.get(i).introduce, (int) (Const.SCREENHEIGHT * 0.13), (int) (Const.SCREENWIDTH * 0.53), paint);
+                String introduce = buffs.get(i).introduce;
+                if(introduce.length()<25) {
+                    canvas.drawText(introduce, (int) (Const.SCREENHEIGHT * 0.13), (int) (Const.SCREENWIDTH * 0.53 + i * Const.CELL_WIDTH), paint);
+                }else {
+                    canvas.drawText(introduce.substring(0,25),(int) (Const.SCREENHEIGHT * 0.13), (int) (Const.SCREENWIDTH * 0.53 + i * Const.CELL_WIDTH), paint);
+                    canvas.drawText(introduce.substring(25),(int) (Const.SCREENHEIGHT * 0.13), (int) (Const.SCREENWIDTH * 0.53 + i * Const.CELL_WIDTH+Const.CELL_WIDTH/4), paint);
+                }
+//                String buf3 = buffs.get(i).introduce;
+//                int length2 = buf3.length();
+//                int jj = 0;
+//                String buf4;
+//                for (int ii = 0; ii < length2 / 25 + 1; ii++) {
+//                    if (length2 <= jj + 25) {
+//                        buf4 = buf3.substring(j, length);
+//                        canvas.drawText(buf4, (int) (Const.SCREENHEIGHT * 0.13), (int) (Const.SCREENWIDTH * 0.53 + ii * Const.CELL_WIDTH / 4.5)+i*Const.CELL_WIDTH, paint);
+//                    } else {
+//                        buf4 = buf3.substring(jj, jj + 25);
+//                        canvas.drawText(buf4, (int) (Const.SCREENHEIGHT * 0.13), (int) (Const.SCREENWIDTH * 0.53 + ii * Const.CELL_WIDTH / 4.5)+i*Const.CELL_WIDTH, paint);
+//                        jj = jj + 28;
+//                    }
+//                }
             }
 
         } else if (object instanceof Skill) {
