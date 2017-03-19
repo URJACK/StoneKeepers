@@ -2,16 +2,20 @@ package ifox.sicnu.com.mag10.Data.Herolist;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.SoundPool;
 
 import ifox.sicnu.com.mag10.Data.Const;
 import ifox.sicnu.com.mag10.Data.Equipments;
 import ifox.sicnu.com.mag10.Data.Pictures;
+import ifox.sicnu.com.mag10.DataStructure.BattleManager;
 import ifox.sicnu.com.mag10.DataStructure.Buff.BuffFactory;
 import ifox.sicnu.com.mag10.DataStructure.Hero;
 import ifox.sicnu.com.mag10.DataStructure.Player;
 import ifox.sicnu.com.mag10.DataStructure.Skill.NoTargetSkill;
 import ifox.sicnu.com.mag10.DataStructure.Skill.SingleTargetSkill;
 import ifox.sicnu.com.mag10.DataStructure.Skill.Skill;
+import ifox.sicnu.com.mag10.DrawLogic.DrawSpecialEffects.Arcmissle_SpecialEffects;
+import ifox.sicnu.com.mag10.DrawLogic.DrawSpecialEffects.SpecialEffects;
 import ifox.sicnu.com.mag10.R;
 import ifox.sicnu.com.mag10.Tool.UpLevelFilter;
 
@@ -53,7 +57,27 @@ public class Wizard extends Hero {
             }
         };
 
-        Skill arcmissle = new SingleTargetSkill(this, Skill.MAXMP, (float) 0.2, Skill.MP, 5, BuffFactory.createNoKeepBuff("poison"));
+        Skill arcmissle = new SingleTargetSkill(this, Skill.MAXMP, (float) 0.2, Skill.MP, 5, BuffFactory.createNoKeepBuff("poison")){
+            int music_id;
+            @Override
+            public boolean doSkill(int x, int y, BattleManager bm) {
+                if(super.doSkill(x, y, bm)) {
+                    SpecialEffects specialEffects = new Arcmissle_SpecialEffects(x * Const.CELL_WIDTH, y * Const.CELL_HEIGHT);
+                    bm.putEffects(specialEffects);
+                    user.pp -= cost;
+                    music_id = Const.soundPool_Game.load(Const.mContext_Game, R.raw.gameview_dianliu, 1);
+                    Const.soundPool_Game.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+                        @Override
+                        public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                            Const.soundPool_Game.play(music_id, 1, 1, 1, 0, 1);
+                        }
+                    });
+                    return true;
+                }
+                else
+                    return false;
+            }
+        };
         arcmissle.name = "奥术飞弹";
         arcmissle.introduce = "强大的奥术飞弹，能够造成自己最大法力值20% 的高额伤害";
 

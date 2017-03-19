@@ -41,6 +41,18 @@ public abstract class Skill {
 
     //为true 代表释放技能成功
     public abstract boolean doSkill(int x, int y, BattleManager bm);
+    /**
+     *
+         if (getValue(costType) < costValue)
+         return false;       //因为消耗不够，而释放失败
+         else {
+         subValue(costType, costValue);      //减少自己需要被减少的数值
+         }
+         if (user.pp < cost)
+         return false;
+         else
+         user.pp -= cost;
+     */
 
     /**
      * 这个方法能够根据传入的type 来返回 使用者的各项数据

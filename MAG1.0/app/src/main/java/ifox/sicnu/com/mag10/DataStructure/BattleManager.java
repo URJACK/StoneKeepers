@@ -286,9 +286,9 @@ public class BattleManager {
         double num = Math.random();
         if (level < 4) {
             if (num < 0.3)
-                return MonsterFactory.createMonster("Skeleton", level);
+                return MonsterFactory.createMonster("Saboteur_Crazy", level);
             else if (num >= 0.3 && num < 0.6)
-                return MonsterFactory.createMonster("SkeletonArcher", level);
+                return MonsterFactory.createMonster("Sheep", level);
             else
                 return MonsterFactory.createMonster("SpikedKnight", level);
         } else if (level < 7) {

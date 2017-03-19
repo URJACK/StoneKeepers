@@ -11,6 +11,7 @@ import ifox.sicnu.com.mag10.R;
 /**
  * Created by Funchou Fu on 2017/3/17.
  * 矮人矿工
+ * 高闪避率
  */
 public class Saboteur extends Monster {
     public static Bitmap bitmap;
@@ -18,6 +19,7 @@ public class Saboteur extends Monster {
     public Saboteur(Context context, int level) {
         this.atk = 5 + 2 * level;
         this.hitrate = (float) 0.9;
+        this.crit = 0;
         this.armor = 1 + 2 * level;
         this.dodge = (float) 0.5;
         this.resistance = (float) 0.1;

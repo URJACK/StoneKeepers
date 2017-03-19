@@ -13,6 +13,8 @@ public class MonsterFactory {
             return new Goblin(Const.mContext_Game, level);
         else if (name.equals("Saboteur"))
             return new Saboteur(Const.mContext_Game, level);
+        else if (name.equals("Saboteur_Crazy"))
+            return new Saboteur_Crazy(Const.mContext_Game, level);
         else if (name.equals("Assassin"))
             return new Assassin(Const.mContext_Game, level);
         else if (name.equals("Spider"))
@@ -31,6 +33,8 @@ public class MonsterFactory {
             return new Skeleton(Const.mContext_Game, level);
         else if (name.equals("SkeletonArcher"))
             return new SkeletonArcher(Const.mContext_Game, level);
+        else if (name.equals("Sheep"))
+            return new Sheep(Const.mContext_Game, level);
         else
             return null;
     }
