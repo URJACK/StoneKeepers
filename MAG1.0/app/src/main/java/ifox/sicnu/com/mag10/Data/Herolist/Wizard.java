@@ -11,6 +11,7 @@ import ifox.sicnu.com.mag10.DataStructure.BattleManager;
 import ifox.sicnu.com.mag10.DataStructure.Buff.BuffFactory;
 import ifox.sicnu.com.mag10.DataStructure.Hero;
 import ifox.sicnu.com.mag10.DataStructure.Player;
+import ifox.sicnu.com.mag10.DataStructure.Skill.DoubleTargetSkill;
 import ifox.sicnu.com.mag10.DataStructure.Skill.NoTargetSkill;
 import ifox.sicnu.com.mag10.DataStructure.Skill.SingleTargetSkill;
 import ifox.sicnu.com.mag10.DataStructure.Skill.Skill;
@@ -57,11 +58,12 @@ public class Wizard extends Hero {
             }
         };
 
-        Skill arcmissle = new SingleTargetSkill(this, Skill.MAXMP, (float) 0.2, Skill.MP, 5, BuffFactory.createNoKeepBuff("poison")){
+        Skill arcmissle = new SingleTargetSkill(this, Skill.MAXMP, (float) 0.2, Skill.MP, 5, BuffFactory.createNoKeepBuff("poison")) {
             int music_id;
+
             @Override
             public boolean doSkill(int x, int y, BattleManager bm) {
-                if(super.doSkill(x, y, bm)) {
+                if (super.doSkill(x, y, bm)) {
                     SpecialEffects specialEffects = new Arcmissle_SpecialEffects(x * Const.CELL_WIDTH, y * Const.CELL_HEIGHT);
                     bm.putEffects(specialEffects);
                     user.pp -= cost;
@@ -73,8 +75,7 @@ public class Wizard extends Hero {
                         }
                     });
                     return true;
-                }
-                else
+                } else
                     return false;
             }
         };
@@ -86,17 +87,31 @@ public class Wizard extends Hero {
 
         arcmissle.bitmap = bitmap;
 
-        Skill strenthenpower = new NoTargetSkill(this, Skill.ARMMOR, 0, Skill.MP, 8, BuffFactory.createKeepBuff("atkIncrease"));
-        strenthenpower.name = "力量强化";
-        strenthenpower.introduce = "强化自己的肉体，从而能够增加自己的 攻击力";
+//        Skill strenthenpower = new NoTargetSkill(this, Skill.ARMMOR, 0, Skill.MP, 8, BuffFactory.createKeepBuff("atkIncrease"));
+//        strenthenpower.name = "力量强化";
+//        strenthenpower.introduce = "强化自己的肉体，从而能够增加自己的 攻击力";
+//
+//        bitmap = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.skill_strenthenpower);
+//        bitmap = Bitmap.createScaledBitmap(bitmap, Const.SKILL_WIDTH, Const.SKILL_HEIGHT, true);
+//        strenthenpower.bitmap = bitmap;
 
-        bitmap = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.skill_strenthenpower);
-        bitmap = Bitmap.createScaledBitmap(bitmap, Const.SKILL_WIDTH, Const.SKILL_HEIGHT, true);
-        strenthenpower.bitmap = bitmap;
+        Skill double_fireball = new DoubleTargetSkill(this, Skill.MAXMP, (float) 0.1, Skill.MP, 5, null) {
+            @Override
+            public boolean doSkill(int x, int y, BattleManager bm) {
+                if (super.doSkill(x, y, bm)) {
 
+                    return true;
+                } else
+                    return false;
+            }
+        };
+        double_fireball.name = "多重火球";
+        double_fireball.introduce = "发射五个火球打死怪物";
+        double_fireball.bitmap = BitmapFactory.decodeResource(Const.mContext_Game.getResources(),R.drawable.skill_doublefireball);
+        double_fireball.bitmap = Bitmap.createScaledBitmap(double_fireball.bitmap,Const.SKILL_WIDTH,Const.SKILL_HEIGHT,true);
 
         this.skills[0] = arcmissle;
-        this.skills[1] = strenthenpower;
+        this.skills[1] = double_fireball;
 
         this.weapon = equipments.getWeapon("剑");
     }

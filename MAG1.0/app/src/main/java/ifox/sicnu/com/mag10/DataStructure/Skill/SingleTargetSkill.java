@@ -62,18 +62,6 @@ public class SingleTargetSkill extends Skill {
         if (user.pp < cost)
             return false;
         else {
-            SpecialEffects specialEffects = new Arcmissle_SpecialEffects(x * Const.CELL_WIDTH, y * Const.CELL_HEIGHT);
-
-            bm.putEffects(specialEffects);
-            user.pp -= cost;
-            music_id = Const.soundPool_Game.load(Const.mContext_Game, R.raw.gameview_dianliu, 1);
-            Const.soundPool_Game.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
-                @Override
-                public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
-                    Const.soundPool_Game.play(music_id, 1, 1, 1, 0, 1);
-
-                }
-            });
 
             int damage = (int) (getValue(type) * rate);
             target.sufferDamage(damage, true);

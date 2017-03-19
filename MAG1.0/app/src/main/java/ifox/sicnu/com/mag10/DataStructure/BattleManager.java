@@ -269,12 +269,12 @@ public class BattleManager {
             //释放技能或者道具
             if (player.skillswitch) {
                 //释放技能
-                if (!player.useSkill(xx, yy, this, function_switch) || cells.get(xx + yy * 8).status != Cell.DISCORVERED) {
+                if (cells.get(xx + yy * 8).status != Cell.DISCORVERED || !player.useSkill(xx, yy, this, function_switch)) {
                     Toast.makeText(mContext, "释放技能失败", Toast.LENGTH_SHORT).show();
                 }
             } else {
                 //释放道具
-                if (!player.useTool(xx, yy, this, function_switch) || cells.get(xx + yy * 8).status != Cell.DISCORVERED) {
+                if (cells.get(xx + yy * 8).status != Cell.DISCORVERED || !player.useTool(xx, yy, this, function_switch)) {
                     Toast.makeText(mContext, "使用道具失败", Toast.LENGTH_SHORT).show();
                 }
             }
