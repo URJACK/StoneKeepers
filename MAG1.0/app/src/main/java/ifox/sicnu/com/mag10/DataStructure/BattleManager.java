@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.SoundPool;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -188,10 +189,6 @@ public class BattleManager {
      */
     private void TimeGoOn() {
         buffWork(true);                 //检测所有的Round_End Buff
-        if (player.hp <= 0) {
-            Toast.makeText(mContext, "你收到了魔王的嘲讽", Toast.LENGTH_SHORT).show();
-            ((GameActivity) mContext).gotoEndActivity(false);
-        }
     }
 
     /**
@@ -204,8 +201,8 @@ public class BattleManager {
             Monster m = monsters.get(i);
             if (m.hp <= 0) {
                 unregistMonster(m);
-                if(player.addExp(m.exp)) {
-                    Toast.makeText(Const.mContext_Game,"升级，属性获得了增强",Toast.LENGTH_SHORT).show();
+                if (player.addExp(m.exp)) {
+                    Toast.makeText(Const.mContext_Game, "升级，属性获得了增强", Toast.LENGTH_SHORT).show();
                     player.upLevel();
                 }
                 for (int j = 0; j < cells.size(); j++) {
@@ -219,7 +216,7 @@ public class BattleManager {
                 }
             }
         }
-        //再次判定人物是否死亡
+        //判定人物是否死亡
         if (player.hp <= 0) {
             Toast.makeText(mContext, "你收到了魔王的嘲讽", Toast.LENGTH_SHORT).show();
             ((GameActivity) mContext).gotoEndActivity(false);
@@ -272,12 +269,12 @@ public class BattleManager {
             //释放技能或者道具
             if (player.skillswitch) {
                 //释放技能
-                if (!player.useSkill(xx, yy, this, function_switch)) {
+                if (!player.useSkill(xx, yy, this, function_switch) || cells.get(xx + yy * 8).status != Cell.DISCORVERED) {
                     Toast.makeText(mContext, "释放技能失败", Toast.LENGTH_SHORT).show();
                 }
             } else {
                 //释放道具
-                if (!player.useTool(xx, yy, this, function_switch)) {
+                if (!player.useTool(xx, yy, this, function_switch) || cells.get(xx + yy * 8).status != Cell.DISCORVERED) {
                     Toast.makeText(mContext, "使用道具失败", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -289,11 +286,11 @@ public class BattleManager {
         double num = Math.random();
         if (level < 4) {
             if (num < 0.3)
-                return MonsterFactory.createMonster("Pumpkin", level);
+                return MonsterFactory.createMonster("Skeleton", level);
             else if (num >= 0.3 && num < 0.6)
-                return MonsterFactory.createMonster("Saboteur", level);
+                return MonsterFactory.createMonster("SkeletonArcher", level);
             else
-                return MonsterFactory.createMonster("DarkRitual", level);
+                return MonsterFactory.createMonster("SpikedKnight", level);
         } else if (level < 7) {
             if (num < 0.35)
                 return MonsterFactory.createMonster("Goblin", level);
