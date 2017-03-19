@@ -38,6 +38,7 @@ public class GameTouch {
 
     public void getTouch(MotionEvent event) {
         mevent = event;
+
         if (event.getAction() == MotionEvent.ACTION_DOWN || event.getAction() == MotionEvent.ACTION_MOVE || event.getAction() == MotionEvent.ACTION_UP) {
             int x = (int) event.getX();
             int y = (int) event.getY();
@@ -110,11 +111,11 @@ public class GameTouch {
                 }
             }       //此段代码表示点击的坐标是地图内的元素
             else {
-                if (x > Const.SCREENHEIGHT * 0.9 && x < Const.SCREENHEIGHT * 0.96 && y > Const.SCREENWIDTH * 0.11 && y < Const.SCREENWIDTH * 0.28) {
+                if (x > Const.SCREENHEIGHT * 0.86 && x < Const.SCREENHEIGHT * 0.96 && y > Const.SCREENWIDTH * 0.11 && y < Const.SCREENWIDTH * 0.32) {
                     battleManager.changeShowObject(0);
-                } else if (x > Const.SCREENHEIGHT * 0.9 && x < Const.SCREENHEIGHT * 0.96 && y > Const.SCREENWIDTH * 0.42 && y < Const.SCREENWIDTH * 0.59) {
+                } else if (x > Const.SCREENHEIGHT * 0.86 && x < Const.SCREENHEIGHT * 0.96 && y > Const.SCREENWIDTH * 0.42 && y < Const.SCREENWIDTH * 0.63) {
                     battleManager.changeShowObject(1);
-                } else if (x > Const.SCREENHEIGHT * 0.9 && x < Const.SCREENHEIGHT * 0.96 && y > Const.SCREENWIDTH * 0.73 && y < Const.SCREENWIDTH * 0.9) {
+                } else if (x > Const.SCREENHEIGHT * 0.86 && x < Const.SCREENHEIGHT * 0.96 && y > Const.SCREENWIDTH * 0.73 && y < Const.SCREENWIDTH * 0.94) {
                     battleManager.changeShowObject(2);
                 }
             }       //如果长按的是地图外的元素

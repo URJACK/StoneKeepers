@@ -5,11 +5,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import ifox.sicnu.com.mag10.Data.Const;
+import ifox.sicnu.com.mag10.DataStructure.Buff.BuffFactory;
 import ifox.sicnu.com.mag10.DataStructure.Monster;
 import ifox.sicnu.com.mag10.R;
 
 /**
  * Created by Funchou Fu on 2017/3/17.
+ * 尖刺骑士
+ * 尖刺护甲 buff;
  */
 public class SpikedKnight extends Monster {
 
@@ -30,9 +33,10 @@ public class SpikedKnight extends Monster {
         setName("SpikedKnight");
         setMonsterType(Monster.NORMAL);
         if (bitmap == null) {
-            bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.monster_gebulin);
+            bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.monster_jianciqishi);
             bitmap = Bitmap.createScaledBitmap(bitmap, Const.CELL_WIDTH, Const.CELL_HEIGHT, true);
         }
+        wearBuff(BuffFactory.createNoKeepBuff("thornarmor"));
     }
 
     @Override

@@ -79,8 +79,28 @@ public class BuffFactory {
         } else if (name.equals("burstcurse")) {
             RoundEndBuff roundEndBuff = createBurstcurse();
             return roundEndBuff;
+        } else if (name.equals("rangedattack")) {
+            RoundEndBuff roundEndBuff = createRangedattack();
+            return roundEndBuff;
         }
         return null;
+    }
+
+    private static RoundEndBuff createRangedattack() {
+        RoundEndBuff roundEndBuff = new RoundEndBuff() {
+            @Override
+            public void doWork(int x, int y, BattleManager bm) {
+                Monster m = bm.cells.get(x + 8 * y).monster;
+                bm.player.sufferDamage(m.atk, false);
+            }
+        };
+        roundEndBuff.time = 1;
+        roundEndBuff.id = "rangedattack";
+        roundEndBuff.name = "远程攻击";
+        roundEndBuff.introduce = "远程攻击，即是你不攻击它，它也会攻击你";
+        roundEndBuff.bitmap = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.buff_rangedattack);
+        roundEndBuff.bitmap = Bitmap.createScaledBitmap(roundEndBuff.bitmap, (int) (Const.SCREENHEIGHT * 0.06), (int) (Const.SCREENHEIGHT * 0.06), true);
+        return roundEndBuff;
     }
 
     private static RoundEndBuff createBurstcurse() {

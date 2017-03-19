@@ -27,6 +27,10 @@ public class MonsterFactory {
             return new Ogres(Const.mContext_Game, level);
         else if (name.equals("Pumpkin"))
             return new Pumpkin(Const.mContext_Game, level);
+        else if (name.equals("Skeleton"))
+            return new Skeleton(Const.mContext_Game, level);
+        else if (name.equals("SkeletonArcher"))
+            return new SkeletonArcher(Const.mContext_Game, level);
         else
             return null;
     }

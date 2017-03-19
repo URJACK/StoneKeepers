@@ -28,8 +28,7 @@ public class Pumpkin extends Monster {
         this.money = 2;
         this.setMonsterType(Monster.NORMAL);
         this.setIntroduce("攻击力和血量都非常高，还会在三回合后爆炸，造成三倍当前攻击力的伤害，非常棘手的怪物。如果在三回合之内打不死南瓜，那就不要去打了，因为这样你会被南瓜打3次，再被南瓜自爆炸一次，这个就真的是瞬间爆炸了。" +
-                "法师看到了就直接羊了吧。不过眩晕和冰冻可以防止爆炸倒计时。——“我说，别紧张，那只是一个南瓜而已，我想怪物也过万圣节？" +
-                "你看，我把手放在上面都没问题，额，你们离我那么远干啥？”“BOOOOOOOOOOOOOOM”");
+                "法师看到了就直接羊了吧。不过眩晕和冰冻可以防止爆炸倒计时。——“我说，别紧张，那只是一个南瓜而已，我想怪物也过万圣节？");
         this.setName("Pumpkin");
         if (bitmap == null){
             bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.monster_kongbunangua);

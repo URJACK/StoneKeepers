@@ -13,8 +13,8 @@ import ifox.sicnu.com.mag10.R;
 /**
  * Created by Funchou Fu on 2017/3/17.
  * 地下蜘蛛
- * 被探索的时候随机召唤一个怪物
- * 受伤返回迷雾
+ * 被探索的时候随机召唤一个怪物 buff
+ * 受伤返回迷雾 受伤特效
  */
 public class Spider extends Monster {
     public static Bitmap bitmap;
