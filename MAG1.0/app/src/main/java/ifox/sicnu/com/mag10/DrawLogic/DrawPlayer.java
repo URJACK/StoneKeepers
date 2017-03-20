@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.util.Log;
 
 import ifox.sicnu.com.mag10.Data.Const;
 import ifox.sicnu.com.mag10.Data.Pictures;
@@ -92,7 +93,7 @@ public class DrawPlayer implements ModeDrawIn{
         canvas.drawText(String.valueOf(player.pp), base_X + (int) (width * 0.23), base_Y + (int) (height * 0.72), paint);
         Rect pp_rect = new Rect((int)(Const.SCREENHEIGHT*0.78),(int)(Const.SCREENWIDTH*0.96-(Const.SCREENWIDTH*0.28*player.mp/player.maxMp)),(int)(Const.SCREENHEIGHT*0.8),(int)(Const.SCREENWIDTH*0.96));
         paint.setAlpha(130);
-        canvas.drawRect(pp_rect,paint);
+        canvas.drawRect(pp_rect, paint);
         //绘制现在有多少魂力
         paint.setColor(Color.GREEN);
         canvas.drawText(String.valueOf(player.mp), base_X + (int) (width * 0.71), base_Y + (int) (height * 0.72), paint);

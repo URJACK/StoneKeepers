@@ -52,6 +52,7 @@ public class Wizard extends Hero {
                 player.r_power += 3;
                 player.r_agile += 1;
                 player.r_intelligence += 1;
+
                 player.maxMp += 9;
                 player.atk += 1;
                 player.armor += 2;
