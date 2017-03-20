@@ -6,7 +6,6 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 
 import ifox.sicnu.com.mag10.Data.Affixs;
-import ifox.sicnu.com.mag10.Data.Equipments;
 import ifox.sicnu.com.mag10.Data.HeroBuff;
 import ifox.sicnu.com.mag10.Data.Heroes;
 import ifox.sicnu.com.mag10.Data.Pictures;
@@ -23,7 +22,6 @@ public class APP extends android.app.Application {
     Pictures pictures;          //游戏里的图片资源
     Heroes heroes;      //游戏里的英雄资源
     Skills skills;              //游戏里的技能资源
-    Equipments equipments;      //游戏里的装备资源
     Affixs affixs;              //游戏里的装备用词缀资源
 
     HeroBuff heroBuff;          //游戏里的存储单位
@@ -57,9 +55,8 @@ public class APP extends android.app.Application {
         skills = new Skills(pictures);
         heroBuff = new HeroBuff(context);
 
-        equipments = new Equipments(pictures);
         affixs = new Affixs();
-        heroes = new Heroes(pictures, skills, equipments);
+        heroes = new Heroes(pictures, skills);
 
 
     }

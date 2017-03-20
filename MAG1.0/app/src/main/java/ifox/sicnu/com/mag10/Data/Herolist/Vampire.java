@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import ifox.sicnu.com.mag10.Data.Const;
-import ifox.sicnu.com.mag10.Data.Equipments;
 import ifox.sicnu.com.mag10.Data.Pictures;
 import ifox.sicnu.com.mag10.DataStructure.BattleManager;
 import ifox.sicnu.com.mag10.DataStructure.Hero;
@@ -18,7 +17,7 @@ import ifox.sicnu.com.mag10.Tool.UpLevelFilter;
  * Created by Funchou Fu on 2017/3/5.
  */
 public class Vampire extends Hero{
-    public Vampire(Pictures pictures,Equipments equipments){
+    public Vampire(Pictures pictures){
         this.atk = 10;
         this.hitrate = (float) 0.9;
         this.crit = (float) 0.1;

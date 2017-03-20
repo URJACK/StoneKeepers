@@ -15,23 +15,21 @@ import ifox.sicnu.com.mag10.Data.Herolist.Wizard;
 public class Heroes {
     Pictures pictures;      //获取图片资源使用的类
     Skills skills;
-    Equipments equipments;
 
-    public Heroes(Pictures pictures, Skills skills, Equipments equipments) {
+    public Heroes(Pictures pictures, Skills skills) {
         this.skills = skills;
         this.pictures = pictures;
-        this.equipments = equipments;
     }
 
     public Hero getHero(String heroName) {
         if (heroName.equals("斯微法")){
-            return new Wizard(pictures,equipments);
+            return new Wizard(pictures);
         }else if (heroName.equals("弗拉基米尔")){
-            return new Vampire(pictures,equipments);
+            return new Vampire(pictures);
         }else if (heroName.equals("赫拉克勒斯")){
-            return new Berserker(pictures,equipments);
+            return new Berserker(pictures);
         }else if (heroName.equals("马可波罗")){
-            return new Missionary(pictures,equipments);
+            return new Missionary(pictures);
         }
         return null;
     }

@@ -10,8 +10,8 @@ import java.util.List;
 
 import ifox.sicnu.com.mag10.APP;
 import ifox.sicnu.com.mag10.Data.Const;
-import ifox.sicnu.com.mag10.Data.Equipments;
 import ifox.sicnu.com.mag10.Data.Pictures;
+import ifox.sicnu.com.mag10.EquipmentFactory;
 import ifox.sicnu.com.mag10.R;
 
 /**
@@ -24,7 +24,6 @@ public class Shop {
     public Context context;
     public Equipment[] P_equipments;
     public List<Equipment> S_equipments; //商店的货架
-    Equipments equipments;
     Pictures pictures;
 
     public int S_equipment_index; //当前选中的商店装备的S_equipment的下标，默认选中第一个装备
@@ -38,7 +37,6 @@ public class Shop {
             shop_bg = Bitmap.createScaledBitmap(shop_bg, (int) (Const.SCREENHEIGHT * 0.6), (Const.SCREENWIDTH), true);
         }
         pictures = ((APP) context.getApplicationContext()).getPictures();
-        equipments = Equipments.getEquipments();
         S_equipments = new ArrayList<>();
         getShopEquipments();
         getPlayerEquipments();
@@ -48,7 +46,7 @@ public class Shop {
     private void getShopEquipments() {
         for (int i = 0; i < 8; i++) {
             Equipment equipment;
-            equipment = equipments.getWeapon("sword_normal");
+            equipment = EquipmentFactory.createWeapon("sword_1");
             equipment.money += 1;
             S_equipments.add(equipment);
         }

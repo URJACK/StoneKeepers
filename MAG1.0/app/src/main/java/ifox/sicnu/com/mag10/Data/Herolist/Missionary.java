@@ -1,6 +1,5 @@
 package ifox.sicnu.com.mag10.Data.Herolist;
 
-import ifox.sicnu.com.mag10.Data.Equipments;
 import ifox.sicnu.com.mag10.Data.Pictures;
 import ifox.sicnu.com.mag10.DataStructure.Hero;
 
@@ -8,7 +7,7 @@ import ifox.sicnu.com.mag10.DataStructure.Hero;
  * Created by Funchou Fu on 2017/3/5.
  */
 public class Missionary extends Hero {
-    public Missionary(Pictures pictures,Equipments equipments){
+    public Missionary(Pictures pictures){
 
         this.atk = 7;                //攻击力
         this.hitrate = (float) 0.9;  //初始命中

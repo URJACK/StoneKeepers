@@ -10,13 +10,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 
-import ifox.sicnu.com.mag10.Data.Affixs;
-import ifox.sicnu.com.mag10.Data.Equipments;
-import ifox.sicnu.com.mag10.Data.Heroes;
 import ifox.sicnu.com.mag10.Data.Pictures;
-import ifox.sicnu.com.mag10.DataStructure.Equipment;
-import ifox.sicnu.com.mag10.DataStructure.Hero;
-import ifox.sicnu.com.mag10.StartActivity;
 
 /**
  * Created by Funchou Fu on 2017/2/28.

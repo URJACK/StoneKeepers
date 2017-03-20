@@ -19,14 +19,14 @@ public class EquipmentFactory {
     public static Bitmap bm_axe_2;
 
     static {
-        bm_sword_1 = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.sword_1);
+        bm_sword_1 = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.sword_2);
         bm_sword_1 = Bitmap.createScaledBitmap(bm_sword_1, Const.BAG_WIDTH, Const.BAG_HEIGHT, true);
-        bm_sword_2 = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.sword_2);
+        bm_sword_2 = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.sword_1);
         bm_sword_2 = Bitmap.createScaledBitmap(bm_sword_2, Const.BAG_WIDTH, Const.BAG_HEIGHT, true);
         bm_axe_1 = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.axe_1);
         bm_axe_1 = Bitmap.createScaledBitmap(bm_axe_1, Const.BAG_WIDTH, Const.BAG_HEIGHT, true);
-        bm_axe_2= BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.axe_2);
-        bm_axe_2= Bitmap.createScaledBitmap(bm_axe_2, Const.BAG_WIDTH, Const.BAG_HEIGHT, true);
+        bm_axe_2 = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.axe_2);
+        bm_axe_2 = Bitmap.createScaledBitmap(bm_axe_2, Const.BAG_WIDTH, Const.BAG_HEIGHT, true);
 
     }
 
@@ -43,8 +43,69 @@ public class EquipmentFactory {
             return createSword_5();
         } else if (name.equals("axe_1")) {
             return createAxe_1();
+        } else if (name.equals("axe_2")) {
+            return createAxe_2();
+        } else if (name.equals("axe_3")) {
+            return createAxe_3();
+        } else if (name.equals("axe_4")) {
+            return createAxe_4();
         }
         return null;
+    }
+
+    private static Equipment createAxe_4() {
+        Equipment equipment = new Equipment();
+        equipment.atk = 20;
+        equipment.atm = new AttackMethod() {
+            @Override
+            public boolean attack(Unit me, Unit unit) {
+                if (unit.sufferDamage(me.atk, true))
+                    return true;
+                else
+                    return false;
+            }
+        };
+
+        equipment.equipmentName = "大斧";
+        equipment.introduce = "这是一把大斧";
+        equipment.money = 40;
+        equipment.type = Equipment.D_WEAPON;
+        equipment.bitmap = bm_axe_2;
+        return equipment;
+    }
+
+    private static Equipment createAxe_3() {
+        Equipment equipment = new Equipment();
+        equipment.atk = 13;
+        equipment.atm = new AttackMethod() {
+            @Override
+            public boolean attack(Unit me, Unit unit) {
+                unit.wearBuff(BuffFactory.createKeepBuff("defDecrease"));
+                if (me.normalAtk(unit))
+                    return true;
+                else
+                    return false;
+            }
+        };
+
+        equipment.equipmentName = "猎豹斧";
+        equipment.introduce = "这是一把猎豹斧";
+        equipment.money = 40;
+        equipment.type = Equipment.D_WEAPON;
+        equipment.bitmap = bm_axe_2;
+        return equipment;
+    }
+
+    private static Equipment createAxe_2() {
+        Equipment equipment = new Equipment();
+        equipment.atk = 13;
+
+        equipment.equipmentName = "强化斧";
+        equipment.introduce = "这是一把强化斧";
+        equipment.money = 20;
+        equipment.type = Equipment.D_WEAPON;
+        equipment.bitmap = bm_axe_1;
+        return equipment;
     }
 
     private static Equipment createAxe_1() {
@@ -54,8 +115,8 @@ public class EquipmentFactory {
         equipment.equipmentName = "普通斧";
         equipment.introduce = "这是一把普通斧";
         equipment.money = 10;
-        equipment.type = Equipment.WEAPON;
-        equipment.bitmap = bm_sword_2;
+        equipment.type = Equipment.D_WEAPON;
+        equipment.bitmap = bm_axe_1;
         return equipment;
     }
 

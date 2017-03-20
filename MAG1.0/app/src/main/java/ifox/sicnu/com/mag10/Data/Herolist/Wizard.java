@@ -5,7 +5,6 @@ import android.graphics.BitmapFactory;
 import android.media.SoundPool;
 
 import ifox.sicnu.com.mag10.Data.Const;
-import ifox.sicnu.com.mag10.Data.Equipments;
 import ifox.sicnu.com.mag10.Data.Pictures;
 import ifox.sicnu.com.mag10.DataStructure.BattleManager;
 import ifox.sicnu.com.mag10.DataStructure.Buff.BuffFactory;
@@ -25,7 +24,7 @@ import ifox.sicnu.com.mag10.Tool.UpLevelFilter;
  * 在HeroList 里添加了英雄，别忘了在Heroes里进行判定处理
  */
 public class Wizard extends Hero {
-    public Wizard(Pictures pictures, Equipments equipments) {
+    public Wizard(Pictures pictures) {
         this.atk = 7;
         this.hitrate = (float) 0.9;
         this.crit = (float) 0.1;
@@ -100,7 +99,6 @@ public class Wizard extends Hero {
             @Override
             public boolean doSkill(int x, int y, BattleManager bm) {
                 if (super.doSkill(x, y, bm)) {
-
                     return true;
                 } else
                     return false;
@@ -114,6 +112,5 @@ public class Wizard extends Hero {
         this.skills[0] = arcmissle;
         this.skills[1] = double_fireball;
 
-        this.weapon = equipments.getWeapon("剑");
     }
 }

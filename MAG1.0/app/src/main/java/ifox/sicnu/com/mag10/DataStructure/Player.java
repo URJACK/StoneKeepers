@@ -4,9 +4,9 @@ import android.graphics.Bitmap;
 import android.util.Log;
 
 import ifox.sicnu.com.mag10.Data.Const;
-import ifox.sicnu.com.mag10.Data.Equipments;
 import ifox.sicnu.com.mag10.Data.HeroBuff;
 import ifox.sicnu.com.mag10.DataStructure.Skill.Skill;
+import ifox.sicnu.com.mag10.EquipmentFactory;
 import ifox.sicnu.com.mag10.Tool.UpLevelFilter;
 
 /**
@@ -107,12 +107,11 @@ public class Player extends Unit {
 
         /**
          * 测试时，将所有背包装到 10 个*/
-        Equipments eqs = Equipments.getEquipments();
         for (int i = 0; i < 8; i++) {
-            this.equipments[i] = eqs.getWeapon("sword_bad");
+            this.equipments[i] = EquipmentFactory.createWeapon("sword_2");
         }
         for (int i = 8; i < 10; i++) {
-            this.equipments[i] = eqs.getWeapon("sword_normal");
+            this.equipments[i] = EquipmentFactory.createWeapon("sword_3");
         }
     }
 

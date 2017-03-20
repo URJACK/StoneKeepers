@@ -5,7 +5,6 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.List;
 
-import ifox.sicnu.com.mag10.Data.Equipments;
 import ifox.sicnu.com.mag10.Data.Pictures;
 
 /**
@@ -15,7 +14,6 @@ public class ShopManager {
     public Context mcontext;
 
     private Pictures pictures;
-    private Equipments equipments;
     private Shop shop;
     Player player;
 

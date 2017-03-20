@@ -7,7 +7,6 @@ import android.media.SoundPool;
 import java.util.ArrayList;
 
 import ifox.sicnu.com.mag10.Data.Const;
-import ifox.sicnu.com.mag10.Data.Equipments;
 import ifox.sicnu.com.mag10.Data.Pictures;
 import ifox.sicnu.com.mag10.DataStructure.BattleManager;
 import ifox.sicnu.com.mag10.DataStructure.Buff.Buff;
@@ -24,7 +23,7 @@ import ifox.sicnu.com.mag10.Tool.UpLevelFilter;
  * Created by Funchou Fu on 2017/3/5.
  */
 public class Berserker extends Hero{
-    public Berserker(Pictures pictures,Equipments equipments){
+    public Berserker(Pictures pictures){
         this.atk = 14;
         this.hitrate = (float) 0.9;
         this.crit = (float) 0.1;
