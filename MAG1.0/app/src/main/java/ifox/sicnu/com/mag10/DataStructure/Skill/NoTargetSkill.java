@@ -42,14 +42,7 @@ public class NoTargetSkill extends Skill {
             return false;
         else
             user.pp -= cost;
-        music_id = Const.soundPool_Game.load(Const.mContext_Game, R.raw.gameview_nuhou, 1);
-        Const.soundPool_Game.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
-            @Override
-            public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
-                Const.soundPool_Game.play(music_id, 1, 1, 1, 0, 1);
 
-            }
-        });
         if (this.buff != null)
             user.wearBuff(BuffFactory.createKeepBuff(this.buff.id));
         bm.MonsterClear();
