@@ -68,4 +68,14 @@ public class FullScreeenSkill extends Skill {
         }
         return monsters;
     }
+
+    public static ArrayList<Monster> getFullMonster_miwu(BattleManager bm){
+        ArrayList<Monster>  monsters = new ArrayList<>();
+        for(int i=0;i<bm.cells.size();i++){
+            if(bm.cells.get(i).monster!=null&&bm.cells.get(i).status == Cell.UNDISCORVERED){
+                monsters.add(bm.cells.get(i).monster);
+            }
+        }
+        return monsters;
+    }
 }
