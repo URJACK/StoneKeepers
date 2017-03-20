@@ -6,19 +6,23 @@ import android.graphics.BitmapFactory;
 import ifox.sicnu.com.mag10.Data.Const;
 import ifox.sicnu.com.mag10.Data.Equipments;
 import ifox.sicnu.com.mag10.Data.Pictures;
+import ifox.sicnu.com.mag10.DataStructure.AttackMethod.AttackMethod;
 import ifox.sicnu.com.mag10.DataStructure.BattleManager;
+import ifox.sicnu.com.mag10.DataStructure.Buff.BuffFactory;
 import ifox.sicnu.com.mag10.DataStructure.Hero;
 import ifox.sicnu.com.mag10.DataStructure.Player;
 import ifox.sicnu.com.mag10.DataStructure.Skill.NoTargetSkill;
+import ifox.sicnu.com.mag10.DataStructure.Skill.SingleTargetSkill;
 import ifox.sicnu.com.mag10.DataStructure.Skill.Skill;
+import ifox.sicnu.com.mag10.DataStructure.Unit;
 import ifox.sicnu.com.mag10.R;
 import ifox.sicnu.com.mag10.Tool.UpLevelFilter;
 
 /**
  * Created by Funchou Fu on 2017/3/5.
  */
-public class Vampire extends Hero{
-    public Vampire(Pictures pictures,Equipments equipments){
+public class Vampire extends Hero {
+    public Vampire(Pictures pictures, Equipments equipments) {
         this.atk = 10;
         this.hitrate = (float) 0.9;
         this.crit = (float) 0.1;
@@ -52,24 +56,54 @@ public class Vampire extends Hero{
                 player.armor += 2;
             }
         };
-        Skill xianxue = new NoTargetSkill(this,Skill.MAXHP,2,Skill.HP,10,null){
+        Skill xianxue = new NoTargetSkill(this, Skill.MAXHP, 2, Skill.HP, 10, null) {
             @Override
             public boolean doSkill(int x, int y, BattleManager bm) {
-                if(super.doSkill(x, y, bm)){
-                    if(bm.player.hp>10) {
+                if (super.doSkill(x, y, bm)) {
+                    if (bm.player.hp > 10) {
                         bm.player.hp -= 10;
                         bm.player.atk += 15;
                         return true;
                     }
-                }else
+                } else
                     return false;
-            return false;}
+                return false;
+            }
         };
         xianxue.name = "献血神祭";
         xianxue.introduce = "把自己的鲜血给神灵，换取攻击力";
         xianxue.bitmap = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.skill_xianxue);
         xianxue.bitmap = Bitmap.createScaledBitmap(xianxue.bitmap, Const.SKILL_WIDTH, Const.SKILL_HEIGHT, true);
 
+
+        Skill xixue = new NoTargetSkill(this, Skill.MAXMP, 2, Skill.MP, 5, BuffFactory.createNoKeepBuff("xixuegongji")) {
+            @Override
+            public boolean doSkill(int x, int y, BattleManager bm) {
+                if (super.doSkill(x, y, bm)) {
+                    bm.player.atm = new AttackMethod() {
+                        @Override
+                        public boolean attack(Unit me, Unit unit) {
+                            if (unit.sufferDamage(me.atk, true)) {
+                                me.hp += me.atk;
+                                if (me.hp > me.maxHp)
+                                    me.hp = me.maxHp;
+                                return true;
+                            } else
+                                return false;
+                        }
+                    };
+                    return true;
+                } else
+                    return false;
+            }
+        };
+        xixue.name = "吸血攻击";
+        xixue.introduce = "我就要吸血";
+        xixue.bitmap = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.skill_xixue);
+        xixue.bitmap = Bitmap.createScaledBitmap(xixue.bitmap, Const.SKILL_WIDTH, Const.SKILL_HEIGHT, true);
+
+
         skills[0] = xianxue;
+        skills[1] = xixue;
     }
 }

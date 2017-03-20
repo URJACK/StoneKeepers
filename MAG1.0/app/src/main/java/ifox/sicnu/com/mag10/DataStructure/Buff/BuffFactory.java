@@ -111,8 +111,31 @@ public class BuffFactory {
         } else if (name.equals("rangedattack")) {
             RoundEndBuff roundEndBuff = createRangedattack();
             return roundEndBuff;
+        }else if(name.equals("xixuegongji")){
+            RoundEndBuff roundEndBuff =createxixuegongji();
+            return roundEndBuff;
         }
         return null;
+    }
+
+    private static RoundEndBuff createxixuegongji() {
+        RoundEndBuff roundEndBuff = new RoundEndBuff() {
+            @Override
+            public void doWork(int x, int y, BattleManager bm) {
+                Monster m = bm.cells.get(x + 8 * y).monster;
+                if(time == 1){
+                    bm.player.atm = null;
+                }
+                time --;
+            }
+        };
+        roundEndBuff.time = 2;
+        roundEndBuff.id = "xixuegongji";
+        roundEndBuff.name = "吸血攻击";
+        roundEndBuff.introduce = "吸血攻击，两回合，攻击100%命中并会造成吸血效果";
+        roundEndBuff.bitmap = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.skill_xianxue);
+        roundEndBuff.bitmap = Bitmap.createScaledBitmap(roundEndBuff.bitmap, (int) (Const.SCREENHEIGHT * 0.06), (int) (Const.SCREENHEIGHT * 0.06), true);
+        return roundEndBuff;
     }
 
     private static RoundEndBuff createRangedattack() {
@@ -278,6 +301,8 @@ public class BuffFactory {
         roundEndBuff.bitmap = Bitmap.createScaledBitmap(roundEndBuff.bitmap, (int) (Const.SCREENHEIGHT * 0.06), (int) (Const.SCREENHEIGHT * 0.06), true);
         return roundEndBuff;
     }
+    
+    
 
     public static boolean leftisOK(int index, BattleManager bm) {
         if (index >= 1 && index % 8 != 0) {
