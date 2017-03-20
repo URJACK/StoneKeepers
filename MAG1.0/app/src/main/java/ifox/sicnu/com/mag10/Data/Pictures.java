@@ -66,8 +66,8 @@ public class Pictures {
         backs[0] = Bitmap.createScaledBitmap(backs[0], Const.SKILL_WIDTH, Const.SKILL_HEIGHT, true);
         backs[1] = BitmapFactory.decodeResource(resources, R.drawable.sword_2);
         backs[1] = Bitmap.createScaledBitmap(backs[1], Const.BAG_WIDTH, Const.BAG_HEIGHT, true);
-        pictures.put("sword_1", backs[0]);
-        pictures.put("sword_2", backs[1]);
+        pictures.put("bm_sword_1", backs[0]);
+        pictures.put("bm_sword_2", backs[1]);
     }
 
     //添加英雄选择背景

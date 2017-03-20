@@ -28,29 +28,58 @@ public class BuffFactory {
      */
     public static KeepBuff createKeepBuff(String name) {
         if (name.equals("atkIncrease")) {                        //攻击增益buff
-            KeepBuff keepBuff = new KeepBuff() {
-                @Override
-                public void doWork(Unit unit, boolean flag) {
-                    if (flag) {
-                        unit.atk += 5;
-                    } else
-                        unit.atk -= 5;
-                }
-
-                @Override
-                public void doWork(int x, int y, BattleManager bm) {
-                    return;
-                }
-            };
-            keepBuff.time = 3;
-            keepBuff.name = "攻击强化";
-            keepBuff.introduce = "自身获得五点攻击力的加成，总共会持续三回合";
-            keepBuff.id = "atkIncrease";
-            keepBuff.bitmap = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.buf_addpower);
-            keepBuff.bitmap = Bitmap.createScaledBitmap(keepBuff.bitmap, (int) (Const.SCREENHEIGHT * 0.1), (int) (Const.SCREENHEIGHT * 0.1), true);
-            return keepBuff;
-        }
+            return createAtkIncrease();
+        }else if (name.equals("defDecrease"))
+            return createDefDecrease();
         return null;
+    }
+
+    private static KeepBuff createDefDecrease() {
+        KeepBuff keepBuff = new KeepBuff() {
+            @Override
+            public void doWork(Unit unit, boolean flag) {
+                if (flag) {
+                    unit.atk += 5;
+                } else
+                    unit.atk -= 5;
+            }
+
+            @Override
+            public void doWork(int x, int y, BattleManager bm) {
+                return;
+            }
+        };
+        keepBuff.time = 2;
+        keepBuff.name = "防御削弱";
+        keepBuff.introduce = "该目标的护甲遭到了削弱";
+        keepBuff.id = "atkIncrease";
+        keepBuff.bitmap = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.buf_addpower);
+        keepBuff.bitmap = Bitmap.createScaledBitmap(keepBuff.bitmap, (int) (Const.SCREENHEIGHT * 0.1), (int) (Const.SCREENHEIGHT * 0.1), true);
+        return keepBuff;
+    }
+
+    private static KeepBuff createAtkIncrease() {
+        KeepBuff keepBuff = new KeepBuff() {
+            @Override
+            public void doWork(Unit unit, boolean flag) {
+                if (flag) {
+                    unit.atk += 5;
+                } else
+                    unit.atk -= 5;
+            }
+
+            @Override
+            public void doWork(int x, int y, BattleManager bm) {
+                return;
+            }
+        };
+        keepBuff.time = 3;
+        keepBuff.name = "攻击强化";
+        keepBuff.introduce = "自身获得五点攻击力的加成，总共会持续三回合";
+        keepBuff.id = "atkIncrease";
+        keepBuff.bitmap = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.buf_addpower);
+        keepBuff.bitmap = Bitmap.createScaledBitmap(keepBuff.bitmap, (int) (Const.SCREENHEIGHT * 0.1), (int) (Const.SCREENHEIGHT * 0.1), true);
+        return keepBuff;
     }
 
     /**

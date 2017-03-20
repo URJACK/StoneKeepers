@@ -156,6 +156,7 @@ public class Player extends Unit {
                 this.shoe = equipment;
                 break;
         }
+        this.atm = equipment.atm;
 
         this.atk += equipment.atk;
         this.crit += equipment.crit;
@@ -206,6 +207,8 @@ public class Player extends Unit {
             this.wear_down = null;
         else if (this.shoe == equipment)
             this.shoe = null;
+
+        this.atm = null;
 
         this.atk -= equipment.atk;
         this.crit -= equipment.crit;

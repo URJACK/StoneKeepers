@@ -8,14 +8,11 @@ import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 
-import ifox.sicnu.com.mag10.DataStructure.Affix;
+import ifox.sicnu.com.mag10.Affix.Affix;
 import ifox.sicnu.com.mag10.DataStructure.Equipment;
 import ifox.sicnu.com.mag10.DataStructure.Hero;
-import ifox.sicnu.com.mag10.HeroActivity;
 
 /**
  * Created by Funchou Fu on 2017/3/1.

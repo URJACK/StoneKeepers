@@ -2,6 +2,9 @@ package ifox.sicnu.com.mag10.DataStructure;
 
 import android.graphics.Bitmap;
 
+import ifox.sicnu.com.mag10.Affix.Affix;
+import ifox.sicnu.com.mag10.DataStructure.AttackMethod.AttackMethod;
+
 /**
  * Created by Funchou Fu on 2017/2/27.
  * 玩家通过装备增加自身属性是通过wear(Equipment e)方法来获取 装备对应的Buff.
@@ -45,6 +48,8 @@ public class Equipment {
 
     public Affix affix;         //该装备的词缀，能够附加额外的属性 词缀 不会被存在数据库中
 
+    public AttackMethod atm;
+
     public Equipment() {
 
     }
@@ -80,4 +85,7 @@ public class Equipment {
             return this.equipmentName;
     }
 
+    public void addAfix(Affix affix) {
+        affix.doWork(this);
+    }
 }
