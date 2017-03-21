@@ -119,6 +119,22 @@ public class DrawBackground implements ModeDrawIn {
                 y += floatheight * 0.15;
                 canvas.drawText(String.format("护甲 增加 %d", need.armor), x, y, paint);
             }
+            if (need.maxHp != 0) {
+                paint.setColor(Color.GREEN);
+                y += floatheight * 0.15;
+                canvas.drawText(String.format("生命 增加 %d", need.maxHp), x, y, paint);
+            }
+            if (need.maxMp != 0) {
+                paint.setColor(Color.GREEN);
+                y += floatheight * 0.15;
+                canvas.drawText(String.format("法力 增加 %d", need.maxMp), x, y, paint);
+            }
+            if (need.maxPp != 0) {
+                paint.setColor(Color.GREEN);
+                y += floatheight * 0.15;
+                canvas.drawText(String.format("灵魂 增加 %d", need.maxPp), x, y, paint);
+            }
+
 
         }
     }

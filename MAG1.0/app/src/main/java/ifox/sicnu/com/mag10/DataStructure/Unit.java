@@ -112,7 +112,8 @@ public class Unit implements UnitWearBuff {
     }
 
     public void addAtm(AttackMethod atm) {
-        this.atms.add(atm);
+        if (atm != null)
+            this.atms.add(atm);
     }
 
     public void rmvAtm(AttackMethod atm) {
