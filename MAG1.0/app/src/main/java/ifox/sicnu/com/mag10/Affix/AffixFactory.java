@@ -68,6 +68,7 @@ public class AffixFactory {
                 equipment.maxMp *= 1.2;
             }
         };
+        affix.affixName = "暗雷";
         return affix;
     }
 
@@ -80,6 +81,7 @@ public class AffixFactory {
                 equipment.dodge += 0.1;
             }
         };
+        affix.affixName = "风暴";
         return affix;
     }
 
@@ -93,6 +95,7 @@ public class AffixFactory {
                 equipment.armor *= 1.25;
             }
         };
+        affix.affixName = "灵龟";
         return affix;
     }
 
@@ -115,6 +118,7 @@ public class AffixFactory {
                 equipment.dodge += 0.3;
             }
         };
+        affix.affixName = "灵猴";
         return affix;
     }
 

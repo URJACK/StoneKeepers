@@ -104,14 +104,7 @@ public class Player extends Unit {
                 this.skills[i].setnewUnit(this);
         }//同步技能
 
-        /**
-         * 测试时，将所有背包装到 10 个*/
-        for (int i = 0; i < 8; i++) {
-            this.equipments[i] = EquipmentFactory.createWeapon("sword_2");
-        }
-        for (int i = 8; i < 10; i++) {
-            this.equipments[i] = EquipmentFactory.createWeapon("sword_3");
-        }
+
     }
 
     //将装备装备到自己的指定部位
@@ -121,6 +114,13 @@ public class Player extends Unit {
 
         Equipment e = null;
         switch (equipment.type) {
+            case Equipment.D_WEAPON:
+                e = this.weapon;
+                this.weapon = equipment;
+                if (this.co_weapon != null) {
+                    inbag(this.co_weapon);
+                }
+                break;
             case Equipment.WEAPON:
                 e = this.weapon;
                 this.weapon = equipment;
@@ -154,7 +154,7 @@ public class Player extends Unit {
                 this.shoe = equipment;
                 break;
         }
-        this.atm = equipment.atm;
+        addAtm(equipment.atm);
 
         this.atk += equipment.atk;
         this.crit += equipment.crit;
@@ -206,7 +206,7 @@ public class Player extends Unit {
         else if (this.shoe == equipment)
             this.shoe = null;
 
-        this.atm = null;
+        rmvAtm(equipment.atm);
 
         this.atk -= equipment.atk;
         this.crit -= equipment.crit;
@@ -325,4 +325,10 @@ public class Player extends Unit {
         this.def = this.armor;
     }
 
+    public boolean isnormalAttack() {
+        if (this.atms.size() == 0)
+            return true;
+        else
+            return false;
+    }
 }

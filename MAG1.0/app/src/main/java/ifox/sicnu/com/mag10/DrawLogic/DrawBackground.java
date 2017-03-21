@@ -81,8 +81,8 @@ public class DrawBackground implements ModeDrawIn {
             int y = bagTouch.y + Const.BAG_HEIGHT / 2;
             String moneystring = String.format("%d$", need.money);
             int length = (need.getRealName().length() + moneystring.length());
-            int floatheight = (int) (Const.BAG_FLOATHEIGHT * ((float)length / 4));
-            int floatwidth = (int) (Const.BAG_FLOATWIDTH * ((float)length / 4));     //悬浮窗的宽高
+            int floatheight = (int) (Const.BAG_FLOATHEIGHT * ((float) length / 4));
+            int floatwidth = (int) (Const.BAG_FLOATWIDTH * ((float) length / 4));     //悬浮窗的宽高
 
             paint.setColor(Color.rgb(109, 109, 111));
             paint.setStyle(Paint.Style.STROKE);
@@ -100,17 +100,17 @@ public class DrawBackground implements ModeDrawIn {
 
 
             if (need.atk != 0) {
-                paint.setColor(Color.rgb(100,50,50));
+                paint.setColor(Color.rgb(100, 50, 50));
                 y += floatheight * 0.15;
                 canvas.drawText(String.format("伤害 增加 %d", need.atk), x, y, paint);
             }
             if (need.hitrate != 0) {
-                paint.setColor(Color.rgb(100,50,100));
+                paint.setColor(Color.rgb(100, 50, 100));
                 y += floatheight * 0.15;
                 canvas.drawText(String.format("命中 增加 %.2f", need.hitrate), x, y, paint);
             }
             if (need.crit != 0) {
-                paint.setColor(Color.rgb(150,50,50));
+                paint.setColor(Color.rgb(150, 50, 50));
                 y += floatheight * 0.15;
                 canvas.drawText(String.format("爆击 增加 %.2f", need.crit), x, y, paint);
             }
@@ -208,6 +208,7 @@ public class DrawBackground implements ModeDrawIn {
 
     //绘制玩家的属性
     private void drawPlayerShuXing(Canvas canvas) {
+        String s;
 
         paint.setColor(Color.YELLOW);
         canvas.drawText(String.valueOf(player.key), baseX + (int) (width * 0.17), baseY + (int) (height * 0.16), paint);
@@ -220,13 +221,25 @@ public class DrawBackground implements ModeDrawIn {
 
         paint.setColor(Color.GREEN);
         canvas.drawText(String.valueOf(player.r_agile), baseX + (int) (width * 0.26), baseY + (int) (height * 0.83) + offy_3, paint);
-        canvas.drawText(String.valueOf(player.hitrate), baseX + (int) (width * 0.53), baseY + (int) (height * 0.83) + offy_3, paint);
+        s = String.valueOf(player.hitrate);
+        if (s.length() > 4)
+            s = s.substring(0, 4);
+        canvas.drawText(s, baseX + (int) (width * 0.53), baseY + (int) (height * 0.83) + offy_3, paint);
+        s = String.valueOf(player.dodge);
+        if (s.length() > 4)
+            s = s.substring(0, 4);
         canvas.drawText(String.valueOf(player.dodge), baseX + (int) (width * 0.78), baseY + (int) (height * 0.83) + offy_3, paint);
 
         paint.setColor(Color.BLUE);
         canvas.drawText(String.valueOf(player.r_intelligence), baseX + (int) (width * 0.26), baseY + (int) (height * 0.83) + offy_3 * 2, paint);
-        canvas.drawText(String.valueOf(player.crit), baseX + (int) (width * 0.53), baseY + (int) (height * 0.83) + offy_3 * 2, paint);
-        canvas.drawText(String.valueOf(player.resistance), baseX + (int) (width * 0.78), baseY + (int) (height * 0.83) + offy_3 * 2, paint);
+        s = String.valueOf(player.crit);
+        if (s.length() > 4)
+            s = s.substring(0, 4);
+        canvas.drawText(s, baseX + (int) (width * 0.53), baseY + (int) (height * 0.83) + offy_3 * 2, paint);
+        s = String.valueOf(player.resistance);
+        if (s.length() > 4)
+            s = s.substring(0, 4);
+        canvas.drawText(s, baseX + (int) (width * 0.78), baseY + (int) (height * 0.83) + offy_3 * 2, paint);
 
     }
 }

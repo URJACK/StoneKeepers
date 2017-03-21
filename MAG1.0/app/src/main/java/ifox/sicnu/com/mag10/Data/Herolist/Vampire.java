@@ -5,23 +5,21 @@ import android.graphics.BitmapFactory;
 
 import ifox.sicnu.com.mag10.Data.Const;
 import ifox.sicnu.com.mag10.Data.Pictures;
-import ifox.sicnu.com.mag10.DataStructure.AttackMethod.AttackMethod;
+import ifox.sicnu.com.mag10.DataStructure.AttackMethod.AttackMethodFactory;
 import ifox.sicnu.com.mag10.DataStructure.BattleManager;
 import ifox.sicnu.com.mag10.DataStructure.Buff.BuffFactory;
 import ifox.sicnu.com.mag10.DataStructure.Hero;
 import ifox.sicnu.com.mag10.DataStructure.Player;
 import ifox.sicnu.com.mag10.DataStructure.Skill.NoTargetSkill;
-import ifox.sicnu.com.mag10.DataStructure.Skill.SingleTargetSkill;
 import ifox.sicnu.com.mag10.DataStructure.Skill.Skill;
-import ifox.sicnu.com.mag10.DataStructure.Unit;
 import ifox.sicnu.com.mag10.R;
 import ifox.sicnu.com.mag10.Tool.UpLevelFilter;
 
 /**
  * Created by Funchou Fu on 2017/3/5.
  */
-public class Vampire extends Hero{
-    public Vampire(Pictures pictures){
+public class Vampire extends Hero {
+    public Vampire(Pictures pictures) {
         this.atk = 10;
         this.hitrate = (float) 0.9;
         this.crit = (float) 0.1;
@@ -79,18 +77,7 @@ public class Vampire extends Hero{
             @Override
             public boolean doSkill(int x, int y, BattleManager bm) {
                 if (super.doSkill(x, y, bm)) {
-                    bm.player.atm = new AttackMethod() {
-                        @Override
-                        public boolean attack(Unit me, Unit unit) {
-                            if (unit.sufferDamage(me.atk, true)) {
-                                me.hp += me.atk;
-                                if (me.hp > me.maxHp)
-                                    me.hp = me.maxHp;
-                                return true;
-                            } else
-                                return false;
-                        }
-                    };
+                    bm.player.addAtm(AttackMethodFactory.createMethod("xixuegongji"));
                     return true;
                 } else
                     return false;

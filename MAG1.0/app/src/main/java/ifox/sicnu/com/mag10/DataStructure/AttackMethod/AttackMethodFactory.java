@@ -9,7 +9,7 @@ public class AttackMethodFactory {
     /**
      * 强悍攻击 powerAttack :  两倍伤害
      */
-    public static AttackMethod makeMethod(String name) {
+    public static AttackMethod createMethod(String name) {
         if (name.equals("powerAttack")) {
             AttackMethod lightpower = new AttackMethod() {
                 @Override
@@ -20,7 +20,23 @@ public class AttackMethodFactory {
                         return false;
                 }
             };
+            lightpower.id = 0;
             return lightpower;
+        } else if (name.equals("xixuegongji")) {
+            AttackMethod xixuegongji = new AttackMethod() {
+                @Override
+                public boolean attack(Unit me, Unit unit) {
+                    if (unit.sufferDamage(me.atk, true)) {
+                        me.hp += me.atk;
+                        if (me.hp > me.maxHp)
+                            me.hp = me.maxHp;
+                        return true;
+                    } else
+                        return false;
+                }
+            };
+            xixuegongji.id = 1;
+            return xixuegongji;
         }
         return null;
     }

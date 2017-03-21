@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import ifox.sicnu.com.mag10.Data.Const;
 import ifox.sicnu.com.mag10.Data.Monster.MonsterFactory;
+import ifox.sicnu.com.mag10.DataStructure.AttackMethod.AttackMethod;
 import ifox.sicnu.com.mag10.DataStructure.BattleManager;
 import ifox.sicnu.com.mag10.DataStructure.Cell;
 import ifox.sicnu.com.mag10.DataStructure.Monster;
@@ -29,7 +30,7 @@ public class BuffFactory {
     public static KeepBuff createKeepBuff(String name) {
         if (name.equals("atkIncrease")) {                        //攻击增益buff
             return createAtkIncrease();
-        }else if (name.equals("defDecrease"))
+        } else if (name.equals("defDecrease"))
             return createDefDecrease();
         return null;
     }
@@ -111,8 +112,8 @@ public class BuffFactory {
         } else if (name.equals("rangedattack")) {
             RoundEndBuff roundEndBuff = createRangedattack();
             return roundEndBuff;
-        }else if(name.equals("xixuegongji")){
-            RoundEndBuff roundEndBuff =createxixuegongji();
+        } else if (name.equals("xixuegongji")) {
+            RoundEndBuff roundEndBuff = createxixuegongji();
             return roundEndBuff;
         }
         return null;
@@ -123,10 +124,15 @@ public class BuffFactory {
             @Override
             public void doWork(int x, int y, BattleManager bm) {
                 Monster m = bm.cells.get(x + 8 * y).monster;
-                if(time == 1){
-                    bm.player.atm = null;
+                if (time == 1) {
+                    for (int i = 0; i < bm.player.atms.size(); i++) {
+                        AttackMethod atm = bm.player.atms.get(i);
+                        if (atm.id == 1) {            //此处的id 为吸血攻击的id
+                            bm.player.rmvAtm(atm);
+                        }
+                    }
                 }
-                time --;
+                time--;
             }
         };
         roundEndBuff.time = 2;
@@ -301,8 +307,7 @@ public class BuffFactory {
         roundEndBuff.bitmap = Bitmap.createScaledBitmap(roundEndBuff.bitmap, (int) (Const.SCREENHEIGHT * 0.06), (int) (Const.SCREENHEIGHT * 0.06), true);
         return roundEndBuff;
     }
-    
-    
+
 
     public static boolean leftisOK(int index, BattleManager bm) {
         if (index >= 1 && index % 8 != 0) {

@@ -53,6 +53,29 @@ public class EquipmentFactory {
         }
         return null;
     }
+    public static Equipment createCoWeapon(String name){
+        if (name.equals("shield_1"))
+            return createshield_1();
+        else if (name.equals("shield_2"))
+            return createshield_2();
+        else if (name.equals("shield_3"))
+            return createshield_3();
+        return null;
+    }
+
+    private static Equipment createshield_3() {
+        return null;
+    }
+
+    private static Equipment createshield_2() {
+        return null;
+    }
+
+    private static Equipment createshield_1() {
+
+        return null;
+    }
+
 
     private static Equipment createAxe_4() {
         Equipment equipment = new Equipment();

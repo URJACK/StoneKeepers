@@ -155,7 +155,7 @@ public class BattleManager {
                 if (cell.monster != null) {
                     Monster monster = cell.monster;
                     buffWork(cell.x, cell.y, monster, true);               //在怪物受伤前，对受伤怪物的状态进行检测
-                    if (player.atm == null) {
+                    if (player.isnormalAttack()) {
                         if (!player.normalAtk(monster)) {
                             buffWork(-1, -1, player, true);
                             monster.normalAtk(player);                     //在人物受伤前，对人的状态进行检测

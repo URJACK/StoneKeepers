@@ -9,5 +9,6 @@ public abstract class AttackMethod {
     /**
      * 如果被攻击的死亡，会返回true
      */
+    public int id;
     public abstract boolean attack(Unit me, Unit unit);
 }
