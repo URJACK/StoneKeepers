@@ -1,4 +1,4 @@
-package ifox.sicnu.com.mag10;
+package ifox.sicnu.com.mag10.DataStructure;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,6 +8,7 @@ import ifox.sicnu.com.mag10.DataStructure.AttackMethod.AttackMethod;
 import ifox.sicnu.com.mag10.DataStructure.Buff.BuffFactory;
 import ifox.sicnu.com.mag10.DataStructure.Equipment;
 import ifox.sicnu.com.mag10.DataStructure.Unit;
+import ifox.sicnu.com.mag10.R;
 
 /**
  * Created by Funchou Fu on 2017/3/20.

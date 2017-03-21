@@ -117,11 +117,11 @@ public class DrawGame extends DrawBackground {
             for (int i = 0; i < buffs.size(); i++) {
                 canvas.drawBitmap(buffs.get(i).bitmap, (int) (Const.SCREENHEIGHT * 0.05), (int) (Const.SCREENWIDTH * 0.49 + i * Const.CELL_WIDTH), null);
                 String introduce = buffs.get(i).introduce;
-                if(introduce.length()<25) {
+                if (introduce.length() < 25) {
                     canvas.drawText(introduce, (int) (Const.SCREENHEIGHT * 0.13), (int) (Const.SCREENWIDTH * 0.53 + i * Const.CELL_WIDTH), paint);
-                }else {
-                    canvas.drawText(introduce.substring(0,25),(int) (Const.SCREENHEIGHT * 0.13), (int) (Const.SCREENWIDTH * 0.53 + i * Const.CELL_WIDTH), paint);
-                    canvas.drawText(introduce.substring(25),(int) (Const.SCREENHEIGHT * 0.13), (int) (Const.SCREENWIDTH * 0.53 + i * Const.CELL_WIDTH+Const.CELL_WIDTH/4), paint);
+                } else {
+                    canvas.drawText(introduce.substring(0, 25), (int) (Const.SCREENHEIGHT * 0.13), (int) (Const.SCREENWIDTH * 0.53 + i * Const.CELL_WIDTH), paint);
+                    canvas.drawText(introduce.substring(25), (int) (Const.SCREENHEIGHT * 0.13), (int) (Const.SCREENWIDTH * 0.53 + i * Const.CELL_WIDTH + Const.CELL_WIDTH / 4), paint);
                 }
 //                String buf3 = buffs.get(i).introduce;
 //                int length2 = buf3.length();
@@ -166,11 +166,13 @@ public class DrawGame extends DrawBackground {
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(1);
 
-        Equipment mequipment = shop.S_equipments.get(shop.S_equipment_index);
-        if (mequipment != null) {                   //如果没有得到该装备，那么进行返回   [例如购买完装备后]
-            canvas.drawText(mequipment.money + "", (float) (Const.SCREENHEIGHT * 0.28), (float) (Const.SCREENWIDTH * 0.7), paint);
-            canvas.drawText(mequipment.introduce, (float) (Const.SCREENHEIGHT * 0.07), (float) (Const.SCREENWIDTH * 0.7), paint);
-            paint.setColor(Color.RED);
+        if (shop.S_equipment_index < shop.S_equipments.size()) {
+            Equipment mequipment = shop.S_equipments.get(shop.S_equipment_index);
+            if (mequipment != null) {                   //如果没有得到该装备，那么进行返回   [例如购买完装备后]
+                canvas.drawText(mequipment.money + "", (float) (Const.SCREENHEIGHT * 0.28), (float) (Const.SCREENWIDTH * 0.7), paint);
+                canvas.drawText(mequipment.introduce, (float) (Const.SCREENHEIGHT * 0.07), (float) (Const.SCREENWIDTH * 0.7), paint);
+                paint.setColor(Color.RED);
+            }
         }
 
         paint.setStrokeWidth(8);

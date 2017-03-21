@@ -87,5 +87,6 @@ public class Equipment {
 
     public void addAfix(Affix affix) {
         affix.doWork(this);
+        this.affix = affix;
     }
 }

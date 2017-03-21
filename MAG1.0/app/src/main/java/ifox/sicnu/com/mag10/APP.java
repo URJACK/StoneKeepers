@@ -2,10 +2,7 @@ package ifox.sicnu.com.mag10;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.media.AudioManager;
-import android.media.SoundPool;
 
-import ifox.sicnu.com.mag10.Data.Affixs;
 import ifox.sicnu.com.mag10.Data.HeroBuff;
 import ifox.sicnu.com.mag10.Data.Heroes;
 import ifox.sicnu.com.mag10.Data.Pictures;
@@ -22,7 +19,6 @@ public class APP extends android.app.Application {
     Pictures pictures;          //游戏里的图片资源
     Heroes heroes;      //游戏里的英雄资源
     Skills skills;              //游戏里的技能资源
-    Affixs affixs;              //游戏里的装备用词缀资源
 
     HeroBuff heroBuff;          //游戏里的存储单位
     SQLiteDatabase db;
@@ -55,7 +51,6 @@ public class APP extends android.app.Application {
         skills = new Skills(pictures);
         heroBuff = new HeroBuff(context);
 
-        affixs = new Affixs();
         heroes = new Heroes(pictures, skills);
 
 

@@ -131,8 +131,8 @@ public class BattleManager {
         //首先必须满足 不是黑块
         if (cell.status != Cell.FORBID) {
             //探索
-            if (cells.get(first_index).status == Cell.UNDISCORVERED) {
-                cells.get(first_index).status = Cell.DISCORVERED;
+            if (cell.status == Cell.UNDISCORVERED) {
+                cell.status = Cell.DISCORVERED;
 
 
                 if (player.pp < player.maxPp) {
@@ -150,7 +150,7 @@ public class BattleManager {
                 } else
                     Change_Cell(first_index, Cell.UNDISCORVERED, Cell.FORBID);
                 flag = true;
-            } else {
+            } else if (cell.status == Cell.DISCORVERED){
                 //攻击怪物
                 if (cell.monster != null) {
                     Monster monster = cell.monster;

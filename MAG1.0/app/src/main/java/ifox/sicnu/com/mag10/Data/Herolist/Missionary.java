@@ -1,15 +1,11 @@
 package ifox.sicnu.com.mag10.Data.Herolist;
 
-<<<<<<< HEAD
-=======
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import java.util.ArrayList;
 
 import ifox.sicnu.com.mag10.Data.Const;
-import ifox.sicnu.com.mag10.Data.Equipments;
->>>>>>> origin/master
 import ifox.sicnu.com.mag10.Data.Pictures;
 import ifox.sicnu.com.mag10.DataStructure.BattleManager;
 import ifox.sicnu.com.mag10.DataStructure.Cell;

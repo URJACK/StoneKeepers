@@ -11,7 +11,6 @@ import java.util.List;
 import ifox.sicnu.com.mag10.APP;
 import ifox.sicnu.com.mag10.Data.Const;
 import ifox.sicnu.com.mag10.Data.Pictures;
-import ifox.sicnu.com.mag10.EquipmentFactory;
 import ifox.sicnu.com.mag10.R;
 
 /**
@@ -38,7 +37,7 @@ public class Shop {
         }
         pictures = ((APP) context.getApplicationContext()).getPictures();
         S_equipments = new ArrayList<>();
-        getShopEquipments();
+//        getShopEquipments();
         getPlayerEquipments();
     }
 

@@ -20,13 +20,8 @@ import ifox.sicnu.com.mag10.Tool.UpLevelFilter;
 /**
  * Created by Funchou Fu on 2017/3/5.
  */
-<<<<<<< HEAD
 public class Vampire extends Hero{
     public Vampire(Pictures pictures){
-=======
-public class Vampire extends Hero {
-    public Vampire(Pictures pictures, Equipments equipments) {
->>>>>>> origin/master
         this.atk = 10;
         this.hitrate = (float) 0.9;
         this.crit = (float) 0.1;

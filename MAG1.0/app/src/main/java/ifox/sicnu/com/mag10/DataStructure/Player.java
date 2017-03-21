@@ -6,7 +6,6 @@ import android.util.Log;
 import ifox.sicnu.com.mag10.Data.Const;
 import ifox.sicnu.com.mag10.Data.HeroBuff;
 import ifox.sicnu.com.mag10.DataStructure.Skill.Skill;
-import ifox.sicnu.com.mag10.EquipmentFactory;
 import ifox.sicnu.com.mag10.Tool.UpLevelFilter;
 
 /**
