@@ -38,7 +38,7 @@ public class APP extends android.app.Application {
 
     //在第一个Activity 时， 使用该方法传入 Context 生成游戏资源
     public void createDatas(Context context) {
-        DtbsOpHelper dtbsOpHelper = new DtbsOpHelper(context, "stonekeeper", null, 1, pictures);
+        DtbsOpHelper dtbsOpHelper = new DtbsOpHelper(context, "stonekeeper", null, 2, pictures);
         db = dtbsOpHelper.getWritableDatabase();
         dc = new DtbsControler(db, context);
         pictures = dtbsOpHelper.pictures;

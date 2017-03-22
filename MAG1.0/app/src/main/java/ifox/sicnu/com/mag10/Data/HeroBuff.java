@@ -3,6 +3,7 @@ package ifox.sicnu.com.mag10.Data;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +75,7 @@ public class HeroBuff {
         editor.putInt("atk", atk);
         editor.putInt("armor", armor);
         editor.putInt("money", player.money);
+        Toast.makeText(context, "你已经成功的存储了数据到本地", Toast.LENGTH_SHORT).show();
         editor.commit();
     }
 

@@ -303,23 +303,39 @@ public class BattleManager {
         double num = Math.random();
         if (level < 4) {
             if (num < 0.3)
-                return MonsterFactory.createMonster("MotherMouse", level);
+                return MonsterFactory.createMonster("Goblin", level);
             else if (num >= 0.3 && num < 0.6)
-                return MonsterFactory.createMonster("Mummy", level);
+                return MonsterFactory.createMonster("Saboteur", level);
             else
-                return MonsterFactory.createMonster("Sheep", level);
+                return MonsterFactory.createMonster("Skeleton", level);
         } else if (level < 7) {
             if (num < 0.35)
                 return MonsterFactory.createMonster("Goblin", level);
             else if (num >= 0.35 && num < 0.55)
-                return MonsterFactory.createMonster("Spider", level);
-            else if (num >= 0.55 && num < 0.75)
-                return MonsterFactory.createMonster("RuneSorcerer", level);
-            else
                 return MonsterFactory.createMonster("Saboteur", level);
+            else if (num >= 0.55 && num < 0.75)
+                return MonsterFactory.createMonster("Skeleton", level);
+            else
+                return MonsterFactory.createMonster("SkeletonArcher", level);
         } else if (level < 10) {
-            return MonsterFactory.createMonster("Spider", level);
-        } else
+            if (num < 0.35)
+                return MonsterFactory.createMonster("DarkRitual", level);
+            else if (num >= 0.35 && num < 0.55)
+                return MonsterFactory.createMonster("Saboteur", level);
+            else if (num >= 0.55 && num < 0.75)
+                return MonsterFactory.createMonster("Skeleton", level);
+            else
+                return MonsterFactory.createMonster("SkeletonArcher", level);
+        } else if (level < 13){
+            if (num < 0.35)
+                return MonsterFactory.createMonster("DarkRitual", level);
+            else if (num >= 0.35 && num < 0.55)
+                return MonsterFactory.createMonster("Assassin", level);
+            else if (num >= 0.55 && num < 0.75)
+                return MonsterFactory.createMonster("Skeleton", level);
+            else
+                return MonsterFactory.createMonster("SkeletonArcher", level);
+        }
             return null;
     }
 
