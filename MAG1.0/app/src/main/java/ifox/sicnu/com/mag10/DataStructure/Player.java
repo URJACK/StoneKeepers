@@ -129,6 +129,8 @@ public class Player extends Unit {
             case Equipment.CO_WEAPON:
                 e = this.co_weapon;
                 this.co_weapon = equipment;
+                if (this.weapon == null)
+                    break;
                 if (this.weapon.type == Equipment.D_WEAPON) {
                     inbag(this.weapon);
                     diswear(this.weapon);
