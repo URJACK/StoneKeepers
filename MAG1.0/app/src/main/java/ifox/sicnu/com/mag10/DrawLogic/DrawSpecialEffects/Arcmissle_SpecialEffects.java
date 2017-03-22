@@ -14,7 +14,7 @@ import ifox.sicnu.com.mag10.R;
 public class Arcmissle_SpecialEffects extends SpecialEffects {
     int i = 0;
     int times = 13;
-    Bitmap[] bitmaps;
+    static Bitmap[] bitmaps;
     int per_y;
 
     public Arcmissle_SpecialEffects(int x, int y) {

@@ -53,20 +53,7 @@ public class Vampire extends Hero {
                 player.armor += 2;
             }
         };
-        Skill xianxue = new NoTargetSkill(this, Skill.MAXHP, 2, Skill.HP, 10, null) {
-            @Override
-            public boolean doSkill(int x, int y, BattleManager bm) {
-                if (super.doSkill(x, y, bm)) {
-                    if (bm.player.hp > 10) {
-                        bm.player.hp -= 10;
-                        bm.player.atk += 15;
-                        return true;
-                    }
-                } else
-                    return false;
-                return false;
-            }
-        };
+        Skill xianxue = new NoTargetSkill(this, Skill.MAXHP, 2, Skill.HP, 10, BuffFactory.createKeepBuff("atkIncrease"));
         xianxue.name = "献血神祭";
         xianxue.introduce = "把自己的鲜血给神灵，换取攻击力";
         xianxue.bitmap = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.skill_xianxue);

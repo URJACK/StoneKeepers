@@ -77,8 +77,10 @@ public class DrawGame extends DrawBackground {
                         SpecialEffects e = battleManager.effectses.get(i);
                         if (e.isAlive())
                             e.docanva(canvas);//展示特效
-                        else
+                        else {
                             battleManager.effectses.remove(e);
+                            System.gc();
+                        }
                     }
                 }
             }

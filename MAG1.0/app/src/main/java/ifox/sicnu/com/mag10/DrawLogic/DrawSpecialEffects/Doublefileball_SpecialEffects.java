@@ -14,7 +14,7 @@ import ifox.sicnu.com.mag10.R;
 public class Doublefileball_SpecialEffects extends SpecialEffects{
     int i = 0;
     int times = 12;
-    Bitmap[] bitmaps;
+    static Bitmap[] bitmaps;
     int per_y;
 
     public Doublefileball_SpecialEffects(int x, int y) {
@@ -27,9 +27,10 @@ public class Doublefileball_SpecialEffects extends SpecialEffects{
 
     private Bitmap[] initBitmap() {
         bitmaps = new Bitmap[12];
-        bitmaps[0] = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.huoqiu_01);
-        bitmaps[0] = Bitmap.createScaledBitmap(bitmaps[0], Const.CELL_WIDTH * 3, Const.CELL_HEIGHT * 3, true);
-
+        if (bitmaps[0]==null) {
+            bitmaps[0] = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.huoqiu_01);
+            bitmaps[0] = Bitmap.createScaledBitmap(bitmaps[0], Const.CELL_WIDTH * 3, Const.CELL_HEIGHT * 3, true);
+        }
         bitmaps[1] = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.huoqiu_02);
         bitmaps[1] = Bitmap.createScaledBitmap(bitmaps[1], Const.CELL_WIDTH * 3, Const.CELL_HEIGHT * 3, true);
 
@@ -47,7 +48,7 @@ public class Doublefileball_SpecialEffects extends SpecialEffects{
         bitmaps[7] = Bitmap.createScaledBitmap(bitmaps[7], Const.CELL_WIDTH * 3, Const.CELL_HEIGHT * 3, true);
         bitmaps[8] = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.huoqiu09);
         bitmaps[8] = Bitmap.createScaledBitmap(bitmaps[8], Const.CELL_WIDTH * 3, Const.CELL_HEIGHT * 3, true);
-        bitmaps[9] = BitmapFactory.decodeResource(Const.mContext_Game.getResources(),R.drawable.huoqiu10);
+        bitmaps[9] = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.huoqiu10);
         bitmaps[9] = Bitmap.createScaledBitmap(bitmaps[9], Const.CELL_WIDTH * 3, Const.CELL_HEIGHT * 3, true);
         bitmaps[10] = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.huoqiu11);
         bitmaps[10] = Bitmap.createScaledBitmap(bitmaps[10], Const.CELL_WIDTH * 3, Const.CELL_HEIGHT * 3, true);

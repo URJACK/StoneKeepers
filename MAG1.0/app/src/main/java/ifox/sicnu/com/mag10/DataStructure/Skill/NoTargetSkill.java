@@ -20,7 +20,7 @@ public class NoTargetSkill extends Skill {
     public int costValue;
     public int costType;
     public Buff buff;
-    private  int music_id;
+    private int music_id;
 
     public NoTargetSkill(Unit user, int type, float rate, int costType, int costValue, Buff buff) {
         super(user);
@@ -43,8 +43,15 @@ public class NoTargetSkill extends Skill {
         else
             user.pp -= cost;
 
-        if (this.buff != null)
-            user.wearBuff(BuffFactory.createKeepBuff(this.buff.id));
+        if (this.buff != null) {
+            Buff buff = BuffFactory.createKeepBuff(this.buff.id);
+            if (buff != null)
+                user.wearBuff(buff);
+            else {
+                buff = BuffFactory.createNoKeepBuff(this.buff.id);
+                user.wearBuff(buff);
+            }
+        }
         bm.MonsterClear();
         return true;
     }

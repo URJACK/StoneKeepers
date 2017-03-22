@@ -110,7 +110,7 @@ public class Wizard extends Hero {
                     if(index>=8&&bm.cells.get(index-8).status== Cell.DISCORVERED){
                         SpecialEffects specialEffects = new Doublefileball_SpecialEffects(x * Const.CELL_WIDTH, (y-1) * Const.CELL_HEIGHT);
                         bm.putEffects(specialEffects);
-                       
+
                     }
 
                     if(index<=47&&bm.cells.get(index+8).status==Cell.DISCORVERED){

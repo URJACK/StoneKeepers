@@ -173,8 +173,8 @@ public class BuffFactory {
         RoundEndBuff roundEndBuff = new RoundEndBuff() {
             @Override
             public void doWork(int x, int y, BattleManager bm) {
-                Monster m = bm.cells.get(x + 8 * y).monster;
                 if (time == 1) {
+                    Log.i(TAG, "doWork: ClearXixue");
                     for (int i = 0; i < bm.player.atms.size(); i++) {
                         AttackMethod atm = bm.player.atms.get(i);
                         if (atm.id == 1) {            //此处的id 为吸血攻击的id

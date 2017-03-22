@@ -63,7 +63,7 @@ public class SelectView extends SurfaceView implements SurfaceHolder.Callback, D
         IniBitmap();
         heroBuff = app.getHeroBuff();
         heroes = app.getHeroes();
-        player = new Player(heroes.getHero("斯微法"), heroBuff);
+        player = new Player(heroes.getHero("弗拉基米尔"), heroBuff);
         Initilization();
         ((APP) mContext.getApplicationContext()).setPlayer(player);
     }
