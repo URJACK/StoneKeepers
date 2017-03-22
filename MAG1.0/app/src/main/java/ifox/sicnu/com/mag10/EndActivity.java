@@ -15,6 +15,7 @@ public class EndActivity extends Activity {
     boolean type; //结束游戏的类型true（success）or false(failer)
     EndView endView;
     int music_id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,8 +28,8 @@ public class EndActivity extends Activity {
             @Override
             public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
                 Const.soundPool_Game.play(music_id, 1, 1, 1, 0, 1);
-
             }
         });
+        ((APP) getApplicationContext()).getHeroBuff().saveValue();
     }
 }

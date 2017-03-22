@@ -2,9 +2,13 @@ package ifox.sicnu.com.mag10.Data;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import ifox.sicnu.com.mag10.APP;
+import ifox.sicnu.com.mag10.DataStructure.Player;
 
 /**
  * Created by Funchou Fu on 2017/2/24.
@@ -22,7 +26,7 @@ public class HeroBuff {
     public int atk;
     public int armor;
     public int money;
-//-----------------------------------------------------
+    //-----------------------------------------------------
     public List<String> buffer_name;
     public List<String> buffer_worlds;
 
@@ -31,19 +35,22 @@ public class HeroBuff {
     public HeroBuff(Context context) {
         this.context = context;
         SharedPreferences sp = context.getSharedPreferences("herobuff", Context.MODE_PRIVATE);
-        hp = sp.getInt("hp", 1);
+        hp = sp.getInt("hp", 0);
         mp = sp.getInt("mp", 0);
         pp = sp.getInt("pp", 0);
         atk = sp.getInt("atk", 0);
         armor = sp.getInt("armor", 0);
-        money = sp.getInt("money", 0);
+        money = sp.getInt("money", 30);
+
+        Log.i(TAG, String.format("hp %d mp %d pp %d atk %d armor %d money %d", hp, mp, pp, atk, armor, money));
 
         buffer_name = new ArrayList<>();
         buffer_worlds = new ArrayList<>();
         initworlds();
 
     }
-    private void initworlds(){
+
+    private void initworlds() {
         buffer_name.add("hp");
         buffer_name.add("mp");
         buffer_name.add("pp");
@@ -58,6 +65,7 @@ public class HeroBuff {
 
     /*当自身属性发生变化时，通过该方法来保留已经变化的属性*/
     public void saveValue() {
+        Player player = ((APP) context.getApplicationContext()).getPlayer();
         SharedPreferences sp = context.getSharedPreferences("herobuff", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.putInt("hp", hp);
@@ -65,7 +73,7 @@ public class HeroBuff {
         editor.putInt("pp", pp);
         editor.putInt("atk", atk);
         editor.putInt("armor", armor);
-        editor.putInt("money", money);
+        editor.putInt("money", player.money);
         editor.commit();
     }
 

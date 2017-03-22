@@ -26,12 +26,12 @@ public class AttackMethodFactory {
             AttackMethod xixuegongji = new AttackMethod() {
                 @Override
                 public boolean attack(Unit me, Unit unit) {
-                    if (unit.sufferDamage(me.atk, true)) {
-                        me.hp += me.atk;
-                        if (me.hp > me.maxHp)
-                            me.hp = me.maxHp;
+                    me.hp += me.atk;
+                    if (me.hp > me.maxHp)
+                        me.hp = me.maxHp;
+                    if (unit.sufferDamage(me.atk, false))
                         return true;
-                    } else
+                    else
                         return false;
                 }
             };

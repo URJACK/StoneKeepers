@@ -54,17 +54,17 @@ public class Player extends Unit {
         this.r_agile = hero.r_agile;
         this.r_intelligence = hero.r_intelligence;
 
-        this.atk = hero.atk + heroBuff.atk;
+        this.atk = hero.atk + heroBuff.atk * 2;
         this.hitrate = hero.hitrate;
         this.crit = hero.crit;
 
-        this.armor = hero.armor + heroBuff.armor;
+        this.armor = hero.armor + heroBuff.armor * 4;
         this.dodge = hero.dodge;
         this.resistance = hero.resistance;
 
-        this.maxHp = hero.maxHp + heroBuff.hp;
-        this.maxMp = hero.maxMp + heroBuff.mp;
-        this.maxPp = hero.maxPp + heroBuff.pp;
+        this.maxHp = hero.maxHp + heroBuff.hp * 5;
+        this.maxMp = hero.maxMp + heroBuff.mp * 2;
+        this.maxPp = hero.maxPp + heroBuff.pp * 3;
 
         this.upLevelFilter = hero.upLevelFilter;
 
@@ -74,7 +74,7 @@ public class Player extends Unit {
         this.pp = 10;                           //DEBUG 期间，将pp属性设置为10
 
         this.level = 1;                         //等级默认为1
-        this.money = heroBuff.money + 100;            //金钱读取
+        this.money = heroBuff.money;            //金钱读取
         this.key = 0;                           //钥匙默认为0
         this.skillswitch = false;               //默认选择为道具
         this.bagswitch = false;                 //默认背包为未打开
@@ -337,5 +337,16 @@ public class Player extends Unit {
             return true;
         else
             return false;
+    }
+
+    public void pushTool(Skill skill) {
+        if (skill == null)
+            return;
+        for (int i = 0; i < 3; i++) {
+            if (tools[i] == null) {
+                tools[i] = skill;
+                break;
+            }
+        }
     }
 }

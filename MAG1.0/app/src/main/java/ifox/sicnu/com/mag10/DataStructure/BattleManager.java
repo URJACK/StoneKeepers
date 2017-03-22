@@ -23,6 +23,7 @@ import ifox.sicnu.com.mag10.DataStructure.Buff.MonsterClearBuff;
 import ifox.sicnu.com.mag10.DataStructure.Buff.MonsterDieBuff;
 import ifox.sicnu.com.mag10.DataStructure.Buff.RoundEndBuff;
 import ifox.sicnu.com.mag10.DataStructure.Buff.SufferDamageBuff;
+import ifox.sicnu.com.mag10.DataStructure.Skill.ToolSkillFactory;
 import ifox.sicnu.com.mag10.DrawLogic.DrawSpecialEffects.PpgetSpecialEffects;
 import ifox.sicnu.com.mag10.DrawLogic.DrawSpecialEffects.SpecialEffects;
 import ifox.sicnu.com.mag10.GameActivity;
@@ -206,7 +207,8 @@ public class BattleManager {
                     player.upLevel();
                 }
                 for (int j = 0; j < cells.size(); j++) {
-                    if (m == cells.get(j).monster) {
+                    if (m == cells.get(j).monster) {                    // 怪物死亡
+                        givePlayerTools(m.exp);
                         cells.get(j).monster = null;
                         buffWork(j % 8, j / 8, m, false);
                         Change_Cell(j, Cell.UNDISCORVERED, Cell.UNDISCORVERED2);
@@ -220,6 +222,21 @@ public class BattleManager {
         if (player.hp <= 0) {
             Toast.makeText(mContext, "你收到了魔王的嘲讽", Toast.LENGTH_SHORT).show();
             ((GameActivity) mContext).gotoEndActivity(false);
+        }
+    }
+
+    /**
+     * 这个方法会自动检测函数，来给予玩家道具
+     * index 越大，获得道具的概率越大，如果index为0，则概率为0
+     */
+    private void givePlayerTools(int index) {
+        index /= 2;
+        float rate = ((float) index) / ((float) index + (float) 20);            //生成道具的概率
+        if (Math.random() < rate) {
+            player.pushTool(ToolSkillFactory.createTool());
+        }
+        if (Math.random() < rate) {                                             //获得金钱概率
+            player.money += 3 + this.floor * Math.random();
         }
     }
 

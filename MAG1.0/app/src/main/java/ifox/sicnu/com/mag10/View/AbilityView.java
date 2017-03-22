@@ -77,16 +77,16 @@ public class AbilityView extends SurfaceView implements SurfaceHolder.Callback {
             click_x = (int) event.getX();
             //判断点击按钮
             // if(click_x > Const.SCREENHEIGHT*17/25&&click_x<Const.SCREENHEIGHT*4/5&&click_y>Const.SCREENWIDTH*0.24&&click_y<Const.SKILL_WIDTH*0.32){}
-            if (click_x > Const.SCREENHEIGHT * 17 / 25 && click_x < Const.SCREENHEIGHT * 4 / 5&&click_y>Const.SCREENWIDTH*0.17) {
-                int topofs = (int) (Const.SCREENHEIGHT / 18+Const.SCREENWIDTH * 5 / 16);
-                for(int i=0;i<5;i++){
-                    if(click_y > Const.SCREENWIDTH * 0.24 - offset_2+(i*topofs) && click_y < Const.SCREENWIDTH * 0.32 - offset_2+(i*topofs)){
-                        if(player.money>=COST){
+            if (click_x > Const.SCREENHEIGHT * 17 / 25 && click_x < Const.SCREENHEIGHT * 4 / 5 && click_y > Const.SCREENWIDTH * 0.17) {
+                int topofs = (int) (Const.SCREENHEIGHT / 18 + Const.SCREENWIDTH * 5 / 16);
+                for (int i = 0; i < 5; i++) {
+                    if (click_y > Const.SCREENWIDTH * 0.24 - offset_2 + (i * topofs) && click_y < Const.SCREENWIDTH * 0.32 - offset_2 + (i * topofs)) {
+                        if (player.money >= COST) {
                             AbilityUp(i);
                             Draw(offset_2);
                             break;
-                        }else {
-                            Toast.makeText(mcontext,"你的金钱不够！",Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(mcontext, "你的金钱不够！", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
@@ -101,51 +101,58 @@ public class AbilityView extends SurfaceView implements SurfaceHolder.Callback {
 
     }
 
-    public void AbilityUp(int id){
-        switch (id){
+    public void AbilityUp(int id) {
+        switch (id) {
             case 0:
-                if(heroBuff.hp==5) {
-                    Toast.makeText(mcontext,"你都升到了满级，不用升级了",Toast.LENGTH_SHORT).show();
+                if (heroBuff.hp == 5) {
+                    Toast.makeText(mcontext, "你都升到了满级，不用升级了", Toast.LENGTH_SHORT).show();
                     break;
                 }
                 heroBuff.hp++;
-                player.money = player.money-COST;
+                player.money = player.money - COST;
+                player.maxHp += 5;
+                player.hp = player.maxHp;
                 heroBuff.saveValue();
                 break;
             case 1:
-                if(heroBuff.mp==5){
-                    Toast.makeText(mcontext,"你都升到了满级，不用升级了",Toast.LENGTH_SHORT).show();
+                if (heroBuff.mp == 5) {
+                    Toast.makeText(mcontext, "你都升到了满级，不用升级了", Toast.LENGTH_SHORT).show();
                     break;
                 }
                 heroBuff.mp++;
-                player.money = player.money-COST;
+                player.money = player.money - COST;
+                player.maxMp += 2;
+                player.mp = player.maxMp;
                 heroBuff.saveValue();
                 break;
             case 2:
-                if(heroBuff.pp==5){
-                    Toast.makeText(mcontext,"你都升到了满级，不用升级了",Toast.LENGTH_SHORT).show();
+                if (heroBuff.pp == 5) {
+                    Toast.makeText(mcontext, "你都升到了满级，不用升级了", Toast.LENGTH_SHORT).show();
                     break;
                 }
                 heroBuff.pp++;
-                player.money = player.money-COST;
+                player.maxPp += 3;
+                player.money = player.money - COST;
                 heroBuff.saveValue();
                 break;
             case 3:
-                if(heroBuff.atk==5){
-                    Toast.makeText(mcontext,"你都升到了满级，不用升级了",Toast.LENGTH_SHORT).show();
+                if (heroBuff.atk == 5) {
+                    Toast.makeText(mcontext, "你都升到了满级，不用升级了", Toast.LENGTH_SHORT).show();
                     break;
                 }
                 heroBuff.atk++;
-                player.money = player.money-COST;
+                player.atk += 2;
+                player.money = player.money - COST;
                 heroBuff.saveValue();
                 break;
             case 4:
-                if(heroBuff.armor==5){
-                    Toast.makeText(mcontext,"你都升到了满级，不用升级了",Toast.LENGTH_SHORT).show();
+                if (heroBuff.armor == 5) {
+                    Toast.makeText(mcontext, "你都升到了满级，不用升级了", Toast.LENGTH_SHORT).show();
                     break;
                 }
                 heroBuff.armor++;
-                player.money = player.money-COST;
+                player.armor += 4;
+                player.money = player.money - COST;
                 heroBuff.saveValue();
                 break;
 
