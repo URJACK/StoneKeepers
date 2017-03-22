@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 
 import ifox.sicnu.com.mag10.Data.Const;
 import ifox.sicnu.com.mag10.DataStructure.Buff.BuffFactory;
+import ifox.sicnu.com.mag10.DataStructure.Buff.MonsterSkillFactory;
 import ifox.sicnu.com.mag10.DataStructure.Monster;
 import ifox.sicnu.com.mag10.DataStructure.Unit;
 import ifox.sicnu.com.mag10.R;
@@ -40,6 +41,7 @@ public class RuneSorcerer extends Monster {
             bitmap = Bitmap.createScaledBitmap(bitmap, Const.CELL_WIDTH, Const.CELL_HEIGHT, true);
         }
         wearBuff(BuffFactory.createNoKeepBuff("necronomicon"));
+        wearBuff(MonsterSkillFactory.create("overmana"));
     }
 
     @Override

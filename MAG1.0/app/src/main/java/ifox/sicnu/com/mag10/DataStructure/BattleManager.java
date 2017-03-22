@@ -54,7 +54,6 @@ public class BattleManager {
         cells = new LinkedList<>();
         monsters = new LinkedList<>();
         player = ((APP) context.getApplicationContext()).getPlayer();
-
         effectses = new ArrayList<>();
     }
 
@@ -303,40 +302,85 @@ public class BattleManager {
         double num = Math.random();
         if (level < 4) {
             if (num < 0.3)
-                return MonsterFactory.createMonster("Goblin", level);
+                return MonsterFactory.createMonster("Goblin", level);       //1
             else if (num >= 0.3 && num < 0.6)
-                return MonsterFactory.createMonster("Saboteur", level);
+                return MonsterFactory.createMonster("Saboteur", level);     //1
             else
-                return MonsterFactory.createMonster("Skeleton", level);
+                return MonsterFactory.createMonster("Skeleton", level);     //1
         } else if (level < 7) {
             if (num < 0.35)
-                return MonsterFactory.createMonster("Goblin", level);
+                return MonsterFactory.createMonster("Goblin", level);               //2
             else if (num >= 0.35 && num < 0.55)
-                return MonsterFactory.createMonster("Saboteur", level);
+                return MonsterFactory.createMonster("Saboteur", level);             //2
             else if (num >= 0.55 && num < 0.75)
-                return MonsterFactory.createMonster("Skeleton", level);
+                return MonsterFactory.createMonster("Skeleton", level);             //2
             else
-                return MonsterFactory.createMonster("SkeletonArcher", level);
+                return MonsterFactory.createMonster("SkeletonArcher", level);       //1
         } else if (level < 10) {
             if (num < 0.35)
-                return MonsterFactory.createMonster("DarkRitual", level);
+                return MonsterFactory.createMonster("DarkRitual", level);           //1
             else if (num >= 0.35 && num < 0.55)
-                return MonsterFactory.createMonster("Saboteur", level);
+                return MonsterFactory.createMonster("Saboteur", level);             //3
             else if (num >= 0.55 && num < 0.75)
-                return MonsterFactory.createMonster("Skeleton", level);
+                return MonsterFactory.createMonster("Skeleton", level);             //3
             else
-                return MonsterFactory.createMonster("SkeletonArcher", level);
+                return MonsterFactory.createMonster("SkeletonArcher", level);       //2
         } else if (level < 13){
             if (num < 0.35)
-                return MonsterFactory.createMonster("DarkRitual", level);
+                return MonsterFactory.createMonster("DarkRitual", level);           //2
             else if (num >= 0.35 && num < 0.55)
-                return MonsterFactory.createMonster("Assassin", level);
+                return MonsterFactory.createMonster("Assassin", level);             //1
             else if (num >= 0.55 && num < 0.75)
-                return MonsterFactory.createMonster("Skeleton", level);
+                return MonsterFactory.createMonster("Skeleton", level);             //4
             else
-                return MonsterFactory.createMonster("SkeletonArcher", level);
+                return MonsterFactory.createMonster("SkeletonArcher", level);       //3
+        }else if (level < 16){
+            if (num < 0.35)
+                return MonsterFactory.createMonster("DarkRitual", level);           //3
+            else if (num >= 0.35 && num < 0.55)
+                return MonsterFactory.createMonster("Assassin", level);             //2
+            else if (num >= 0.55 && num < 0.75)
+                return MonsterFactory.createMonster("Mummy", level);                //1
+            else
+                return MonsterFactory.createMonster("SkeletonArcher", level);       //4
+        }else if (level < 19){
+            if (num < 0.35)
+                return MonsterFactory.createMonster("DarkRitual", level);           //4
+            else if (num >= 0.35 && num < 0.55)
+                return MonsterFactory.createMonster("Assassin", level);             //3
+            else if (num >= 0.55 && num < 0.75)
+                return MonsterFactory.createMonster("Mummy", level);                //2
+            else
+                return MonsterFactory.createMonster("Ogres", level);                //1
+        }else if (level < 22){
+            if (num < 0.35)
+                return MonsterFactory.createMonster("Pumpkin", level);           //1
+            else if (num >= 0.35 && num < 0.55)
+                return MonsterFactory.createMonster("Assassin", level);             //4
+            else if (num >= 0.55 && num < 0.75)
+                return MonsterFactory.createMonster("Mummy", level);                //3
+            else
+                return MonsterFactory.createMonster("Ogres", level);                //2
+        }else if (level < 25){
+            if (num < 0.35)
+                return MonsterFactory.createMonster("Pumpkin", level);                  //2
+            else if (num >= 0.35 && num < 0.55)
+                return MonsterFactory.createMonster("Saboteur_Crazy", level);           //1
+            else if (num >= 0.55 && num < 0.75)
+                return MonsterFactory.createMonster("Mummy", level);                    //4
+            else
+                return MonsterFactory.createMonster("Ogres", level);                    //3
+        }else if (level < 28){
+            if (num < 0.35)
+                return MonsterFactory.createMonster("Pumpkin", level);                  //3
+            else if (num >= 0.35 && num < 0.55)
+                return MonsterFactory.createMonster("Saboteur_Crazy", level);           //2
+            else if (num >= 0.55 && num < 0.75)
+                return MonsterFactory.createMonster("MotherMouse", level);                    //1
+            else
+                return MonsterFactory.createMonster("Ogres", level);                    //4
         }
-            return null;
+        return null;
     }
 
     public void changeFunction(int i) {

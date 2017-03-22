@@ -11,6 +11,7 @@ import ifox.sicnu.com.mag10.R;
 
 /**
  * Created by Funchou Fu on 2017/3/19.
+ * 恐怖南瓜
  */
 public class Pumpkin extends Monster {
     public static Bitmap bitmap;

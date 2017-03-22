@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 
 import ifox.sicnu.com.mag10.Data.Const;
 import ifox.sicnu.com.mag10.DataStructure.Buff.BuffFactory;
+import ifox.sicnu.com.mag10.DataStructure.Buff.MonsterSkillFactory;
 import ifox.sicnu.com.mag10.DataStructure.Cell;
 import ifox.sicnu.com.mag10.DataStructure.Monster;
 import ifox.sicnu.com.mag10.R;
@@ -40,6 +41,7 @@ public class Spider extends Monster {
             bitmap = Bitmap.createScaledBitmap(bitmap, Const.CELL_WIDTH, Const.CELL_HEIGHT, true);
         }
         this.wearBuff(BuffFactory.createNoKeepBuff("summon"));                //给蜘蛛增加一个召唤技能
+        wearBuff(MonsterSkillFactory.create("escape"));
     }
 
     @Override

@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 
 import ifox.sicnu.com.mag10.Data.Const;
 import ifox.sicnu.com.mag10.DataStructure.Buff.BuffFactory;
+import ifox.sicnu.com.mag10.DataStructure.Buff.MonsterSkillFactory;
 import ifox.sicnu.com.mag10.DataStructure.Monster;
 import ifox.sicnu.com.mag10.DataStructure.Unit;
 import ifox.sicnu.com.mag10.R;
@@ -37,6 +38,7 @@ public class Skeleton extends Monster {
             bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.monster_kulou);
             bitmap = Bitmap.createScaledBitmap(bitmap, Const.CELL_WIDTH, Const.CELL_HEIGHT, true);
         }
+        wearBuff(MonsterSkillFactory.create("subarmor"));
     }
     @Override
     public Bitmap getBitmap() {
