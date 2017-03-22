@@ -115,8 +115,58 @@ public class BuffFactory {
         } else if (name.equals("xixuegongji")) {
             RoundEndBuff roundEndBuff = createxixuegongji();
             return roundEndBuff;
+        } else if (name.equals("curse")) {
+            MonsterDieBuff monsterDieBuff = createCurse();
+            return monsterDieBuff;
+        } else if (name.equals("reproduce")) {
+            RoundEndBuff roundEndBuff = createReproduce();
+            return roundEndBuff;
         }
         return null;
+    }
+
+    private static RoundEndBuff createReproduce() {
+        RoundEndBuff roundEndBuff = new RoundEndBuff() {
+            @Override
+            public void doWork(int x, int y, BattleManager bm) {
+                Log.i(TAG, "doWork: 召唤老鼠");
+                if (leftisOK(x + y * 8, bm)) {
+                    Monster e = MonsterFactory.createMonster("Mouse", bm.floor);
+                    bm.cells.get(x + 8 * y - 1).status = Cell.DISCORVERED;
+                    bm.cells.get(x + 8 * y - 1).monster = e;
+                    bm.registMonster(e);
+                } else if (topisOK(x + y * 8, bm)) {
+                    Monster e = MonsterFactory.createMonster("Mouse", bm.floor);
+                    bm.cells.get(x + 8 * y - 8).status = Cell.DISCORVERED;
+                    bm.cells.get(x + 8 * y - 8).monster = e;
+                    bm.registMonster(e);
+                } else if (rightisOK(x + y * 8, bm)) {
+                    Monster e = MonsterFactory.createMonster("Mouse", bm.floor);
+                    bm.cells.get(x + 8 * y + 1).status = Cell.DISCORVERED;
+                    bm.cells.get(x + 8 * y + 1).monster = e;
+                    bm.registMonster(e);
+                } else if (bottomisOK(x + y * 8, bm)) {
+                    Monster e = MonsterFactory.createMonster("Mouse", bm.floor);
+                    bm.cells.get(x + 8 * y + 8).status = Cell.DISCORVERED;
+                    bm.cells.get(x + 8 * y + 8).monster = e;
+                    bm.registMonster(e);
+                }
+            }
+        };
+        roundEndBuff.time = 1;
+        return roundEndBuff;
+    }
+
+    private static MonsterDieBuff createCurse() {
+        MonsterDieBuff monsterDieBuff = new MonsterDieBuff() {
+            @Override
+            public void doWork(int x, int y, BattleManager bm) {
+                Toast.makeText(Const.mContext_Game, "你被木乃伊诅咒了", Toast.LENGTH_SHORT).show();
+                bm.player.maxHp -= 1;
+                bm.player.hp -= 1;
+            }
+        };
+        return monsterDieBuff;
     }
 
     private static RoundEndBuff createxixuegongji() {

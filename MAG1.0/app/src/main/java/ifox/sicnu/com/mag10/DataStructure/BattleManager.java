@@ -150,7 +150,7 @@ public class BattleManager {
                 } else
                     Change_Cell(first_index, Cell.UNDISCORVERED, Cell.FORBID);
                 flag = true;
-            } else if (cell.status == Cell.DISCORVERED){
+            } else if (cell.status == Cell.DISCORVERED) {
                 //攻击怪物
                 if (cell.monster != null) {
                     Monster monster = cell.monster;
@@ -260,12 +260,12 @@ public class BattleManager {
         this.xx = xx;
         this.yy = yy;
         //执行探索
-        if (function_switch == -1) {
+        if (function_switch == -1 && this.showObject == null && this.player.bagswitch == false) {
             if (xx + yy * 8 == doornumber && cells.get(doornumber).status == Cell.DISCORVERED) {
                 ((GameActivity) mContext).gotoNextActivity();
             } else
                 Action_ROUNDEND(xx + yy * 8);
-        } else {
+        } else if (this.showObject == null && this.player.bagswitch == false) {
             //释放技能或者道具
             if (player.skillswitch) {
                 //释放技能
@@ -286,11 +286,11 @@ public class BattleManager {
         double num = Math.random();
         if (level < 4) {
             if (num < 0.3)
-                return MonsterFactory.createMonster("Saboteur_Crazy", level);
+                return MonsterFactory.createMonster("MotherMouse", level);
             else if (num >= 0.3 && num < 0.6)
-                return MonsterFactory.createMonster("Sheep", level);
+                return MonsterFactory.createMonster("Mummy", level);
             else
-                return MonsterFactory.createMonster("SpikedKnight", level);
+                return MonsterFactory.createMonster("Sheep", level);
         } else if (level < 7) {
             if (num < 0.35)
                 return MonsterFactory.createMonster("Goblin", level);
@@ -305,7 +305,6 @@ public class BattleManager {
         } else
             return null;
     }
-
 
     public void changeFunction(int i) {
         if (player.skillswitch && player.skills[i] == null) {

@@ -35,6 +35,12 @@ public class MonsterFactory {
             return new SkeletonArcher(Const.mContext_Game, level);
         else if (name.equals("Sheep"))
             return new Sheep(Const.mContext_Game, level);
+        else if (name.equals("MotherMouse"))
+            return new MotherMouse(Const.mContext_Game, level);
+        else if (name.equals("Mouse"))
+            return new Mouse(Const.mContext_Game, level);
+        else if (name.equals("Mummy"))
+            return new Mummy(Const.mContext_Game, level);
         else
             return null;
     }
