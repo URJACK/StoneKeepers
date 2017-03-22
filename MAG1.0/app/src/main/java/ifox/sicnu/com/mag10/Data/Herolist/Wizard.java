@@ -3,11 +3,13 @@ package ifox.sicnu.com.mag10.Data.Herolist;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.SoundPool;
+import android.util.Log;
 
 import ifox.sicnu.com.mag10.Data.Const;
 import ifox.sicnu.com.mag10.Data.Pictures;
 import ifox.sicnu.com.mag10.DataStructure.BattleManager;
 import ifox.sicnu.com.mag10.DataStructure.Buff.BuffFactory;
+import ifox.sicnu.com.mag10.DataStructure.Cell;
 import ifox.sicnu.com.mag10.DataStructure.Hero;
 import ifox.sicnu.com.mag10.DataStructure.Player;
 import ifox.sicnu.com.mag10.DataStructure.Skill.DoubleTargetSkill;
@@ -15,6 +17,7 @@ import ifox.sicnu.com.mag10.DataStructure.Skill.NoTargetSkill;
 import ifox.sicnu.com.mag10.DataStructure.Skill.SingleTargetSkill;
 import ifox.sicnu.com.mag10.DataStructure.Skill.Skill;
 import ifox.sicnu.com.mag10.DrawLogic.DrawSpecialEffects.Arcmissle_SpecialEffects;
+import ifox.sicnu.com.mag10.DrawLogic.DrawSpecialEffects.Doublefileball_SpecialEffects;
 import ifox.sicnu.com.mag10.DrawLogic.DrawSpecialEffects.SpecialEffects;
 import ifox.sicnu.com.mag10.R;
 import ifox.sicnu.com.mag10.Tool.UpLevelFilter;
@@ -61,6 +64,7 @@ public class Wizard extends Hero {
         Skill arcmissle = new SingleTargetSkill(this, Skill.MAXMP, (float) 0.2, Skill.MP, 5, BuffFactory.createNoKeepBuff("poison")) {
             int music_id;
 
+
             @Override
             public boolean doSkill(int x, int y, BattleManager bm) {
                 if (super.doSkill(x, y, bm)) {
@@ -96,9 +100,54 @@ public class Wizard extends Hero {
 //        strenthenpower.bitmap = bitmap;
 
         Skill double_fireball = new DoubleTargetSkill(this, Skill.MAXMP, (float) 0.1, Skill.MP, 5, null) {
+            int music_id;
+            int music_id2;
             @Override
             public boolean doSkill(int x, int y, BattleManager bm) {
                 if (super.doSkill(x, y, bm)) {
+                   int index = x+y*8;
+                    Log.i("111", "doSkill: " + index);
+                    if(index>=8&&bm.cells.get(index-8).status== Cell.DISCORVERED){
+                        SpecialEffects specialEffects = new Doublefileball_SpecialEffects(x * Const.CELL_WIDTH, (y-1) * Const.CELL_HEIGHT);
+                        bm.putEffects(specialEffects);
+                       
+                    }
+
+                    if(index<=47&&bm.cells.get(index+8).status==Cell.DISCORVERED){
+                        SpecialEffects specialEffects = new Doublefileball_SpecialEffects(x * Const.CELL_WIDTH, (y+1) * Const.CELL_HEIGHT);
+                        bm.putEffects(specialEffects);
+
+                    }
+
+                    if(index<=55&&bm.cells.get(index+1).status==Cell.DISCORVERED){
+                        SpecialEffects specialEffects = new Doublefileball_SpecialEffects((x+1) * Const.CELL_WIDTH, (y) * Const.CELL_HEIGHT);
+                        bm.putEffects(specialEffects);
+                    }
+
+                    if(index>0&&bm.cells.get(index-1).status==Cell.DISCORVERED){
+                        SpecialEffects specialEffects = new Doublefileball_SpecialEffects((x-1) * Const.CELL_WIDTH, (y) * Const.CELL_HEIGHT);
+                        bm.putEffects(specialEffects);
+                        music_id = Const.soundPool_Game.load(Const.mContext_Game, R.raw.huoqiu_music, 1);
+
+                    }
+                    Const.soundPool_Game.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+                        @Override
+                        public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                            Const.soundPool_Game.play(music_id, 1, 1, 1, 0, 1);
+                        }
+                    });
+                    SpecialEffects specialEffects = new Doublefileball_SpecialEffects(x * Const.CELL_WIDTH, y * Const.CELL_HEIGHT);
+                    bm.putEffects(specialEffects);
+
+
+
+                    music_id = Const.soundPool_Game.load(Const.mContext_Game, R.raw.huoqiu_music, 1);
+                    Const.soundPool_Game.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+                        @Override
+                        public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                            Const.soundPool_Game.play(music_id, 1, 1, 1, 0, 1);
+                        }
+                    });
                     return true;
                 } else
                     return false;
