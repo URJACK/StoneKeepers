@@ -342,7 +342,7 @@ public class BattleManager {
             else if (num >= 0.55 && num < 0.75)
                 return MonsterFactory.createMonster("Mummy", level);                //1
             else
-                return MonsterFactory.createMonster("SkeletonArcher", level);       //4
+                return MonsterFactory.createMonster("SpikedKnight", level);       //4
         }else if (level < 19){
             if (num < 0.35)
                 return MonsterFactory.createMonster("DarkRitual", level);           //4
@@ -351,7 +351,7 @@ public class BattleManager {
             else if (num >= 0.55 && num < 0.75)
                 return MonsterFactory.createMonster("Mummy", level);                //2
             else
-                return MonsterFactory.createMonster("Ogres", level);                //1
+                return MonsterFactory.createMonster("SpikedKnight", level);                //1
         }else if (level < 22){
             if (num < 0.35)
                 return MonsterFactory.createMonster("Pumpkin", level);           //1

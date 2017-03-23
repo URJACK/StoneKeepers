@@ -51,6 +51,7 @@ public class ToolSkillFactory {
             public boolean doSkill(int x, int y, BattleManager bm) {
                 if (super.doSkill(x, y, bm)) {
                     bm.cells.get(x + y * 8).monster.sufferDamage(5 + Const.bm.floor * 2, true);
+                    bm.MonsterClear();
                     return true;
                 } else
                     return false;
