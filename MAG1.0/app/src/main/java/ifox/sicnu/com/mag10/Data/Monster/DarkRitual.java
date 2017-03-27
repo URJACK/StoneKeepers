@@ -17,13 +17,13 @@ public class DarkRitual extends Monster {
     private static Bitmap bitmap;
 
     public DarkRitual(Context context, int level) {
-        this.atk = 9 + 3 * level;
+        this.atk = 9 + 3 * level / 2;
         this.hitrate = (float) 0.95;
         this.crit = 0;
-        this.armor = 12 + 5 * level;
+        this.armor = 12 + 5 * level / 2;
         this.dodge = (float) 0.05;
         this.resistance = (float) 0.01;
-        this.setMaxhp(32 + 5 * level);
+        this.setMaxhp(32 + 5 * level / 2);
         this.def = this.armor;
         this.exp = 3;
         this.money = 10;

@@ -5,7 +5,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.util.Log;
@@ -16,14 +15,12 @@ import java.util.LinkedList;
 import ifox.sicnu.com.mag10.Data.Const;
 import ifox.sicnu.com.mag10.DataStructure.BattleManager;
 import ifox.sicnu.com.mag10.DataStructure.Buff.Buff;
-import ifox.sicnu.com.mag10.DataStructure.Buff.KeepBuff;
 import ifox.sicnu.com.mag10.DataStructure.Cell;
 import ifox.sicnu.com.mag10.DataStructure.Equipment;
 import ifox.sicnu.com.mag10.DataStructure.Monster;
 import ifox.sicnu.com.mag10.DataStructure.Player;
 import ifox.sicnu.com.mag10.DataStructure.Shop;
 import ifox.sicnu.com.mag10.DataStructure.Skill.Skill;
-import ifox.sicnu.com.mag10.DrawLogic.DrawSpecialEffects.PpgetSpecialEffects;
 import ifox.sicnu.com.mag10.DrawLogic.DrawSpecialEffects.SpecialEffects;
 import ifox.sicnu.com.mag10.R;
 import ifox.sicnu.com.mag10.TouchLogic.BagTouch;
@@ -33,6 +30,7 @@ import ifox.sicnu.com.mag10.TouchLogic.BagTouch;
  */
 
 public class DrawGame extends DrawBackground {
+    private static final String TAG = "DrawGame";
     BattleManager battleManager;
     Paint paint;
     Bitmap undiscovered;//怪物周围的红叉叉
@@ -116,8 +114,10 @@ public class DrawGame extends DrawBackground {
                 }
             }
             ArrayList<Buff> buffs = monster.unkeepBuffs;
+            Log.i(TAG, "DrawShowObject: " + buffs.size());
             for (int i = 0; i < buffs.size(); i++) {
-                canvas.drawBitmap(buffs.get(i).bitmap, (int) (Const.SCREENHEIGHT * 0.05), (int) (Const.SCREENWIDTH * 0.49 + i * Const.CELL_WIDTH), null);
+                if (buffs.get(i).bitmap != null)
+                    canvas.drawBitmap(buffs.get(i).bitmap, (int) (Const.SCREENHEIGHT * 0.05), (int) (Const.SCREENWIDTH * 0.49 + i * Const.CELL_WIDTH), null);
                 String introduce = buffs.get(i).introduce;
                 if (introduce.length() < 25) {
                     canvas.drawText(introduce, (int) (Const.SCREENHEIGHT * 0.13), (int) (Const.SCREENWIDTH * 0.53 + i * Const.CELL_WIDTH), paint);
@@ -256,7 +256,7 @@ public class DrawGame extends DrawBackground {
                 canvas.drawRect(rect, paint);
             }
         }
-        if (battleManager.cells.get(battleManager.doornumber).status == Cell.DISCORVERED) {
+        if (battleManager.doornumber != -1 && battleManager.cells.get(battleManager.doornumber).status == Cell.DISCORVERED) {
             Cell cell = battleManager.cells.get(battleManager.doornumber);
             int x = cell.x;
             int y = cell.y;

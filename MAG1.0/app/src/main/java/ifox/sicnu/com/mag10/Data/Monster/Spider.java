@@ -21,12 +21,12 @@ public class Spider extends Monster {
     public static Bitmap bitmap;
 
     public Spider(Context context, int level) {
-        this.atk = 10 + 3 * level;
+        this.atk = 10 + 3 * level / 2;
         this.hitrate = (float) 0.9;
-        this.armor = 7 + 7 * level;
+        this.armor = 7 + 7 * level / 2;
         this.dodge = (float) 0.2;
         this.resistance = (float) 0.1;
-        this.setMaxhp((int) (50 + 7 * level));
+        this.setMaxhp((int) (50 + 7 * level / 2));
         this.def = this.armor;
         this.exp = 3;
         this.crit = (float) 0.05;

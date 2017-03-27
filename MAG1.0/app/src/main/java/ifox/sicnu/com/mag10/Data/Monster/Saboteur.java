@@ -17,13 +17,13 @@ public class Saboteur extends Monster {
     public static Bitmap bitmap;
 
     public Saboteur(Context context, int level) {
-        this.atk = 5 + 2 * level;
+        this.atk = 5 + level;
         this.hitrate = (float) 0.9;
         this.crit = 0;
-        this.armor = 1 + 2 * level;
+        this.armor = 1 + level;
         this.dodge = (float) 0.5;
         this.resistance = (float) 0.1;
-        this.setMaxhp((int) (7 + Math.random() * 2 * level));
+        this.setMaxhp((int) (7 + Math.random() * level));
         this.def = this.armor;
         this.exp = 10 + 3 * level;
         this.money = 2;

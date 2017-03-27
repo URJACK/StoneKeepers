@@ -41,6 +41,8 @@ public class MonsterFactory {
             return new Mouse(Const.mContext_Game, level);
         else if (name.equals("Mummy"))
             return new Mummy(Const.mContext_Game, level);
+        else if (name.equals("DarkLord"))
+            return new DarkLord(Const.mContext_Game, level);
         else
             return null;
     }

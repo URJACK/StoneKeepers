@@ -116,15 +116,15 @@ public class Const {
         static {
             if (levels[0] != -1) {
                 levels[0] = -1;
-                levels[1] = 200;
-                levels[2] = 500;
-                levels[3] = 1000;
-                levels[4] = 2500;
-                levels[5] = 3000;
-                levels[6] = 3500;
-                levels[7] = 4000;
-                levels[8] = 5000;
-                levels[9] = 6000;
+                levels[1] = 40;
+                levels[2] = 60;
+                levels[3] = 80;
+                levels[4] = 100;
+                levels[5] = 120;
+                levels[6] = 140;
+                levels[7] = 160;
+                levels[8] = 180;
+                levels[9] = 200;
             }
         }
     }

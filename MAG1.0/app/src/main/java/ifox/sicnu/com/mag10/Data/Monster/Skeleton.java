@@ -20,12 +20,12 @@ public class Skeleton extends Monster {
     public static Bitmap bitmap;
 
     public Skeleton(Context context,int level){
-        this.atk = 8 + 2 * level;
+        this.atk = 8 + level;
         this.hitrate = (float) 0.9;
-        this.armor = 7 + 1 * level;
+        this.armor = 7 + level;
         this.dodge = (float) 0.2;
         this.resistance = (float) 0.1;
-        this.setMaxhp((int) (10 + 1 * level));
+        this.setMaxhp((int) (10 + level));
         this.dodge = (float) 0.1;
         this.crit = (float) 0.01;
         this.def = this.armor;

@@ -13,6 +13,7 @@ import ifox.sicnu.com.mag10.DataStructure.Cell;
 import ifox.sicnu.com.mag10.DataStructure.Monster;
 import ifox.sicnu.com.mag10.DataStructure.Player;
 import ifox.sicnu.com.mag10.DataStructure.Unit;
+import ifox.sicnu.com.mag10.GameActivity;
 import ifox.sicnu.com.mag10.R;
 
 /**
@@ -121,8 +122,27 @@ public class BuffFactory {
         } else if (name.equals("reproduce")) {
             RoundEndBuff roundEndBuff = createReproduce();
             return roundEndBuff;
+        } else if (name.equals("darklord")) {
+            MonsterDieBuff monsterDieBuff = createDarkLord();
+            return monsterDieBuff;
         }
         return null;
+    }
+
+    private static MonsterDieBuff createDarkLord() {
+        MonsterDieBuff monsterDieBuff = new MonsterDieBuff() {
+            @Override
+            public void doWork(int x, int y, BattleManager bm) {
+                Const.bm.player.money += 100;
+                ((GameActivity) Const.mContext_Game).gotoEndActivity(true);
+            }
+        };
+        monsterDieBuff.id = "darklord";
+        monsterDieBuff.name = "魔王之力";
+        monsterDieBuff.introduce = "四角都是他的分身,但是会平分伤害";
+        monsterDieBuff.bitmap = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.buff_darklord);
+        monsterDieBuff.bitmap = Bitmap.createScaledBitmap(monsterDieBuff.bitmap, (int) (Const.SCREENHEIGHT * 0.06), (int) (Const.SCREENHEIGHT * 0.06), true);
+        return monsterDieBuff;
     }
 
     private static RoundEndBuff createReproduce() {
@@ -153,7 +173,12 @@ public class BuffFactory {
                 }
             }
         };
+        roundEndBuff.id = "reproduce";
         roundEndBuff.time = 1;
+        roundEndBuff.name = "繁殖";
+        roundEndBuff.introduce = "每回合自动生成一只老鼠";
+        roundEndBuff.bitmap = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.buff_reproduce);
+        roundEndBuff.bitmap = Bitmap.createScaledBitmap(roundEndBuff.bitmap, (int) (Const.SCREENHEIGHT * 0.06), (int) (Const.SCREENHEIGHT * 0.06), true);
         return roundEndBuff;
     }
 
@@ -163,9 +188,13 @@ public class BuffFactory {
             public void doWork(int x, int y, BattleManager bm) {
                 Toast.makeText(Const.mContext_Game, "你被木乃伊诅咒了", Toast.LENGTH_SHORT).show();
                 bm.player.maxHp -= 1;
-                bm.player.hp -= 1;
             }
         };
+        monsterDieBuff.id = "curse";
+        monsterDieBuff.name = "诅咒";
+        monsterDieBuff.introduce = " 击杀该怪物会使得你的生命值上限永久减少一点";
+        monsterDieBuff.bitmap = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.buff_curse);
+        monsterDieBuff.bitmap = Bitmap.createScaledBitmap(monsterDieBuff.bitmap, (int) (Const.SCREENHEIGHT * 0.06), (int) (Const.SCREENHEIGHT * 0.06), true);
         return monsterDieBuff;
     }
 

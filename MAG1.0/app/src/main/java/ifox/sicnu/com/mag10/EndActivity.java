@@ -21,15 +21,26 @@ public class EndActivity extends Activity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        endView = new EndView(this);
+        type = getIntent().getBooleanExtra("type", false);
+        endView = new EndView(this, type);
         setContentView(endView);
-        music_id = Const.soundPool_Game.load(Const.mContext_Game, R.raw.gameview_siwang, 1);
-        Const.soundPool_Game.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
-            @Override
-            public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
-                Const.soundPool_Game.play(music_id, 1, 1, 1, 0, 1);
-            }
-        });
+        if (!type) {
+            music_id = Const.soundPool_Game.load(Const.mContext_Game, R.raw.gameview_siwang, 1);
+            Const.soundPool_Game.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+                @Override
+                public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                    Const.soundPool_Game.play(music_id, 1, 1, 1, 0, 1);
+                }
+            });
+        } else {
+            music_id = Const.soundPool_Game.load(Const.mContext_Game, R.raw.gameview_shengli, 1);
+            Const.soundPool_Game.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+                @Override
+                public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                    Const.soundPool_Game.play(music_id, 1, 1, 1, 0, 1);
+                }
+            });
+        }
         ((APP) getApplicationContext()).getHeroBuff().saveValue();
     }
 }

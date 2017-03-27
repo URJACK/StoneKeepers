@@ -18,12 +18,12 @@ public class Goblin extends Monster {
     private static Bitmap bitmap;
 
     public Goblin(Context context, int level) {
-        this.atk = (3 + 1 * level);
-        this.hitrate =  1;
-        this.armor = 2 + 1 * level;
-        this.setMaxhp( 20 +  5 * level);
+        this.atk = (3 + level / 2);
+        this.hitrate = 1;
+        this.armor = 2 + level / 2;
+        this.setMaxhp(20 + 5 * level / 2);
         this.def = this.armor;
-        this.exp = 1;
+        this.exp = 2;
         this.money = 2;
         this.crit = (float) 0.01;
         this.setMonsterType(Monster.NORMAL);
@@ -35,7 +35,6 @@ public class Goblin extends Monster {
             bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.monster_gebulin);
             bitmap = Bitmap.createScaledBitmap(bitmap, Const.CELL_WIDTH, Const.CELL_HEIGHT, true);
         }
-        wearBuff(MonsterSkillFactory.create("escape"));
     }
 
     @Override

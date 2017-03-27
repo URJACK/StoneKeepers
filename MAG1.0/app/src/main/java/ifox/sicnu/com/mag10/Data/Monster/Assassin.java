@@ -20,15 +20,15 @@ public class Assassin extends Monster {
     public static Bitmap bitmap;
 
     public Assassin(Context context, int level) {
-        this.atk = (int) (4 + level*2);
+        this.atk = (int) (4 + level);
         this.hitrate = (float) 1;
-        this.armor = 5 ;
+        this.armor = 5;
         this.dodge = (float) 0.1;
         this.resistance = (float) 0.1;
-        this.setMaxhp((int) (18 + 5 * level));
+        this.setMaxhp((int) (18 + 5 * level / 2));
         this.hp = this.maxHp;
         this.def = this.armor;
-        this.exp = 1 ;
+        this.exp = 2;
         this.money = 2;
         this.crit = (float) 0.01;
 

@@ -35,6 +35,7 @@ import ifox.sicnu.com.mag10.R;
  */
 public class BattleManager {
     private static final String TAG = "BattleManager";
+    private static final int DARKLORD_FLOOR = 30;                   //魔王所在的层数
     public LinkedList<Cell> cells;
     private LinkedList<Monster> monsters;
     public Context mContext;
@@ -43,7 +44,7 @@ public class BattleManager {
     public Shop shop;
     public ShopManager shopManager;
     public Object showObject;
-    public int doornumber;
+    public int doornumber = -1;
     public ArrayList<SpecialEffects> effectses; //保存effects 队列。
     public int xx, yy;
     public int floor;                           //保存下当前的层数
@@ -66,60 +67,80 @@ public class BattleManager {
     public void createFloor(int index) {
         //得到这层的总共的单位数
         this.floor = index;
-        int number = (int) (Math.random() * 10 % 3) + 13;
-        int trap_num = (int) (Math.random() * 3) + 1;
-        Set<Integer> integers = new HashSet<>();
-        for (int i = 0; i < number; i++) {
-            integers.add((int) (Math.random() * 1000 % 56));
-        }
-        Iterator iterator = integers.iterator();
-
-        for (int i = 0; i < 56; i++) {
-            cells.add(new Cell(i % 8, i / 8));
-        }
-
-        for (int i = 0; i < integers.size() - 2 - trap_num; i++) {
-            int n = (int) iterator.next();
-            Monster m = getMonsterByLevel(index);
-            monsters.add(m);
-            cells.get(n).monster = m;
-        }
-
-        int n = (int) iterator.next();      //生成商店
-        Shop shop = shopManager.createShop(index);
-        if (shop != null) {
-            cells.get(n).shop = shop;
-            this.shop = shop;
-        }
-
-        this.doornumber = (int) iterator.next();          //生成门
-
-
-        //生成陷阱
-        for (int i = 0; i < trap_num; i++) {
-            n = (int) iterator.next();
-            Trap trap;
-            if (index < 3) {
-                trap = new StoneTrap((int) (Math.random() * 3 + 1));                    // 0 ~ 2 层有落石陷阱
-            } else {
-                if (Math.random() > 0.6)
-                    trap = new StoneTrap((int) (Math.random() * 3 + 1));
-                else
-                    trap = new MonsterTrap(MonsterFactory.createMonster("RuneSorcerer", index));            // 之后 层有落石+伏兵陷阱
+        if (index != DARKLORD_FLOOR) {
+            int number = (int) (Math.random() * 10 % 3) + 13;
+            int trap_num = (int) (Math.random() * 3) + 1;
+            Set<Integer> integers = new HashSet<>();
+            for (int i = 0; i < number; i++) {
+                integers.add((int) (Math.random() * 1000 % 56));
             }
-            cells.get(n).trap = trap;
+            Iterator iterator = integers.iterator();
+
+            for (int i = 0; i < 56; i++) {
+                cells.add(new Cell(i % 8, i / 8));
+            }
+
+            for (int i = 0; i < integers.size() - 2 - trap_num; i++) {
+                int n = (int) iterator.next();
+                Monster m = getMonsterByLevel(index);
+                monsters.add(m);
+                cells.get(n).monster = m;
+            }
+
+            int n = (int) iterator.next();      //生成商店
+            Shop shop = shopManager.createShop(index);
+            if (shop != null) {
+                cells.get(n).shop = shop;
+                this.shop = shop;
+            }
+
+            this.doornumber = (int) iterator.next();          //生成门
+
+
+            //生成陷阱
+            for (int i = 0; i < trap_num; i++) {
+                n = (int) iterator.next();
+                Trap trap;
+                if (index < 3) {
+                    trap = new StoneTrap((int) (Math.random() * 3 + 1));                    // 0 ~ 2 层有落石陷阱
+                } else {
+                    if (Math.random() > 0.6)
+                        trap = new StoneTrap((int) (Math.random() * 3 + 1));
+                    else
+                        trap = new MonsterTrap(MonsterFactory.createMonster("RuneSorcerer", index));            // 之后 层有落石+伏兵陷阱
+                }
+                cells.get(n).trap = trap;
+            }
+
+
+            int first_index = (int) (Math.random() * 1000 % 56);
+            Cell first_cell = cells.get(first_index);
+            while (!first_cell.isEmpty()) {
+                first_cell = cells.get((int) (Math.random() * 1000 % 56));
+            }
+            first_index = first_cell.x + first_cell.y * 8;
+            first_cell.status = Cell.DISCORVERED;
+            Change_Cell(first_index, Cell.UNDISCORVERED, Cell.FORBID);
+        } else {
+            for (int i = 0; i < 56; i++) {
+                cells.add(new Cell(i % 8, i / 8));
+            }
+            Monster darklord = MonsterFactory.createMonster("DarkLord", floor);
+            registMonster(darklord);
+            cells.get(0).monster = darklord;
+            cells.get(7).monster = darklord;
+            cells.get(48).monster = darklord;
+            cells.get(55).monster = darklord;
+
+            int first_index = (int) (Math.random() * 1000 % 56);
+            Cell first_cell = cells.get(first_index);
+            while (!first_cell.isEmpty()) {
+                first_cell = cells.get((int) (Math.random() * 1000 % 56));
+            }
+            first_index = first_cell.x + first_cell.y * 8;
+            first_cell.status = Cell.DISCORVERED;
+            Change_Cell(first_index, Cell.UNDISCORVERED, Cell.FORBID);
         }
-
-
-        int first_index = (int) (Math.random() * 1000 % 56);
-        Cell first_cell = cells.get(first_index);
-        while (!first_cell.isEmpty()) {
-            first_cell = cells.get((int) (Math.random() * 1000 % 56));
-        }
-        first_index = first_cell.x + first_cell.y * 8;
-        first_cell.status = Cell.DISCORVERED;
-        Change_Cell(first_index, Cell.UNDISCORVERED, Cell.FORBID);
-
     }
 
     /**
@@ -230,7 +251,7 @@ public class BattleManager {
      */
     private void givePlayerTools(int index) {
         index /= 2;
-        float rate = ((float) index) / ((float) index + (float) 20);            //生成道具的概率
+        float rate = ((float) index) / ((float) index + (float) 4);            //生成道具的概率
         if (Math.random() < rate) {
             player.pushTool(ToolSkillFactory.createTool());
         }
@@ -325,7 +346,7 @@ public class BattleManager {
                 return MonsterFactory.createMonster("Skeleton", level);             //3
             else
                 return MonsterFactory.createMonster("SkeletonArcher", level);       //2
-        } else if (level < 13){
+        } else if (level < 13) {
             if (num < 0.35)
                 return MonsterFactory.createMonster("DarkRitual", level);           //2
             else if (num >= 0.35 && num < 0.55)
@@ -334,7 +355,7 @@ public class BattleManager {
                 return MonsterFactory.createMonster("Skeleton", level);             //4
             else
                 return MonsterFactory.createMonster("SkeletonArcher", level);       //3
-        }else if (level < 16){
+        } else if (level < 16) {
             if (num < 0.35)
                 return MonsterFactory.createMonster("DarkRitual", level);           //3
             else if (num >= 0.35 && num < 0.55)
@@ -343,7 +364,7 @@ public class BattleManager {
                 return MonsterFactory.createMonster("Mummy", level);                //1
             else
                 return MonsterFactory.createMonster("SpikedKnight", level);       //4
-        }else if (level < 19){
+        } else if (level < 19) {
             if (num < 0.35)
                 return MonsterFactory.createMonster("DarkRitual", level);           //4
             else if (num >= 0.35 && num < 0.55)
@@ -352,7 +373,7 @@ public class BattleManager {
                 return MonsterFactory.createMonster("Mummy", level);                //2
             else
                 return MonsterFactory.createMonster("SpikedKnight", level);                //1
-        }else if (level < 22){
+        } else if (level < 22) {
             if (num < 0.35)
                 return MonsterFactory.createMonster("Pumpkin", level);           //1
             else if (num >= 0.35 && num < 0.55)
@@ -361,7 +382,7 @@ public class BattleManager {
                 return MonsterFactory.createMonster("Mummy", level);                //3
             else
                 return MonsterFactory.createMonster("Ogres", level);                //2
-        }else if (level < 25){
+        } else if (level < 25) {
             if (num < 0.35)
                 return MonsterFactory.createMonster("Pumpkin", level);                  //2
             else if (num >= 0.35 && num < 0.55)
@@ -370,7 +391,7 @@ public class BattleManager {
                 return MonsterFactory.createMonster("Mummy", level);                    //4
             else
                 return MonsterFactory.createMonster("Ogres", level);                    //3
-        }else if (level < 28){
+        } else if (level < 28) {
             if (num < 0.35)
                 return MonsterFactory.createMonster("Pumpkin", level);                  //3
             else if (num >= 0.35 && num < 0.55)

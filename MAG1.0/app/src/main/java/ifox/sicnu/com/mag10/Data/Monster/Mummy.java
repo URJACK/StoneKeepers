@@ -18,10 +18,10 @@ public class Mummy extends Monster {
     private static Bitmap bitmap;
 
     public Mummy(Context context, int level) {
-        this.atk = (int) (10 + 3 * level);
+        this.atk = (int) (10 + 3 * level / 2);
         this.hitrate = (float) 0.9;
-        this.armor = (int) (30 + 6 * level);
-        this.setMaxhp((int) (20 + 4 * level));
+        this.armor = (int) (30 + 3 * level);
+        this.setMaxhp((int) (20 + 2 * level));
         this.dodge = (float) 0.01;
         this.crit = (float) 0.01;
         this.def = this.armor;

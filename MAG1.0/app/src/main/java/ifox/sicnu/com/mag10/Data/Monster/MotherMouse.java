@@ -17,15 +17,15 @@ public class MotherMouse extends Monster {
     public static Bitmap bitmap;
 
     public MotherMouse(Context context, int level) {
-        this.atk = (int) (2 +2 * level);
+        this.atk = (int) (2 + level);
         this.hitrate = (float) 0.9;
-        this.armor = (int) (6 );
-        this.setMaxhp((int) (10 + 5 * level));
+        this.armor = (int) (6);
+        this.setMaxhp((int) (10 + 5 * level / 2));
         this.def = this.armor;
         this.dodge = (float) 0.3;
         this.crit = (float) 0.01;
         this.resistance = (float) 0.01;
-        this.exp = 3;
+        this.exp = 4;
         this.money = 10;
         this.setMonsterType(Monster.NORMAL);
         setIntroduce("每回合就能生产一只老鼠，血量很高，基本上做不到一击秒杀，不过生出来的老鼠属性相对很差，很多时候可以用来触发杀敌回血，杀敌回蓝的装备，所以并不是那么的讨厌，不过在深渊模式和崩塌的房间里就要小心了，大量的老鼠会占用你的土地，把你逼到深渊里去" +

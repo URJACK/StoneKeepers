@@ -21,13 +21,13 @@ public class RuneSorcerer extends Monster {
     private static Bitmap bitmap;
 
     public RuneSorcerer(Context context, int level) {
-        this.atk = 7+ 2 * level;
+        this.atk = 7 + level;
         this.hitrate = (float) 0.9;
         this.crit = 0;
-        this.armor = 6 + 2 * level;
+        this.armor = 6 + level;
         this.dodge = (float) 0.1;
         this.resistance = (float) 0.1;
-        this.setMaxhp(12 + 3 * level);
+        this.setMaxhp(12 + 3 * level / 2);
         this.crit = (float) 0.01;
         this.resistance = (float) 0.1;
         this.dodge = (float) 0.1;

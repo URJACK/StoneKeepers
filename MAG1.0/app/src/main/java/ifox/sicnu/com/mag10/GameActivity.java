@@ -62,14 +62,4 @@ public class GameActivity extends Activity {
         startActivity(intent);
         finish();
     }
-
-    public void gotoEndActivity(boolean type, String killer) {
-        gv.clear();
-        gv = null;
-        Intent intent = new Intent(GameActivity.this, EndActivity.class);
-        intent.putExtra("type", type);
-        intent.putExtra("killer", killer);
-        startActivity(intent);
-        finish();
-    }
 }

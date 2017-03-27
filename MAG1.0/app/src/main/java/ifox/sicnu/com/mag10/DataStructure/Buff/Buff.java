@@ -36,4 +36,9 @@ public abstract class Buff {
         else
             return false;
     }
+
+    @Override
+    public String toString() {
+        return String.format("name:%s introduce:%s id:%s", name, introduce, id);
+    }
 }

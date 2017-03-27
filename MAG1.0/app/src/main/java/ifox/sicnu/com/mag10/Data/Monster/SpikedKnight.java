@@ -19,10 +19,10 @@ public class SpikedKnight extends Monster {
     private static Bitmap bitmap;
 
     public SpikedKnight(Context context, int level) {
-        this.atk = (int) (15 + 3 * level);
+        this.atk = (int) (15 + 3 * level / 2);
         this.hitrate = (float) 0.9;
-        this.armor = (int) (40 + 60 * level);
-        this.setMaxhp((int) (40 + 7 * level));
+        this.armor = (int) (40 + 6 * level / 2);
+        this.setMaxhp((int) (40 + 7 * level / 2));
         this.dodge = (float) 0.1;
         this.crit = (float) 0.05;
         this.def = this.armor;
