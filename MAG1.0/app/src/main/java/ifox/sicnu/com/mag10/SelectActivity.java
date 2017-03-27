@@ -29,6 +29,7 @@ public class SelectActivity extends Activity {
     Heroes heroes;
     private ArrayList<Hero> herolines;
     SelectView selectView;
+    boolean endserviceflag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +69,7 @@ public class SelectActivity extends Activity {
         Intent intent = new Intent(SelectActivity.this, GameActivity.class);
         intent.putExtra("floor", 1);
         startActivity(intent);
+        this.endserviceflag = true;
         finish();
     }
 
@@ -80,6 +82,13 @@ public class SelectActivity extends Activity {
         selectView.bmperson.recycle();
         selectView.background.recycle();
         selectView = null;
+//        if (!this.endserviceflag) {
+//            Log.i(TAG, "onDestroy: ");
+//            ReadyActivity ra = ((APP) getApplicationContext()).readyActivity;
+//            if (ra != null) {
+//                ra.finish();
+//            }
+//        }
         System.gc();
     }
 }

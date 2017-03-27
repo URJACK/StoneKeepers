@@ -9,7 +9,7 @@ import ifox.sicnu.com.mag10.DataStructure.Player;
 import ifox.sicnu.com.mag10.View.AbilityView;
 
 
-public class AbilityActivity extends Activity {
+public class AbilityActivity extends Activity implements ExitActivity{
     Player player;
 
     @Override
@@ -19,5 +19,10 @@ public class AbilityActivity extends Activity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         player = ((APP)getApplicationContext()).getPlayer();
         setContentView(new AbilityView(this,player));
+    }
+
+    @Override
+    public void exitself() {
+        this.finish();
     }
 }

@@ -19,7 +19,6 @@ public class MonsterSkillFactory {
     public static Bitmap bm_subarmor;
 
     static {
-
         bm_armor = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.nonebuff_armor);
         bm_armor = Bitmap.createScaledBitmap(bm_armor, (int) (Const.SCREENHEIGHT * 0.06), (int) (Const.SCREENHEIGHT * 0.06), true);
         bm_escape = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.nonebuff_escape);
@@ -30,7 +29,6 @@ public class MonsterSkillFactory {
         bm_doubleattack = Bitmap.createScaledBitmap(bm_doubleattack, (int) (Const.SCREENHEIGHT * 0.06), (int) (Const.SCREENHEIGHT * 0.06), true);
         bm_subarmor = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.nonebuff_subarmor);
         bm_subarmor = Bitmap.createScaledBitmap(bm_subarmor, (int) (Const.SCREENHEIGHT * 0.06), (int) (Const.SCREENHEIGHT * 0.06), true);
-
     }
 
     public static RoundEndBuff create(String name) {

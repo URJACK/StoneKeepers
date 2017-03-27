@@ -48,8 +48,8 @@ public class DrawThreadDouble extends Thread {
                     synchronized (sh) {
                         canvas.drawBitmap(lf, 0, 0, null);
                         canvas.drawBitmap(rf, Const.SCREENWIDTH / (startlongth * 2) * (startlongth * 2 - startpoint), 0, null);
-                        lf.recycle();
-                        rf.recycle();
+//                        lf.recycle();
+//                        rf.recycle();
                         lf = null;
                         rf = null;
                     }
@@ -61,10 +61,10 @@ public class DrawThreadDouble extends Thread {
                 }
             }   //最开始的状态是一个关门
             else {
-                if (this.left != null)
-                    this.left.recycle();
-                if (this.right != null)
-                    this.right.recycle();
+//                if (this.left != null)
+//                    this.left.recycle();
+//                if (this.right != null)
+//                    this.right.recycle();
                 this.right = null;
                 this.left = null;
                 try {

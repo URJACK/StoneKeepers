@@ -15,7 +15,7 @@ import ifox.sicnu.com.mag10.View.HeroView;
 /**
  * 这个界面用来呈现英雄列表，从而让玩家可以改变自己所选的英雄
  */
-public class HeroActivity extends Activity {
+public class HeroActivity extends Activity implements ExitActivity {
     TextView textView;      //介绍英雄属性
     HeroView heroView;
     RelativeLayout rl;
@@ -40,5 +40,10 @@ public class HeroActivity extends Activity {
         textView.setLayoutParams(lp2);
 
         setContentView(rl);
+    }
+
+    @Override
+    public void exitself() {
+        this.finish();
     }
 }

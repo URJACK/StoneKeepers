@@ -56,7 +56,7 @@ public class ReadyActivity extends Activity {
 
     public void gotoSelectActivity() {
         startActivity(new Intent(ReadyActivity.this, SelectActivity.class));
-        setContentView(new View(this));
+        setContentView(R.layout.activity_ready);
     }
 
     @Override

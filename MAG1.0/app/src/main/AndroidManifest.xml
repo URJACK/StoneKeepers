@@ -16,9 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ReadyActivity"></activity>
+        <activity android:name=".ReadyActivity"
+            android:noHistory="false"></activity>
 
-        <service android:name=".Service.MusicService"/>
+        <service android:name=".Service.MusicService"
+            android:stopWithTask="false"/>
 
         <activity android:name=".SelectActivity"></activity>
         <activity android:name=".HeroActivity"></activity>

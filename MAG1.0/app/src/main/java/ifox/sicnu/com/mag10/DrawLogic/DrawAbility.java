@@ -14,6 +14,7 @@ import java.util.List;
 import ifox.sicnu.com.mag10.Data.Const;
 import ifox.sicnu.com.mag10.Data.HeroBuff;
 import ifox.sicnu.com.mag10.R;
+import ifox.sicnu.com.mag10.View.AbilityView;
 
 /**
  * Created by 41988 on 2017/3/3.
@@ -86,7 +87,7 @@ public class DrawAbility implements ModeDrawIn {
             canvas.drawText(heroBuff.buffer_worlds.get(i), base_x + baseoff, (float) (base_y - offset + Const.SCREENHEIGHT * 0.11), paint);
 
             base_y = base_y + offset_hight + box_Width;
-            canvas.drawText("10", (int) (Const.SCREENHEIGHT * 18 / 25), (int) (Const.SCREENWIDTH * 0.31) + i * (Const.SCREENHEIGHT / 18 + Const.SCREENWIDTH * 5 / 16) - offset, paint);
+            canvas.drawText(String.valueOf(AbilityView.COST), (int) (Const.SCREENHEIGHT * 18 / 25), (int) (Const.SCREENWIDTH * 0.31) + i * (Const.SCREENHEIGHT / 18 + Const.SCREENWIDTH * 5 / 16) - offset, paint);
         }
 
         canvas.drawBitmap(bg_2bitmap, 0, 0, null);

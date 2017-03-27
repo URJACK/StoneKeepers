@@ -12,7 +12,9 @@ import ifox.sicnu.com.mag10.Data.Const;
 import ifox.sicnu.com.mag10.Data.HeroBuff;
 import ifox.sicnu.com.mag10.DataStructure.Player;
 import ifox.sicnu.com.mag10.DrawLogic.DrawAbility;
+import ifox.sicnu.com.mag10.ExitActivity;
 import ifox.sicnu.com.mag10.TouchLogic.AbilityTouch;
+import ifox.sicnu.com.mag10.TouchLogic.ExitTouchLogic;
 
 /**
  * Created by 41988 on 2017/3/3.
@@ -21,7 +23,8 @@ public class AbilityView extends SurfaceView implements SurfaceHolder.Callback {
     private HeroBuff heroBuff;
     private Player player;
     private APP mapp;
-    private static final int COST = 15;
+    public static final int COST = 15;
+    ExitTouchLogic etl;
 
 
     private int offset;
@@ -43,6 +46,7 @@ public class AbilityView extends SurfaceView implements SurfaceHolder.Callback {
         abilityTouch = new AbilityTouch();
         drawAbility = new DrawAbility(context, heroBuff);
         this.mcontext = context;
+        etl = new ExitTouchLogic((ExitActivity) context);
     }
 
     //当前activity 调用画的逻辑
@@ -57,6 +61,7 @@ public class AbilityView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        etl.exitTouch(event);
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             y = (int) event.getY();
             click_x = (int) event.getX();

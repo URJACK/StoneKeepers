@@ -5,19 +5,12 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Map;
 
 import ifox.sicnu.com.mag10.APP;
 import ifox.sicnu.com.mag10.Data.Const;
@@ -25,8 +18,9 @@ import ifox.sicnu.com.mag10.Data.Heroes;
 import ifox.sicnu.com.mag10.Data.Pictures;
 import ifox.sicnu.com.mag10.DataStructure.Hero;
 import ifox.sicnu.com.mag10.DrawLogic.DrawHero;
+import ifox.sicnu.com.mag10.ExitActivity;
 import ifox.sicnu.com.mag10.HeroActivity;
-import ifox.sicnu.com.mag10.SelectActivity;
+import ifox.sicnu.com.mag10.TouchLogic.ExitTouchLogic;
 
 /**
  * Created by Funchou Fu on 2017/2/24.
@@ -53,6 +47,7 @@ public class HeroView extends SurfaceView implements SurfaceHolder.Callback, Dra
     public TextView textView;          //介绍英雄属性
     private DrawHero drawHero;
     private ArrayList<Hero> herolines;          //可供选择的英雄序列
+    private ExitTouchLogic hvtl;
 
     public HeroView(Context context, int pTarget) {
         super(context);
@@ -71,6 +66,7 @@ public class HeroView extends SurfaceView implements SurfaceHolder.Callback, Dra
 //        IniHeroname();
         IniHeroLine(herolines);
         sh = getHolder();
+        hvtl = new ExitTouchLogic((ExitActivity) context);
     }
 
     private void IniHeroLine(ArrayList<Hero> herolines) {
@@ -129,6 +125,7 @@ public class HeroView extends SurfaceView implements SurfaceHolder.Callback, Dra
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        hvtl.exitTouch(event);
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             this.x = (int) event.getX();
             if (event.getY() > herolacatY && event.getY() < herolacatY + Const.BUTTON_WIDTH * 1.5) {
