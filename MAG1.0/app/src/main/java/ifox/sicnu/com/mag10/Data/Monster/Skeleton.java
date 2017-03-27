@@ -20,15 +20,17 @@ public class Skeleton extends Monster {
     public static Bitmap bitmap;
 
     public Skeleton(Context context,int level){
-        this.atk = 2 + 2 * level;
+        this.atk = 8 + 2 * level;
         this.hitrate = (float) 0.9;
-        this.armor = 3 + 3 * level;
+        this.armor = 7 + 1 * level;
         this.dodge = (float) 0.2;
         this.resistance = (float) 0.1;
-        this.setMaxhp((int) (10 + Math.random() * 3 * level));
+        this.setMaxhp((int) (10 + 1 * level));
+        this.dodge = (float) 0.1;
+        this.crit = (float) 0.01;
         this.def = this.armor;
-        this.exp = 25 + 7 * level;
-        this.money = 2;
+        this.exp = 2;
+        this.money = 5;
         this.setMonsterType(Monster.NORMAL);
         setIntroduce("攻击能够破开玩家的护甲，额外削减玩家的护甲值，所以不推荐在有护甲的时候来打这个怪物" +
                 "，并不是需要优先解决的怪物，为什么人类就是不明白这一点呢！By：被赶出法师协会的亡灵法师");

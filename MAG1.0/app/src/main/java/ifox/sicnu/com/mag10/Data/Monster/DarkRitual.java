@@ -17,16 +17,16 @@ public class DarkRitual extends Monster {
     private static Bitmap bitmap;
 
     public DarkRitual(Context context, int level) {
-        this.atk = 1 + 1 * level;
+        this.atk = 9 + 3 * level;
         this.hitrate = (float) 0.95;
         this.crit = 0;
-        this.armor = 4 + 3 * level;
+        this.armor = 12 + 5 * level;
         this.dodge = (float) 0.05;
-        this.resistance = (float) 0.2;
-        this.setMaxhp(9 + 3 * level);
+        this.resistance = (float) 0.01;
+        this.setMaxhp(32 + 5 * level);
         this.def = this.armor;
-        this.exp = 28 + 8 * level;
-        this.money = 2;
+        this.exp = 3;
+        this.money = 10;
         this.setMonsterType(Monster.NORMAL);
         setIntroduce("buff类怪物，听我的，遇到这货的第一时间就干掉他，会帮别的怪物加buff的怪都不是好怪物！即使会复活也不能阻止冒险家们的怒火！属性并不是太高，蛮好解" +
                 "决的。——他们整天都在想着怎么为周围的同伴施加各种各样的奇怪状态，就连他们自己都是试验品，他们能够复活！不过据大量的黑暗祭祀反映，复活的感" +

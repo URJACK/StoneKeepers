@@ -16,13 +16,13 @@ public class Mouse extends Monster {
     private static Bitmap bitmap;
 
     public Mouse(Context context, int level) {
-        this.atk = (int) (1 + Math.random() * 1 * level);
+        this.atk = (10 +  3 * level);
         this.hitrate = (float) 0.9;
-        this.armor = (int) (2 + Math.random() * 2 * level);
-        this.setMaxhp((int) (30 + Math.random() * 3 * level));
+        this.armor = 5 ;
+        this.setMaxhp(30 + 7 * level);
         this.def = this.armor;
         this.exp = 0;
-        this.money = 2;
+        this.money =0 ;
         this.setMonsterType(Monster.NORMAL);
         setIntroduce("长的跟母老鼠贼像，除了不能繁殖和没有经验值，这个家伙还是很好对付的。");
         setName("Mouse");

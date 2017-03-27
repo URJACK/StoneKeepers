@@ -20,16 +20,17 @@ public class Assassin extends Monster {
     public static Bitmap bitmap;
 
     public Assassin(Context context, int level) {
-        this.atk = 6 + level / 2;
-        this.hitrate = (float) 0.9;
-        this.armor = 3 + 1 * level;
-        this.dodge = (float) 0.2;
+        this.atk = (int) (4 + level*2);
+        this.hitrate = (float) 1;
+        this.armor = 5 ;
+        this.dodge = (float) 0.1;
         this.resistance = (float) 0.1;
-        this.setMaxhp((int) (10 + Math.random() * 2 * level));
+        this.setMaxhp((int) (18 + 5 * level));
         this.hp = this.maxHp;
         this.def = this.armor;
-        this.exp = 20 + 6 * level;
+        this.exp = 1 ;
         this.money = 2;
+        this.crit = (float) 0.01;
 
         this.setMonsterType(Monster.NORMAL);
         setIntroduce("棘手的怪物，高攻击力，并且能够穿透护甲，还能一瞬间造成两次伤害，反射能教他做人，在不能秒掉之前，请谨慎" +

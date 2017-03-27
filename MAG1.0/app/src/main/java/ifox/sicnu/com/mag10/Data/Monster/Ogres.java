@@ -18,16 +18,18 @@ public class Ogres extends Monster{
     private static Bitmap bitmap;
 
     public Ogres(Context context,int level){
-        this.atk = 3 + level/2;
+        this.atk = 11 + level*3;
         this.hitrate = (float) 0.9;
         this.crit = 0;
-        this.armor = 3 + 3 * level;
+        this.armor = 14 + 4 * level;
         this.dodge = (float) 0.1;
         this.resistance = (float) 0.1;
-        this.setMaxhp(8 + 3 * level);
+        this.setMaxhp(30 + 6 * level);
+        this.dodge = (float) 0.01;
+        this.resistance = (float) 0.01;
         this.def = this.armor;
-        this.exp = 20 + 7 * level;
-        this.money = 2;
+        this.exp = 3;
+        this.money = 10;
         this.setMonsterType(Monster.NORMAL);
         this.setIntroduce("充分的发挥了巨魔的传统，冒险家每探索一个区域，他就能恢复身上的一些伤势，但是这又有什么用呢？为何要打残了他然后又放着他不管去探索区域呢？" +
                 "又不是太强。见敌必杀！——嘿！伙计！巨魔也是有分别的！别拿我和那些只会穿着裤衩到处乱跑见人就喊着“塔斯丁够！”" +

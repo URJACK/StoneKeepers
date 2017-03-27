@@ -18,16 +18,17 @@ public class Saboteur_Crazy extends Monster {
     public static Bitmap bitmap;
 
     public Saboteur_Crazy(Context context, int level) {
-        this.atk = 5 + 2 * level;
+        this.atk = 6 + 2 * level;
         this.hitrate = (float) 0.9;
         this.crit = 0;
-        this.armor = 1 + 2 * level;
-        this.dodge = (float) 0.5;
+        this.armor = 10 ;
+        this.dodge = (float) 0.1;
+        this.resistance = (float) 0.01;
         this.resistance = (float) 0.1;
-        this.setMaxhp((int) (7 + Math.random() * 2 * level));
+        this.setMaxhp((int) (23 +  6 * level));
         this.def = this.armor;
-        this.exp = 10 + 3 * level;
-        this.money = 2;
+        this.exp = 3 ;
+        this.money = 10;
         this.setMonsterType(Monster.NORMAL);
         setIntroduce("蛮烦人的怪物，能够攻击两次，还能够削弱玩家的护甲，同时攻击力还不低！能够秒杀就尽量秒杀，不" +
                 "被这种怪物打到永远是最好的，损失大量的护甲和血量这种事情没人会喜欢。—" +

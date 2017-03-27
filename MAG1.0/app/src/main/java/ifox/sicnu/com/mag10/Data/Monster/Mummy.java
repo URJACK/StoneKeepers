@@ -18,13 +18,15 @@ public class Mummy extends Monster {
     private static Bitmap bitmap;
 
     public Mummy(Context context, int level) {
-        this.atk = (int) (1 + Math.random() * 1 * level);
+        this.atk = (int) (10 + 3 * level);
         this.hitrate = (float) 0.9;
-        this.armor = (int) (12 + Math.random() * 2 * level);
-        this.setMaxhp((int) (30 + Math.random() * 3 * level));
+        this.armor = (int) (30 + 6 * level);
+        this.setMaxhp((int) (20 + 4 * level));
+        this.dodge = (float) 0.01;
+        this.crit = (float) 0.01;
         this.def = this.armor;
-        this.exp = 8 + 2 * level;
-        this.money = 2;
+        this.exp = 3;
+        this.money = 10;
         this.setMonsterType(Monster.NORMAL);
         setIntroduce("木乃伊，即“人工干尸”。此词译自英语mummy,源自波斯语mumiai，意为“沥青”。这家伙你如果把它弄死，它可是会好好的报复你一下的。");
         setName("Mummy");

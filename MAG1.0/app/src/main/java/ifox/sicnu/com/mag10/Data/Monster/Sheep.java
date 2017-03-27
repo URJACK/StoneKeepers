@@ -15,11 +15,11 @@ public class Sheep extends Monster {
     public static Bitmap bitmap;
 
     public Sheep(Context context, int level) {
-        this.atk = 1;
-        this.armor = 1;
+        this.atk = 1 + level/2;
+        this.armor = level;
         this.def = this.armor;
-        this.setMaxhp(10);
-
+        this.setMaxhp(level/2+1);
+        this.dodge = (float) 0.1;
         this.exp = 20 + 6 * level;
         this.money = 2;
         this.setMonsterType(Monster.NORMAL);

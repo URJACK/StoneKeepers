@@ -18,15 +18,17 @@ public class SkeletonArcher extends Monster {
     public static Bitmap bitmap;
 
     public SkeletonArcher(Context context,int level){
-        this.atk = 2 + 2 * level;
+        this.atk = 15 + 3 * level;
         this.hitrate = (float) 0.9;
-        this.armor = 3 + 3 * level;
+        this.armor = 9 + 2 * level;
         this.dodge = (float) 0.2;
         this.resistance = (float) 0.1;
-        this.setMaxhp((int) (10 + Math.random() * 3 * level));
+        this.setMaxhp((int) (40 + 2 * level));
         this.def = this.armor;
-        this.exp = 25 + 7 * level;
-        this.money = 2;
+        this.exp = 3;
+        this.dodge = (float) 0.01;
+        this.hitrate = (float) 1.2;
+        this.money = 10;
         this.setMonsterType(Monster.NORMAL);
         setIntroduce("初期攻击力高，而且还能进行远程攻击，不少的新手就是死在了这个怪物的手上，初期的隐藏房间的boss基本都是这货，" +
                 "知道的只有一点，这种怪物非常的烦人，因为它用弓射你，你用弓还击却只能发现你的箭矢从它的骨头缝里穿过去了！这根本不公平！");
