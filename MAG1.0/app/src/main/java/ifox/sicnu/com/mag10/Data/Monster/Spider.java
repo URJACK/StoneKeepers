@@ -21,15 +21,16 @@ public class Spider extends Monster {
     public static Bitmap bitmap;
 
     public Spider(Context context, int level) {
-        this.atk = 2 + 2 * level;
+        this.atk = 10 + 3 * level;
         this.hitrate = (float) 0.9;
-        this.armor = 3 + 3 * level;
+        this.armor = 7 + 7 * level;
         this.dodge = (float) 0.2;
         this.resistance = (float) 0.1;
-        this.setMaxhp((int) (10 + Math.random() * 3 * level));
+        this.setMaxhp((int) (50 + 7 * level));
         this.def = this.armor;
-        this.exp = 25 + 7 * level;
-        this.money = 2;
+        this.exp = 3;
+        this.crit = (float) 0.05;
+        this.money = 10;
         this.setMonsterType(Monster.NORMAL);
         setIntroduce("出现的时候会翻开一格的迷雾，期望自己的运气并不是太差吧~，而且被攻击了就会很没勇气的逃跑，并且还回复全部的生命值" +
                 "，恶劣至极。准备好翻开格子就给对面来一发的武器吧，对付这玩意很有用，比起杀虫剂来说更有用。——它们听说在别的地方的蜘蛛都" +
