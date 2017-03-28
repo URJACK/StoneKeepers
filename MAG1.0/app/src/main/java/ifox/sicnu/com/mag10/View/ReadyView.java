@@ -1,5 +1,6 @@
 package ifox.sicnu.com.mag10.View;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -27,6 +28,7 @@ public class ReadyView extends SurfaceView implements SurfaceHolder.Callback, Dr
     private int stoneoffround = (int) (Const.SCREENHEIGHT * 0.011);  //小石子的上下移动的数值
     private int stoneStep = (int) (Const.SCREENHEIGHT * 0.003);     //小石子单次移动数值
     private boolean[] stoneDirections;     //小石子移动方向
+    Context myContext;
 
     Pictures pictures;
 
@@ -48,6 +50,7 @@ public class ReadyView extends SurfaceView implements SurfaceHolder.Callback, Dr
 
     public ReadyView(Context context) {
         super(context);
+        myContext = context;
         getHolder().addCallback(this);
         pictures = ((APP) (context.getApplicationContext())).getPictures();
         IniDraw();
@@ -244,10 +247,11 @@ public class ReadyView extends SurfaceView implements SurfaceHolder.Callback, Dr
                     ((ReadyActivity) getContext()).gotoSelectActivity();
                 }       //第1个按钮被选择
                 else if (y > btndistance + btnoffset && y < btndistance + btnoffset + btnheight && ispressed[1] == true) {
-                    Toast.makeText(getContext(), "第二个", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "请咨询在场的工作人员", Toast.LENGTH_SHORT).show();
                 }       //第2个按钮被选择
                 else if (y > btndistance + 2 * btnoffset && y < btndistance + 2 * btnoffset + btnheight && ispressed[2] == true) {
-                    Toast.makeText(getContext(), "第三个", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "退出游戏啦还有其他游戏可以领奖品哦", Toast.LENGTH_SHORT).show();
+                    ((Activity) myContext).finish();
                 }       //第3个按钮被选择
                 for (int i = 0; i < 3; i++) {
                     ispressed[i] = false;

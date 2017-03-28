@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.SoundPool;
 import android.util.Log;
+import android.widget.Toast;
 
 import ifox.sicnu.com.mag10.Data.Const;
 import ifox.sicnu.com.mag10.Data.Pictures;
@@ -13,14 +14,13 @@ import ifox.sicnu.com.mag10.DataStructure.Cell;
 import ifox.sicnu.com.mag10.DataStructure.Hero;
 import ifox.sicnu.com.mag10.DataStructure.Player;
 import ifox.sicnu.com.mag10.DataStructure.Skill.DoubleTargetSkill;
-import ifox.sicnu.com.mag10.DataStructure.Skill.NoTargetSkill;
 import ifox.sicnu.com.mag10.DataStructure.Skill.SingleTargetSkill;
 import ifox.sicnu.com.mag10.DataStructure.Skill.Skill;
 import ifox.sicnu.com.mag10.DrawLogic.DrawSpecialEffects.Arcmissle_SpecialEffects;
 import ifox.sicnu.com.mag10.DrawLogic.DrawSpecialEffects.Doublefileball_SpecialEffects;
 import ifox.sicnu.com.mag10.DrawLogic.DrawSpecialEffects.SpecialEffects;
 import ifox.sicnu.com.mag10.R;
-import ifox.sicnu.com.mag10.Tool.UpLevelFilter;
+import ifox.sicnu.com.mag10.Tool.HeroFilter;
 
 /**
  * Created by Funchou Fu on 2017/3/5.
@@ -45,19 +45,27 @@ public class Wizard extends Hero {
         this.r_intelligence = 8;
 
         this.face = pictures.getBitmap("hero_1");
-        this.heroName = "斯威法";
-        this.introduction = "来自奥兹威尔山谷的强大奥术法师";
+        this.heroName = "法师";
+        this.introduction = "一名强大法师，拥有单体法术和群体法术。使用技能能够回复自身的生命值。";
 
-        this.upLevelFilter = new UpLevelFilter() {
+        this.heroFilter = new HeroFilter() {
             @Override
             public void uplevel(Player player) {
-                player.r_power += 3;
+                player.r_power += 1;
                 player.r_agile += 1;
-                player.r_intelligence += 1;
+                player.r_intelligence += 3;
 
                 player.maxMp += 9;
                 player.atk += 1;
                 player.armor += 2;
+            }
+            @Override
+            public void doSkill(BattleManager bm) {
+                bm.player.hp += bm.floor + 5;
+                if (bm.player.hp > bm.player.maxHp) {
+                    bm.player.hp = bm.player.maxHp;
+                }
+                Toast.makeText(Const.mContext_Game, "使用技能，回复了自己的生命值", Toast.LENGTH_SHORT).show();
             }
         };
 
@@ -83,8 +91,8 @@ public class Wizard extends Hero {
                     return false;
             }
         };
-        arcmissle.name = "奥术飞弹";
-        arcmissle.introduce = "强大的奥术飞弹，能够造成自己最大法力值20% 的高额伤害";
+        arcmissle.name = "毒电";
+        arcmissle.introduce = "蕴含了毒药的闪电，能够造成自己最大法力值20% 的高额伤害并附带中毒效果";
 
         Bitmap bitmap = BitmapFactory.decodeResource(Const.mContext_Game.getResources(), R.drawable.skill_arcmissle);
         bitmap = Bitmap.createScaledBitmap(bitmap, Const.SKILL_WIDTH, Const.SKILL_HEIGHT, true);
@@ -99,7 +107,7 @@ public class Wizard extends Hero {
 //        bitmap = Bitmap.createScaledBitmap(bitmap, Const.SKILL_WIDTH, Const.SKILL_HEIGHT, true);
 //        strenthenpower.bitmap = bitmap;
 
-        Skill double_fireball = new DoubleTargetSkill(this, Skill.MAXMP, (float) 0.1, Skill.MP, 5, null) {
+        Skill double_fireball = new DoubleTargetSkill(this, Skill.MAXMP, (float) 0.2, Skill.MP, 5, null) {
             int music_id;
             int music_id2;
             @Override
@@ -154,7 +162,7 @@ public class Wizard extends Hero {
             }
         };
         double_fireball.name = "多重火球";
-        double_fireball.introduce = "发射五个火球打死怪物";
+        double_fireball.introduce = "发射五个火球，对每个怪物造成最大法力值的 20%的伤害";
         double_fireball.bitmap = BitmapFactory.decodeResource(Const.mContext_Game.getResources(),R.drawable.skill_doublefireball);
         double_fireball.bitmap = Bitmap.createScaledBitmap(double_fireball.bitmap,Const.SKILL_WIDTH,Const.SKILL_HEIGHT,true);
 

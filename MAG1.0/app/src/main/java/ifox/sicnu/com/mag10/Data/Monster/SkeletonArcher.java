@@ -18,7 +18,7 @@ public class SkeletonArcher extends Monster {
     public static Bitmap bitmap;
 
     public SkeletonArcher(Context context, int level) {
-        this.atk = 15 + 3 * level / 2;
+        this.atk = 9 + 3 * level / 2;
         this.hitrate = (float) 0.9;
         this.armor = 9 + level;
         this.dodge = (float) 0.2;

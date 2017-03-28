@@ -6,7 +6,7 @@ import android.util.Log;
 import ifox.sicnu.com.mag10.Data.Const;
 import ifox.sicnu.com.mag10.Data.HeroBuff;
 import ifox.sicnu.com.mag10.DataStructure.Skill.Skill;
-import ifox.sicnu.com.mag10.Tool.UpLevelFilter;
+import ifox.sicnu.com.mag10.Tool.HeroFilter;
 
 /**
  * Created by Funchou Fu on 2017/2/24.
@@ -39,7 +39,7 @@ public class Player extends Unit {
     public Equipment belt;
     public Equipment shoe;
 
-    private UpLevelFilter upLevelFilter;
+    private HeroFilter heroFilter;
 
     public Skill[] skills = new Skill[3];                  //玩家拥有的技能
 
@@ -66,7 +66,7 @@ public class Player extends Unit {
         this.maxMp = hero.maxMp + heroBuff.mp * 2;
         this.maxPp = hero.maxPp + heroBuff.pp * 3;
 
-        this.upLevelFilter = hero.upLevelFilter;
+        this.heroFilter = hero.heroFilter;
 
         this.def = this.armor;                  //将实际的护甲值等于为自己的防御值
         this.hp = this.maxHp;
@@ -271,6 +271,7 @@ public class Player extends Unit {
      * @param n   释放的第几个技能 0~2
      */
     public boolean useSkill(int x, int y, BattleManager bm, int n) {
+        this.heroFilter.doSkill(bm);
         return this.skills[n].doSkill(x, y, bm);
     }
 
@@ -326,7 +327,7 @@ public class Player extends Unit {
     }
 
     public void upLevel() {
-        this.upLevelFilter.uplevel(this);
+        this.heroFilter.uplevel(this);
         this.mp = this.maxMp;
         this.hp = this.maxHp;
         this.def = this.armor;

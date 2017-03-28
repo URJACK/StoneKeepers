@@ -43,7 +43,7 @@ public class DrawSkill implements ModeDrawIn {
         paint.setColor(Color.YELLOW);
         paint.setStyle(Paint.Style.STROKE);
         paint.setAlpha(126);
-        paint.setStrokeWidth(4);
+        paint.setStrokeWidth(8);
     }
 
     @Override

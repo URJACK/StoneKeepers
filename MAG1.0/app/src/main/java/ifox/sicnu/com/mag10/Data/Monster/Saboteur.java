@@ -25,7 +25,7 @@ public class Saboteur extends Monster {
         this.resistance = (float) 0.1;
         this.setMaxhp((int) (7 + Math.random() * level));
         this.def = this.armor;
-        this.exp = 10 + 3 * level;
+        this.exp = 2 ;
         this.money = 2;
         this.setMonsterType(Monster.NORMAL);
         setIntroduce("非常没有特征的一个怪物，地精的血量加强翻版，出现时探索一个迷雾的特性有的时候会摸到奖(召唤出个加血怪什么的" +
